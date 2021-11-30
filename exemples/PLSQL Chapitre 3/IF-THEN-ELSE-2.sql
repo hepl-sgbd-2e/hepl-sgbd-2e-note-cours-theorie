@@ -1,0 +1,14 @@
+DECLARE
+  VTest BOOLEAN;      --Vtest est NULL
+
+BEGIN
+  IF Vtest = TRUE
+	THEN
+	  DBMS_OUTPUT.PUT_LINE('Vtest TRUE');
+  ELSIF Vtest = FALSE
+    THEN DBMS_OUTPUT.PUT_LINE ('Vtest FALSE');
+    ELSE DBMS_OUTPUT.PUT_LINE ('Vtest UNKNOWN');
+  END IF;
+END;
+
+-- Vtest UNKNOWN
