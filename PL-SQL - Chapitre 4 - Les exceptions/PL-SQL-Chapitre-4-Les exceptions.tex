@@ -1,0 +1,254 @@
+\documentclass[10pt]{beamer}
+
+\input{/Users/danielschreurs/Documents/LaTeX/beamer-style.tex}
+
+\title{Systèmes de Gestion de Bases de Données - 2\textsuperscript{e}}
+\subtitle{PL-SQL - Chapitre 4 - Les exceptions}
+\date{\today}
+\author{Daniel Schreurs}
+\institute{Haute École de Province de Liège}
+%\titlegraphic{\hfill\includegraphics[height=1.5cm]{logo.eps}}
+
+
+\setbeamertemplate{frame footer}{\insertsectionhead}
+\begin{document}
+\maketitle
+
+\setbeamerfont{subsection in toc}{size=\small}
+\setbeamerfont{subsubsection in toc}{size=\normalsize}
+\setbeamertemplate{section in toc}[sections numbered]
+\setbeamertemplate{subsection in toc}[subsections numbered]
+\setbeamertemplate{subsubsection in toc}[subsubsections numbered]
+\begin{frame}[allowframebreaks]{Table des matières du chapitre}
+    \tableofcontents[subsectionstyle=show/show/hide,subsubsectionstyle=show/show/hide,]
+\end{frame}
+
+\section{Utilisation des exceptions}
+\tocss
+\subsection{Déclaration des exceptions}
+\begin{frame}{\secname : \subsecname}
+    \begin{itemize}
+        \item Dans la section \lstinline[language=sql]!DECLARE!
+        \item \lstinline[language=sql]!Nom\_de\_l\_exception EXCEPTION;!
+        \item Lorsqu'une erreur survient, elle est lancée dans le \emph{gestionnaire d'exception}.
+        \item À nous d'en faire quelque chose.
+    \end{itemize}
+\end{frame}
+
+\subsection{Le gestionnaire d'exceptions}
+\begin{frame}{\secname : \subsecname}
+    \begin{itemize}
+        \item Est chargé d'intercepter les différentes erreurs
+        \item Peut être déclaré dans n'importe quel bloc PL/SQL
+        \item Commence par le mot clé \lstinline[language=sql]!EXCEPTION!
+    \end{itemize}
+    Une exception est lancée :
+    \begin{itemize}
+        \item Explicitement par un RAISE
+        \item Implicitement par Oracle (exceptions prédéfinies)
+    \end{itemize}
+\end{frame}
+
+\subsection{La clause WHEN OTHERS}
+\begin{frame}{\secname : \subsecname}
+    \begin{itemize}
+        \item La clause \lstinline[language=sql]!WHEN OTHERS! dans un gestionnaire d'exceptions permet d'intercepter n'importe quel type d'exceptions non géré par ailleurs.
+        \item La définition de cette clause devrait devenir systématique.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    \lstinputlisting[language=sql, title=La clause WHEN OTHERS]{../exemples/PLSQL Chapitre 4/exception.sql}
+\end{frame}
+
+\section{Catégories d'exceptions}
+\tocss
+
+\begin{frame}{\secname}
+    \begin{figure}
+        \begin{center}
+            \includegraphics[width=0.8\textwidth]{../assets/img/catégories.png}
+            \caption{Catégories d'exceptions}
+        \end{center}
+    \end{figure}
+\end{frame}
+
+\subsection{Exceptions définies "non redirigées"}
+\begin{frame}{\secname : \subsecname}
+    \begin{itemize}
+        \item Doivent être déclarées
+        \item Doivent être lancées par le programmeur avec la commande RAISE
+        \item Ne sont pas associées à une erreur prédéfinie par Oracle
+    \end{itemize}
+    \metroset{block=fill}
+    \begin{alertblock}{Important}
+        Ce type d'exception est utile pour gérer une exception spécifique liée à la logique de programmation du bloc PL/SQL.
+    \end{alertblock}
+
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    \lstinputlisting[language=sql, title=Exceptions définies "non redirigées"]{../exemples/PLSQL Chapitre 4/exception2.sql}
+\end{frame}
+\begin{frame}{\secname : \subsecname}
+    \begin{table}[]
+        \begin{tabular}{lll}
+            Exception                    & Erreur ORACLE      & Valeur du SQLCODE \\
+            ACCESS\_INTO\_NULL           & ORA-06530          & -6530             \\
+            CASE\_NOT\_FOUND             & ORA-06592          & -6592             \\
+            COLLECTION\_IS\_NULL         & ORA-06531          & -6531             \\
+            CURSOR\_ALREADY\_OPEN        & ORA-06511          & -6511             \\
+            \textbf{DUP\_VAL\_ON\_INDEX} & \textbf{ORA-00001} & \textbf{-1}       \\
+            INVALID\_CURSOR              & ORA-01001          & -1001             \\
+            INVALID\_NUMBER              & ORA-01722          & -1722             \\
+            LOGIN\_DENIED                & ORA-01017          & -1017             \\
+            \textbf{NO\_DATA\_FOUND}     & \textbf{ORA-01403} & \textbf{+100}     \\
+            NOT\_LOGGED\_ON              & ORA-01012          & -1012
+        \end{tabular}
+    \end{table}
+\end{frame}
+\begin{frame}{\secname : \subsecname}
+    % Please add the following required packages to your document preamble:
+    % \usepackage[table,xcdraw]{xcolor}
+    % If you use beamer only pass "xcolor=table" option, i.e. \documentclass[xcolor=table]{beamer}
+    \begin{table}[]
+        \begin{tabular}{lll}
+            \multicolumn{1}{c}{{\color[HTML]{333333} Exception}} & \multicolumn{1}{c}{{\color[HTML]{333333} Erreur ORACLE}} & \multicolumn{1}{c}{{\color[HTML]{333333} Valeur du SQLCODE}} \\
+            {\color[HTML]{333333} PROGRAM\_ERROR}                & {\color[HTML]{333333} ORA-06501}                         & {\color[HTML]{333333} -6501}                                 \\
+            {\color[HTML]{333333} ROWTYPE\_MISMATCH}             & {\color[HTML]{333333} ORA-06504}                         & {\color[HTML]{333333} -6504}                                 \\
+            {\color[HTML]{333333} SELF\_IS\_NULL}                & {\color[HTML]{333333} ORA-30625}                         & {\color[HTML]{333333} -30625}                                \\
+            {\color[HTML]{333333} STORAGE\_ERROR}                & {\color[HTML]{333333} ORA-06500}                         & {\color[HTML]{333333} -6500}                                 \\
+            {\color[HTML]{333333} SUBSCRIPT\_BEYOND\_COUNT}      & {\color[HTML]{333333} ORA-06533}                         & {\color[HTML]{333333} -6533}                                 \\
+            {\color[HTML]{333333} SUBSCRIPT\_OUTSIDE\_LIMIT}     & {\color[HTML]{333333} ORA-06532}                         & {\color[HTML]{333333} -6532}                                 \\
+            {\color[HTML]{333333} SYS\_INVALID\_ROWID}           & {\color[HTML]{333333} ORA-01410}                         & {\color[HTML]{333333} -1410}                                 \\
+            {\color[HTML]{333333} TIMEOUT\_ON\_RESOURCE}         & {\color[HTML]{333333} ORA-00051}                         & {\color[HTML]{333333} -51}                                   \\
+            {\color[HTML]{333333} \textbf{TOO\_MANY\_ROWS}}      & {\color[HTML]{333333} \textbf{ORA-01422}}                & {\color[HTML]{333333} \textbf{-1422}}                        \\
+            {\color[HTML]{333333} \textbf{VALUE\_ERROR}}         & {\color[HTML]{333333} \textbf{ORA-06502}}                & {\color[HTML]{333333} \textbf{-6502}}                        \\
+            {\color[HTML]{333333} ZERO\_DIVIDE}                  & {\color[HTML]{333333} ORA-01476}                         & {\color[HTML]{333333} -1476}
+        \end{tabular}
+    \end{table}
+\end{frame}
+
+\subsection{Exceptions prédéfinies : NO\_DATA\_FOUND}
+\begin{frame}{\secname : \subsecname}
+    \lstinputlisting[language=sql, title=Le nr de l'employé n’existe pas]{../exemples/PLSQL Chapitre 4/exception3.sql}
+\end{frame}
+
+\subsection{Exceptions prédéfinies : TOO\_MANY\_ROWS}
+\begin{frame}{\secname : \subsecname}
+    \lstinputlisting[language=sql, title=Plus d'un employé SCOTT]{../exemples/PLSQL Chapitre 4/exception4.sql}
+\end{frame}
+
+\subsection{Exceptions prédéfinies : DUP\_VAL\_ON\_INDEX}
+\begin{frame}{\secname : \subsecname}
+    \lstinputlisting[language=sql, title=Erreur de données]{../exemples/PLSQL Chapitre 4/exception5.sql}
+\end{frame}
+
+\subsection{Exceptions prédéfinies : INVALID\_NUMBER}
+\begin{frame}{\secname : \subsecname}
+    \lstinputlisting[language=sql, title=Erreur de données]{../exemples/PLSQL Chapitre 4/exception6.sql}
+\end{frame}
+
+\subsection{Exceptions prédéfinies : VALUE\_ERROR}
+\begin{frame}{\secname : \subsecname}
+    \lstinputlisting[language=sql, title=Chaine réceptrice trop petite !]{../exemples/PLSQL Chapitre 4/exception7.sql}
+\end{frame}
+
+\subsection{Exceptions définies "redirigées"}
+\begin{frame}{\secname : \subsecname}
+    \begin{itemize}
+        \item Une exception définie par le programmeur peut être associée au code d'erreur d'une exception définie par Oracle
+        \item Oracle se charge de lancer ce type d'exception : pas besoin de lancer un \lstinline[language=sql]!RAISE!
+        \item Une exception redirigée se définit en utilisant le pragma \lstinline[language=sql]!EXCEPTION\_INIT!
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    Techniques des exceptions définies "redirigées" :
+    \begin{itemize}
+        \item Déclarer l'exception : \lstinline[language=sql]!NameExc EXCEPTION!
+        \item Associer le nom de l'exception à un numéro d'erreur Oracle \lstinline[language=sql]!PRAGMA EXCEPTION_INIT (NameExc, Oracle_error);!
+        \item Utiliser l'exception dans la section des gestions d'exceptions.
+    \end{itemize}
+    \metroset{block=fill}
+    \begin{alertblock}{Important}
+        Il ne faut pas lancer explicitement l'exception !
+    \end{alertblock}
+\end{frame}
+
+\subsection{Exceptions définies "redirigées" : intégrité référentielle}
+\begin{frame}{\secname : \subsecname}
+    \lstinputlisting[language=sql, title=Contrainte d'intégrité sur Mgr est violée]{../exemples/PLSQL Chapitre 4/EXCEPTION-INIT.sql}
+\end{frame}
+
+\subsection{Exceptions définies "redirigées" : Ressource Busy}
+\begin{frame}{\secname : \subsecname}
+    \lstinputlisting[language=sql, title=La ressource est occupée]{../exemples/PLSQL Chapitre 4/EXCEPTION-INIT2.sql}
+\end{frame}
+
+\subsection{Exceptions définies "redirigées" : Ressource Busy}
+\begin{frame}{\secname : \subsecname}
+    \metroset{block=fill}
+    \begin{alertblock}{Important}
+        Les exceptions remontent de bloc en bloc jusqu'au code appelant si elles ne sont pas capturées.
+    \end{alertblock}
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    \lstinputlisting[language=sql, title=Une erreur non interceptée]{../exemples/PLSQL Chapitre 4/EXCEPTION-INIT3.sql}
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    \lstinputlisting[language=sql, title=Une erreur interceptée]{../exemples/PLSQL Chapitre 4/EXCEPTION-INIT4.sql}
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    \lstinputlisting[language=sql, title=Une erreur non interceptée dans un bloc imbriqué]{../exemples/PLSQL Chapitre 4/EXCEPTION-INIT5.sql}
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    \lstinputlisting[language=sql, title=Une erreur interceptée dans un bloc imbriqué]{../exemples/PLSQL Chapitre 4/EXCEPTION-INIT6.sql}
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    \lstinputlisting[language=sql, title=L'instruction NULL]{../exemples/PLSQL Chapitre 4/EXCEPTION-INIT7.sql}
+\end{frame}
+
+\section{Petit guide...}
+\begin{frame}{\secname}
+    \begin{itemize}
+        \item Utiliser systématiquement la déclaration d'un gestionnaire d'exception dans tout bloc PL/SQL où une erreur est susceptible d'intervenir.
+        \item Tout gestionnaire d'exceptions minimal doit comporter la clause WHEN OTHERS.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{\secname}
+    Les erreurs surviennent généralement :
+    \begin{itemize}
+        \item Pendant les opérations arithmétiques;
+        \item Les opérations sur la base de données (\lstinline[language=sql]!SELECT!, \lstinline[language=sql]!INSERT!, \lstinline[language=sql]!UPDATE!, \lstinline[language=sql]!DELETE!);
+        \item Ainsi que les conversions de données et/ou manipulations de chaînes de caractères.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{\secname}
+    \begin{itemize}
+        \item Définir des exceptions si le code écrit reçoit des encodages de données erronées ou ne respectant pas un format ou un type prédéfini.  Exemple : les paramètres \lstinline[language=sql]!NULL! ou les sélections qui ne ramènent aucune donnée
+              Utiliser les attributs \lstinline[language=sql]!\%TYPE! et \lstinline[language=sql]!\%ROWTYPE! pour rendre le code indépendant des données accédées et des modifications, ajouts ou suppressions de colonnes.
+        \item Pour chaque exception interceptée, se poser la question de savoir si les opérations effectuées dans la base de données doivent être confirmées ou annulées (\lstinline[language=sql]!COMMIT! ou \lstinline[language=sql]!ROLLBACK! ?)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{\secname}
+    \metroset{block=fill}
+    \begin{alertblock}{Important}
+        Les exceptions peuvent faire partie intégrante de la logique de programmation.
+    \end{alertblock}
+    Dans le code d'une exception, un traitement particulier peut être effectué.
+\end{frame}
+
+\begin{frame}{\secname}
+    \lstinputlisting[language=sql, title=Traitement dans le gestionnaire d'exceptions]{../exemples/PLSQL Chapitre 4/EXCEPTION-INIT8.sql}
+\end{frame}
+
+\end{document}
