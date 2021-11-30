@@ -1,0 +1,5 @@
+<contrainte de clef> ::=
+  [CONSTRAINT nom_contrainte]
+  {PRIMARY KEY (<liste_colonne>)
+     | UNIQUE (<liste_colonne>)
+     | FOREIGN KEY  (<liste_colonnes>) REFERENCES <table_mere> (liste de colonnes de ref)}

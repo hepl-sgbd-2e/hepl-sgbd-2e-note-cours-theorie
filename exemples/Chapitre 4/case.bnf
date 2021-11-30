@@ -1,0 +1,13 @@
+CASE expression
+  WHEN valeur1 THEN resultat1
+	WHEN valeur2 THEN resultat2
+	...
+   [ ELSE resultatn ]
+END
+ou
+CASE
+		WHEN condition1 THEN resultat1
+		WHEN condition2 THEN resultat2
+		...
+		[ ELSE resultatn ]
+END

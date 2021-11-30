@@ -1,0 +1,3 @@
+instruction_de_suppression ::=
+
+DELETE FROM nom_table [ WHERE condition ] ;

@@ -1,0 +1,169 @@
+\documentclass[10pt]{beamer}
+
+\input{/Users/danielschreurs/Documents/LaTeX/beamer-style.tex.tex}
+
+\title{Systèmes de Gestion de Bases de Données - 2e}
+\subtitle{Chapitre 6 - Confidentialité des données}
+\date{\today}
+\author{Daniel Schreurs}
+\institute{Haute École de Province de Liège}
+%\titlegraphic{\hfill\includegraphics[height=1.5cm]{logo.eps}}
+
+
+\setbeamertemplate{frame footer}{\insertsectionhead}
+\begin{document}
+\maketitle
+
+\setbeamerfont{subsection in toc}{size=\small}
+\setbeamerfont{subsubsection in toc}{size=\normalsize}
+\setbeamertemplate{section in toc}[sections numbered]
+\setbeamertemplate{subsection in toc}[subsections numbered]
+\setbeamertemplate{subsubsection in toc}[subsubsections numbered]
+\begin{frame}[allowframebreaks]{Table des matières du chapitre}
+    \tableofcontents[subsectionstyle=show/show/hide,subsubsectionstyle=show/show/hide,]
+\end{frame}
+
+\section{Introduction}
+\tocss
+\subsection{Définition}
+\begin{frame}{\secname : \subsecname}
+    La sécurité des données est un terme général contenant trois grands types de contrôle :
+    \begin{itemize}
+        \item Le contrôle d'accès au système par des utilisateurs non identifiés;
+        \item Le contrôle de l'accès illégal aux données ou confidentialité;
+        \item Le contrôle de la modification invalide des données ou intégrité.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    Le contrôle d'accès au système par des utilisateurs non identifiés;\\
+    On suppose que l'\textbf{identification de l'utilisateur} est prise en charge par le système d'exploitation.
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    Le contrôle de la modification invalide des données ou intégrité.\\
+    Le contrôle de l'intégrité est vaste. La gestion de la concurrence a été abordée au chapitre 5, l'intégrité sémantique le sera au chapitre 8 (contraintes d'intégrité et déclencheurs), la reprise après panne sort du cadre du cours.
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    Le contrôle de l'accès illégal aux données ou confidentialité;\\
+    Dans ce chapitre, nous allons donc nous attarder sur la confidentialité.
+    Plus précisément, nous nous limiterons au contrôle des autorisations d'accès.
+\end{frame}
+
+\subsection{Que signifie "confidentialité" ?}
+\begin{frame}{\secname : \subsecname}
+    4 grandes classes de techniques propres à assurer la confidentialité d'un système manipulant des données :
+    \begin{itemize}
+        \item Contrôle du flux des données,
+        \item Contrôle d'intégrité
+        \item Encryptage des données
+        \item Contrôle des autorisations d'accès
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    Les 3 premières (contrôle du flux des données, contrôle d'intégrité et chiffrement des données) sont impossibles à mettre en œuvre au moyen de SQL seul, ils font appel à des techniques particulières qui dépassent le cadre du cours.
+    Nous étudierons en détail le contrôle des autorisations d'accès.
+\end{frame}
+
+\section{Mécanisme d'octroi et annulation de privilèges}
+\subsection{Deux types}
+\begin{frame}{\secname : \subsecname}
+    Les privilèges sont de deux types :
+    \begin{itemize}
+        \item Les privilèges de niveau système
+              \begin{itemize}
+                  \item Permettent la création, modification, suppression de groupes d'objets.
+                        Exemple : \lstinline[language=sql]!CREATE TABLE!, \lstinline[language=sql]!CREATE VIEW!, \lstinline[language=sql]!CREATE SEQUENCE!, permettent, à l'utilisateur qui les a reçus de créer des tables, des vues et des séquences.
+              \end{itemize}
+              Les privilèges de niveau Objet
+              \begin{itemize}
+                  \item Permettent les manipulations sur des objets spécifiques.
+                        Exemple : les privilèges \lstinline[language=sql]!SELECT!, \lstinline[language=sql]!INSERT!, \lstinline[language=sql]!UPDATE!, \lstinline[language=sql]!DELETE! sur la table \lstinline[language=sql]!INFOSOFT.employes! permettent à l'utilisateur qui les a reçus de sélectionner, ajouter, modifier et supprimer des lignes dans la table EMPLOYES appartenant à l'utilisateur INFOSOFT.
+              \end{itemize}
+    \end{itemize}
+\end{frame}
+\subsection{Assigner des privilèges}
+\begin{frame}{\secname : \subsecname}
+    Assigner des privilèges système à un utilisateur
+    \begin{itemize}
+        \item Lorsqu'un utilisateur est créé avec l'instruction CREATE USER, il ne dispose d'aucun droit.  Il ne peut même pas se connecter à la base !
+        \item Il doit pouvoir se connecter, créer des tables, des vues, des séquences.  Pour lui assigner ces privilèges de niveau système, il faut utiliser l'instruction \lstinline[language=sql]!GRANT!
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    \lstinputlisting[language=sql, title=Assigner des privilèges système à un utilisateur]{../exemples/Chapitre 6/grant-acces-1.sql}
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    La liste des privilèges système assignés à l'utilisateur au cours de sa session est visible via la vue \lstinline[language=sql]!SESSION\_PRIVS!
+    Pour les voir, il suffit donc d'exécuter l'instruction :
+    \lstinline[language=sql]!SELECT * FROM SESSION\_PRIVS;!
+\end{frame}
+\begin{frame}{\secname : \subsecname}
+    Au centre des mécanismes d'octroi/annulation et de contrôle des autorisations se trouve le dictionnaire des données (ou méta-base) dans lequel sont enregistrées toutes les autorisations d'accès.\\
+    Pour SQL2, les privilèges sont enregistrés dans les tables
+    \lstinline[language=sql]!TABLE\_PRIVILEGES!, \lstinline[language=sql]!COLUMN\_PRIVILEGE! et \lstinline[language=sql]!USAGE\_PRIVILEGES! (\lstinline[language=sql]!all\_tab\_privs! en Oracle)
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    Le contrôle des autorisations (niveau objet)\\
+    Le mécanisme d'octroi/annulation des privilèges permet à l'ADB ou à toute personne autorisée d'accorder ou de retirer les privilèges à des \lstinline[language=sql]!sujets! sur des \textbf{objets}.
+    \begin{itemize}
+        \item \textbf{Sujets} : un utilisateur, un groupe d'utilisateur, tous les utilisateurs
+        \item \textbf{Objets} : la base de données, les tables, les vues, les index, les procédures stockées, …
+        \item \textbf{Privilèges} : varient d'un SGBD à l'autre, mais au minimum \lstinline[language=sql]!SELECT!, \lstinline[language=sql]!INSERT!, \lstinline[language=sql]!DELETE!, \lstinline[language=sql]!UPDATE!
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    Le mécanisme de contrôle d'autorisation est le mécanisme qui vérifie qu'un sujet donné a le droit d'effectuer une requête précise (lecture, mise à jour d'une table, création d'une table, …) sur un objet.  Ce contrôle est effectué en consultant les tables de la méta base.
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    Principes généraux :
+    \begin{itemize}
+        \item Un utilisateur possède automatiquement tous les privilèges sur un objet qui lui appartient
+        \item Un utilisateur ne peut pas donner plus de privilèges qu'il n'en a reçus
+        \item S'il n'a pas reçu le privilège avec l'option \lstinline[language=sql]!WITH GRANT OPTION!, un utilisateur ne peut pas donner à son tour ce privilège à un autre utilisateur
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    \lstinputlisting[language=sql, title=Octroi de privilèges (niveau objet)]{../exemples/Chapitre 6/grant.bnf}
+    \begin{itemize}
+        \item \textbf{privilege} \lstinline[language=sql]!SELECT!, \lstinline[language=sql]!INSERT!, \lstinline[language=sql]!INSERT(x)!, \lstinline[language=sql]!UPDATE!, \lstinline[language=sql]!UPDATE(x)!, \lstinline[language=sql]!DELETE!, \lstinline[language=sql]!ALL! (= tous les privilèges que le donneur peut accorder sur l'objet)
+        \item \textbf{objet} liste de tables, vues ou colonnes précédée de TABLE ou VIEW suivant qu'il s'agit d'une table ou d'une vueutilisateur liste d'utilisateurs ou \lstinline[language=sql]!PUBLIC!
+        \item \lstinline[language=sql]!WITH GRANT OPTION! : permet au donneur d'indiquer que le receveur pourra transmettre les privilèges qu'il reçoit.
+    \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{\secname : \subsecname}
+    \lstinputlisting[language=sql, title=Exemple : Le directeur possède tous les privilèges sur la table RESULTATS et peut les transmettre.]{../exemples/Chapitre 6/grant-acces-2.sql}
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    \lstinputlisting[language=bnf, title=Privilège objet et utilisateur ont la même signification que celle de la commande GRANT]{../exemples/Chapitre 6/remove-acces-1.bnf}
+    \lstinline[language=sql]!REVOKE SELECT ON TABLE t FROM Obelix;!
+\end{frame}
+
+\section{Complément SQL2}
+\begin{frame}{\secname : \subsecname}
+    Pour plus d'information, voir le livre de référence.
+\end{frame}
+
+\section{Les possibilités d'Oracle}
+\begin{frame}{\secname : \subsecname}
+    Pour plus d'information, voir le livre de référence.
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    Pour plus d'informations, consulter le site :
+    \href{http://oracle.developpez.com/guide/administration/adminrole/}{oracle.developpez.com}
+\end{frame}
+
+\end{document}

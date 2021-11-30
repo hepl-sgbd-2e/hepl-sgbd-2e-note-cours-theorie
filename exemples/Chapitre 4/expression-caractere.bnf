@@ -1,0 +1,12 @@
+expression_caractère ::=
+	'chaîne_constante'
+| nom_colonne
+| UPPER (expression_caractère)
+| LOWER (expression_caractère)
+| CHARACTER_LENGTH (expression_caractère)
+| USER
+| CAST (expression AS type_de_donnée|domaine)
+| SUBSTRING (expression_caractère FROM début FOR long)
+| expression_caractère {||expression_caractère }
+| POSITION(expression_caractère IN expression_caractère)
+| TRIM(ltb, [pad,] FROM expression_caractère)

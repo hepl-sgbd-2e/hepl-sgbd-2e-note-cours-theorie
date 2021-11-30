@@ -1,0 +1,7 @@
+instruction_d_ajout ::=
+
+INSERT INTO nom_table [ ( liste_colonne ) ]
+  VALUES ( liste_valeur )
+        | expression_de_sélection ;
+
+

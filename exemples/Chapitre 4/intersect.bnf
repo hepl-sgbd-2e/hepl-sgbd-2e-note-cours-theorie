@@ -1,0 +1,2 @@
+A  INTERSECT [ALL]  B
+   [CORRESPONDING [BY (liste_colonne)]]

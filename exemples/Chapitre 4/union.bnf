@@ -1,0 +1,2 @@
+A  UNION [ALL]  B
+   [CORRESPONDING [BY (liste_colonne)]]

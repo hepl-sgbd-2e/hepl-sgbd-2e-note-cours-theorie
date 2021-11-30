@@ -1,0 +1,16 @@
+CREATE DOMAIN nom type [valeur] ;
+valeur ::= DEFAULT constante
+		|  USER
+		|  NULL
+		|  CURRENT_DATE
+		|  CURRENT_TIME
+		|  CURRENT_TIMESTAMP
+type ::= CHAR [ (n) ]  |  VARCHAR [ (n) ]
+		|  SMALLINT  |  INTEGER
+		|  NUMERIC [ (p [, q]) ]
+		|  DECIMAL [ (p [, q]) ]
+		|  FLOAT  [ (n) ]
+		|  DATE [ ANSI | VMS ]
+		|  TIME frac
+		|  TIMESTAMP frac
+		|  INTERVAL type_intervalle

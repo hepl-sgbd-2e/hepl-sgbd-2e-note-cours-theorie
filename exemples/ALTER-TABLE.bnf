@@ -1,0 +1,16 @@
+modifier_structure_table ::=
+    ALTER TABLE nom_table
+           ajouter_def
+        |  modifier_def
+        |  supprimer_def
+        ;
+  
+    ajouter_def ::= ADD
+           COLUMN def_colonne
+        |  CONSTRAINT contrainte_table
+
+    modifier_def  ::= ALTER def_colonne
+
+    supprimer_def  ::= DROP
+           COLUMN nom_colonne
+        |  CONSTRAINT nom_contrainte

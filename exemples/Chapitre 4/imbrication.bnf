@@ -1,0 +1,14 @@
+instruction_de_sélection ::=
+        expression_de_sélection	 [ clause_de_tri ];
+expression_de_sélection ::=
+      SELECT clause_de_sélection FROM liste_table_ref
+      [ WHERE condition ]
+      [ clause_grouper ]
+      [ clause_sélection_groupes ]
+
+condition ::=
+      [ NOT ] condition_élémentaire
+     | condition AND | OR condition
+     | ( condition )
+condition_élémentaire ::=
+        condition_de_base | condition_between | condition_in | condition_like | condition_null | condition_all_any | condition_exists

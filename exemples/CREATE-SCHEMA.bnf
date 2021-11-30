@@ -1,0 +1,4 @@
+CREATE SCHEMA
+[NomSchema] [AUTORIZATION nom]
+[DEFAULT CHARACTER SET JeuCaracteres]
+[ListeElementSchema];

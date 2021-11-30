@@ -1,0 +1,221 @@
+\documentclass[10pt]{beamer}
+
+\input{/Users/danielschreurs/Documents/LaTeX/beamer-style.tex.tex}
+
+\title{Systèmes de Gestion de Bases de Données - 2e}
+\subtitle{Chapitre 8 - Contraintes d'intégrités et déclencheurs}
+\date{\today}
+\author{Daniel Schreurs}
+\institute{Haute École de Province de Liège}
+%\titlegraphic{\hfill\includegraphics[height=1.5cm]{logo.eps}}
+
+
+\setbeamertemplate{frame footer}{\insertsectionhead}
+\begin{document}
+\maketitle
+
+\setbeamerfont{subsection in toc}{size=\small}
+\setbeamerfont{subsubsection in toc}{size=\normalsize}
+\setbeamertemplate{section in toc}[sections numbered]
+\setbeamertemplate{subsection in toc}[subsections numbered]
+\setbeamertemplate{subsubsection in toc}[subsubsections numbered]
+\begin{frame}[allowframebreaks]{Table des matières du chapitre}
+    \tableofcontents[subsectionstyle=show/show/hide,subsubsectionstyle=show/show/hide,]
+\end{frame}
+
+\section{Introduction}
+\tocss
+\subsection{Définition}
+\begin{frame}{\secname : \subsecname}
+    Ce chapitre s'inscrit dans le cadre général de l'intégrité des données.  Il a pour objectif d'en décrire la partie contrôle sémantique.
+    Le contrôle sémantique des données : assure la cohérence des informations stockées par rapport à leur signification dans la réalité
+    Exemples :
+    \begin{itemize}
+        \item La cote d'un élève doit être comprise entre 0 et 20
+        \item La valeur d'un stock ne peut être négative
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    Dans une base de données relationnelle :
+    \begin{itemize}
+        \item Contraintes inhérentes au modèle relationnel
+        \item Contraintes liées à une application particulière
+    \end{itemize}
+\end{frame}
+
+\subsection{Contraintes inhérentes au modèle relationnel}
+\begin{frame}{\secname : \subsecname}
+    Ou contraintes structurelles\footnote{(voir chapitre 2  : MRD et chapitre 3 : LDD)
+    } :
+    \begin{itemize}
+        \item Intégrité de domaine
+        \item Intégrité de relation
+        \item Intégrité de référence
+    \end{itemize}
+\end{frame}
+
+\subsection{Contraintes liées à une application particulière}
+\begin{frame}{\secname : \subsecname}
+    Ou \textbf{contraintes applicatives} ou contraintes spécifiques :\\
+    Il s'agit d'une condition que doit vérifier un sous-ensemble de la base afin que l'on puisse affirmer que les informations sont cohérentes.
+\end{frame}
+
+\begin{frame}{\secname}
+    \begin{itemize}
+        \item Il faut pouvoir exprimer un ensemble de contraintes que doit satisfaire la base;
+        \item Il faut que le SGBD puisse, au cours des modifications des données, assurer que la base obéit toujours aux contraintes.
+        \item Lors de la création d'une contrainte, le SGBD vérifie qu'elle n'est pas en désaccord avec les valeurs présentes dans la base.
+              \begin{itemize}
+                  \item En désaccord : rejetée
+                  \item Pas en désaccord : enregistrée et immédiatement opérationnelle
+              \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{\secname}
+    \begin{itemize}
+        \item SQL 2 fait la distinction entre
+              \begin{itemize}
+                  \item contraintes générales qui peuvent faire intervenir plusieurs colonnes de plusieurs tables
+                  \item contraintes attachées aux tables de base
+              \end{itemize}
+        \item Remarque : une contrainte attachée à une table ne peut exister sans la table et est donc effacée en même temps que la table
+    \end{itemize}
+\end{frame}
+\section{Contraintes attachées aux tables}
+\begin{frame}{\secname}
+    Les contraintes attachées à une table se définissent lors de la création de la table (CREATE TABLE) ou après la création de la table par la commande ALTER TABLE.
+    Voir le chapitre 3 : LDD
+\end{frame}
+
+\section{Particularités d'Oracle}
+\subsection{DEFERRABLE}
+\begin{frame}{\secname : \subsecname}
+    Oracle possède la clause \lstinline[language=sql]![NOT] DEFERRABLE!
+    Pour Oracle, une contrainte déclarée \lstinline[language=sql]!DEFERRABLE! pourra être différée pendant la durée d'une transaction à condition de le préciser explicitement au moyen de la commande \lstinline[language=sql]!SET CONSTRAINT!
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    \lstinputlisting[language=sql, title=Exemple]{../exemples/Chapitre 8/DEFERRABLE.sql}
+    \textbf{La contrainte N'EST PAS différée !}
+    Pour qu'elle le soit : \\
+    \lstinline[language=sql]!SET CONSTRAINT c DEFERRED;!
+\end{frame}
+\subsection{IMMEDIATE}
+
+\begin{frame}{\secname : \subsecname}
+    \lstinputlisting[language=sql, title=Exemple]{../exemples/Chapitre 8/DEFERRABLE2.sql}
+    \textbf{Pour inverser le comportement d'une contraint INITIALLY DEFERRED, on utilise la commande}
+    Pour qu'elle le soit : \\
+    \lstinline[language=sql]!SET CONSTRAINT c IMMEDIATE;!
+\end{frame}
+
+\subsection{En résumé}
+\begin{frame}{\secname : \subsecname}
+    \begin{itemize}
+        \item \lstinline[language=sql]!INITIALLY IMMEDIATE! correspond à \lstinline[language=sql]!NOT DEFERRABLE! de la norme et est le comportement par défaut
+        \item \lstinline[language=sql]!INITIALLY DEFERRED! est équivalent à \lstinline[language=sql]!DEFERRABLE! de la norme
+    \end{itemize}
+\end{frame}
+\section{Les déclencheurs}
+\subsection{Introduction}
+\begin{frame}{\secname : \subsecname}
+    \begin{itemize}
+        \item Un déclencheur (trigger) permet de définir un ensemble d'actions qui sont déclenchées automatiquement par le SGBD lorsque certains phénomènes se produisent.
+        \item Les actions sont enregistrées dans la base et non plus dans les programmes d'application.
+        \item Cette notion n'est pas spécifiée dans SQL2, elle le sera dans SQL3.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    Les déclencheurs permettent de définir des contraintes dynamiques, ils peuvent être utilisés pour :
+    \begin{itemize}
+        \item Générer automatiquement une valeur de clé primaire,
+        \item Résoudre le problème des mises à jour en cascade
+        \item Enregistrer les accès à une table
+        \item Gérer automatiquement la redondance
+        \item Empêcher la modification par des personnes non autorisées (dans le domaine de la confidentialité)
+        \item Mettre en œuvre des règles de fonctionnement plus complexes
+    \end{itemize}
+\end{frame}
+\subsection{Déclencheurs dans Oracle}
+\begin{frame}{\secname : \subsecname}
+    \begin{itemize}
+        \item Les déclencheurs permettent de réaliser des opérations sophistiquées, car ils constituent un bloc \textbf{PL/SQL}
+        \item Depuis Oracle8i, il est possible de définir des déclencheurs s'activant suite à des \textbf{commandes du LDD} ou à certains événements systèmes
+        \item Nous nous concentrerons sur les déclencheurs réagissant à l'exécution de commandes du LMD
+        \item Il existe 12 types de déclencheurs sensibles aux \textbf{commandes LMD} en fonction de l'instruction déclenchante (ajout, suppression, modification), du niveau du déclencheur (ligne ou table) et du moment du déclenchement (avant ou après)
+    \end{itemize}
+\end{frame}
+\subsection{Syntaxe}
+\begin{frame}{\secname : \subsecname}
+    \lstinputlisting[language=bnf, title=Syntaxe]{../exemples/Chapitre 8/create-trigger.bnf}
+\end{frame}
+\subsection{FOR EACH ROW}
+\begin{frame}{\secname : \subsecname}
+    \lstinline[language=sql]!FOR EACH ROW! : déclencheur du niveau tuple : sera exécuté pour toutes les lignes provoquant l'activation du déclencheur.  En son absence, le déclencheur est du niveau table et le bloc PL/SQL n'est exécuté qu'une seule fois.
+\end{frame}
+
+\subsection{WHEN}
+\begin{frame}{\secname : \subsecname}
+    \lstinline[language=sql]!WHEN! : permet de préciser une condition supplémentaire. Le bloc PL/SQL ne sera exécuté que si la condition de la clause WHEN est évaluée à vrai.
+    Ex : vérifier, lors d'une mise à jour d'une colonne que la nouvelle valeur dépasse l'ancienne valeur.
+\end{frame}
+
+\subsection{restrictions}
+\begin{frame}{\secname : \subsecname}
+    Deux restrictions sur les commandes du bloc PL/SQL d'un déclencheur :
+    \begin{itemize}
+        \item Un déclencheur ne peut contenir de \lstinline[language=sql]!COMMIT! ni de \lstinline[language=sql]!ROLLBACK!
+        \item Il est impossible d'exécuter une commande du LDD dans un déclencheur
+        \item Un déclencheur  de niveau de ligne ne peut pas :
+              \begin{itemize}
+                  \item Lire ou modifier le contenu d'une table mutante
+                  \item Lire ou modifier les colonnes d'une clé primaire, unique ou étrangère d'une table contraignante!
+              \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\subsection{Table Mutante}
+\begin{frame}{\secname : \subsecname}
+    Table Mutante : table en cours de modification. Pour un déclencheur, il s'agit de la table sur laquelle il est défini
+\end{frame}
+
+\subsection{Table contraignante}
+\begin{frame}{\secname : \subsecname}
+    Table contraignante : table qui peut éventuellement être accédée en lecture afin de vérifier une contrainte de référence
+\end{frame}
+\subsection{Exemple}
+\begin{frame}{\secname : \subsecname}
+    \lstinputlisting[language=sql, title=Exemple : contrainte dynamique]{../exemples/Chapitre 8/contrainte-dynamique.sql}
+    Exemple qui ne fait que lancer une exception
+    \lstinline[language=sql]!Raise\_application\_error! : permet de transmettre un code d'erreur et un message au bloc appelant
+    \lstinline[language=sql]!OLD! et \lstinline[language=sql]!NEW! sont prédéfinis, accèdent aux anciennes et nouvelles valeurs
+\end{frame}
+
+\begin{frame}[allowframebreaks]{\secname : \subsecname}
+    Dans la table Service : colonne \lstinline[language=sql]!Nombre\_Emp! contient le nombre d'employés de chaque service $\implies$ redondance
+    \lstinputlisting[language=sql, title=Exemple: gestion automatique de la redondance]{../exemples/Chapitre 8/redondance.sql}
+    Pour assurer la cohérence des données, on crée la table Service avec 0 comme valeur par défaut pour la colonne \lstinline[language=sql]!Nombre\_Emp! et on gère la redondance au moyen d'un déclencheur.
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    \lstinputlisting[language=sql, title=Exemple: gestion automatique de la redondance]{../exemples/Chapitre 8/redondance2.sql}
+\end{frame}
+
+
+\subsection{Mise à jour en cascade}
+\begin{frame}{\secname : \subsecname}
+    Il s'agit d'assurer qu'une mise à jour s'effectue uniformément dans plusieurs tables.
+    Ce problème se pose
+    \begin{itemize}
+        \item  Lorsqu'une clé primaire est modifiée
+        \item Lorsqu'on supprime d'une table un tuple qui est référencé par d'autres tuples dans d'autres tables
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    \lstinputlisting[language=sql, title=Exemple : mise à jour en cascade]{../exemples/Chapitre 8/redondance3.sql}
+\end{frame}
+\end{document}

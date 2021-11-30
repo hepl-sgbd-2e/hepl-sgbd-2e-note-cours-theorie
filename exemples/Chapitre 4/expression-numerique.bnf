@@ -1,0 +1,10 @@
+expression_numérique ::=
+	terme | terme { + | - } terme
+
+terme ::= facteur | terme {* | /} facteur
+
+facteur ::= [+ | -] constante
+		| [+ | -] nom_colonne
+		| [+ | -] fonction_de_calcul
+		| [+ | -] fonction_de_conversion
+		| (expression_numérique)

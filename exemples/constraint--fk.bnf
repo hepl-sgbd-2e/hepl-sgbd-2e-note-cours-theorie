@@ -1,0 +1,8 @@
+<contrainte de clef> ::=
+[CONSTRAINT nom_contrainte]
+ FOREIGN KEY (<liste_colonnes>)
+ REFERENCES <table_mere> (liste de colonnes 
+                              de ref)
+ [<clause de validation>]
+ [<clause de gestion-modification>]
+ [<clause de gestion-suppression>]

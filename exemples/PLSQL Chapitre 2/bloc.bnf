@@ -1,0 +1,2 @@
+Nom_Variable [CONSTANT] TYPE [NOT NULL]
+  [{DEFAULT | := ] VALEUR];

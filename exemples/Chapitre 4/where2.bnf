@@ -1,0 +1,9 @@
+condition_de_base ::= 
+    expression oper_comp expression
+
+oper_comp ::=	= | <> | < | <= | > | >=
+
+expression ::=	expression_numérique
+			| expression_caractère
+			| expression_date_temps
+			| expression_intervalle

@@ -1,0 +1,6 @@
+SELECT [ALL | DISTINCT] <liste_expressions_retournes>
+FROM [SCHEMA.]{nom_table | nom_vue}
+[WHERE <predicat_filtre_donnees>]
+[GROUP BY <liste_expression_regroupement>]
+[HAVING <predicat_filtre_resultat>]
+[ORDER BY <liste_expression_de_tri>]

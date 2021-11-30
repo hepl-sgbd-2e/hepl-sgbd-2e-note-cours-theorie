@@ -1,0 +1,6 @@
+row_constructor comparison_operator row_constructor
+
+comparison_operator ::=     = | <> | < | <= | > | >=
+
+row_constructor ::= liste de valeurs
+	| ( table_expression ) 

@@ -1,0 +1,11 @@
+fonction_de_calcul ::=
+	COUNT()
+	| AVG([ALL|DISTINCT] expression)
+	| MAX([ALL|DISTINCT] expression)
+	| MIN([ALL|DISTINCT] expression)
+	| SUM([ALL|DISTINCT] expression)
+	| COUNT([ALL|DISTINCT] expression)
+
+fonction_de_conversion ::=
+	CAST(expression AS type_de_donnée |
+		domaine)

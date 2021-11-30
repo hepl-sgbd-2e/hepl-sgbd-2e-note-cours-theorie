@@ -1,0 +1,4 @@
+EXTRACT ({YEAR | MONTH | DAY | HOUR |
+		    MINUTE | SECOND}
+	FROM [datetime_value_expression |
+		interval_value_expression})

@@ -1,0 +1,5 @@
+SELECT NumSecu
+FROM Employes
+MINUS
+SELECT COALESCE (NumChef, 'XXX')
+FROM Employes;

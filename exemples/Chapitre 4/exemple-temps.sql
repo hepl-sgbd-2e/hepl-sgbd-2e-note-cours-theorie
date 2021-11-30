@@ -1,0 +1,3 @@
+SELECT Nom, EXTRACT(YEAR FROM DateNais) "Année naissance"
+FROM Employes
+WHERE EXTRACT(YEAR FROM DateNais) BETWEEN 1950 AND 1959;

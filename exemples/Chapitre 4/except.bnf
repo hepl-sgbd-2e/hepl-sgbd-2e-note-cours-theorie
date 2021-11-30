@@ -1,0 +1,2 @@
+A  EXCEPT [ALL]   B
+   [CORRESPONDING [BY (liste_colonne)]]

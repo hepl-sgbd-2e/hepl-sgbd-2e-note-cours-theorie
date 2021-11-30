@@ -1,0 +1,3 @@
+accorder_privilege ::=
+	GRANT privilege ON objet TO utilisateur
+	[ WITH GRANT OPTION];

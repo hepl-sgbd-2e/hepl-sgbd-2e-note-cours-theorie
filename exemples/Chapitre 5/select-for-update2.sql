@@ -1,0 +1,3 @@
+SELECT *
+FROM employes
+    FOR UPDATE NOWAIT;

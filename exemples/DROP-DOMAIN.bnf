@@ -1,0 +1,6 @@
+supprimer_objet ::= DROP
+    DOMAIN nom_domain
+    |  TABLE nom_table [ CASCADE | RESTRICT ]
+    |  INDEX nom_index
+    |  DATABASE FILENAME nom_base
+    ;

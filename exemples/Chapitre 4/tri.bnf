@@ -1,0 +1,6 @@
+instruction_de_sélection ::=
+          expression_de_sélection [ clause_de_tri ] ;
+
+clause_de_tri ::= ORDER BY liste_colonne_tri
+
+colonne_tri ::= colonne | numéro [ ASC | DESC ]

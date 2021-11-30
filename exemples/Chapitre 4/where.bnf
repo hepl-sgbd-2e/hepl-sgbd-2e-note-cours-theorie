@@ -1,0 +1,8 @@
+condition ::= 
+    [ NOT ] condition_de_base
+		| condition_between
+		| condition_in
+		| condition_like
+		| condition_null
+		| condition AND | OR condition
+		| ( condition )

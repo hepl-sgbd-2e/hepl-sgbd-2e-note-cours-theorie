@@ -1,0 +1,4 @@
+Créer_vue ::=
+  CREATE VIEW nom_vue [ ( Liste_colonne ) ]
+  AS expression_de_sélection
+  [ WITH CHECK OPTION];

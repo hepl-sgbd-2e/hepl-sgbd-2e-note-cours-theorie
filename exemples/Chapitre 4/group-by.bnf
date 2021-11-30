@@ -1,0 +1,11 @@
+expression_de_sélection ::=
+    SELECT [ ALL | DISTINCT ] clause_de_sélection
+    FROM liste_table_ref
+    [ WHERE condition ]
+    [ clause_grouper ]
+    [ clause_sélection_groupes ];
+
+clause_grouper ::= GROUP BY liste_colonne
+
+clause_sélection_groupes ::= HAVING condition
+

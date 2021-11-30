@@ -1,0 +1,3 @@
+CREATE [UNIQUE] INDEX nom_index ON nom_table
+     ( liste_colonne_tri );
+colonne_tri ::= nom_colonne [ ASC | DESC ]

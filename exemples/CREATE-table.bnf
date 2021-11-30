@@ -1,0 +1,16 @@
+CREATE TABLE nom_table 
+	(liste_def_colonne [liste_contrainte_table]);
+
+def_colonne ::= nom_colonne    type | nom_domaine
+	[val_par_defaut]  { contrainte_colonne }
+
+contrainte_colonne ::= CONSTRAINT nom_contrainte
+	type_contrainte_col mode_contrainte
+
+type_contrainte_col ::= PRIMARY KEY
+	| NOT NULL
+	| UNIQUE
+	| CHECK ( condition )
+	| REFERENCES nom_table ( liste_colonne )
+	          [ON DELETE { NO ACTION | CASCADE | SET DEFAULT | SET NULL}]
+	          [ON UPDATE { NO ACTION | CASCADE | SET DEFAULT | SET NULL}]

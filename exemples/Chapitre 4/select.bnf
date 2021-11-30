@@ -1,0 +1,8 @@
+select_de_base ::=
+        SELECT [ ALL | DISTINCT ] clause_de_sélection
+        FROM nom_table
+        [ WHERE condition ]
+        ;
+
+        clause_de_sélection ::=
+        * |  nom_table.*  |  liste_colonne

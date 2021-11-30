@@ -1,0 +1,215 @@
+\documentclass[10pt]{beamer}
+\usepackage[orientation=landscape,size=custom,width=16,height=9,scale=0.5,debug]{beamerposter}
+\usepackage[french]{babel}
+\usepackage[OT1]{fontenc}
+\usepackage{textcomp}
+\usepackage{csquotes}
+\usepackage{dirtytalk}
+\usepackage{float}
+\usepackage{framed}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{epstopdf}
+\usetheme[progressbar=frametitle,numbering=fraction]{metropolis}
+\usepackage{appendixnumberbeamer}
+\newcommand{\ousommesnous}{Où sommes-nous ?}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks = true,
+    anchorcolor = .,
+    linkcolor = .,
+    urlcolor = blue,
+}
+\usepackage{booktabs}
+\usepackage[scale=2]{ccicons}
+\usepackage{pgfplots}
+\usepgfplotslibrary{dateplot}
+
+\usepackage{xspace}
+\newcommand{\themename}{\textbf{\textsc{metropolis}}\xspace}
+
+\usepackage{color}
+\lstloadlanguages{C,C++,csh,Java}
+
+\definecolor{red}{rgb}{0.6,0,0} 
+\definecolor{blue}{rgb}{0,0,0.6}
+\definecolor{green}{rgb}{0,0.8,0}
+\definecolor{cyan}{rgb}{0.0,0.6,0.6}
+
+\lstset{
+language=csh,
+basicstyle=\tiny\ttfamily,
+numbers=left,
+numberstyle=\tiny,
+numbersep=5pt,
+tabsize=2,
+extendedchars=true,
+breaklines=true,
+frame=b,
+stringstyle=\color{blue}\ttfamily,
+showspaces=false,
+showtabs=false,
+xleftmargin=17pt,
+framexleftmargin=17pt,
+framexrightmargin=5pt,
+framexbottommargin=4pt,
+commentstyle=\color{green},
+morecomment=[l]{//}, %use comment-line-style!
+morecomment=[s]{/*}{*/}, %for multiline comments
+showstringspaces=false,
+morekeywords={ abstract, event, new, struct,
+as, explicit, null, switch,
+base, extern, object, this,
+bool, false, operator, throw,
+break, finally, out, true,
+byte, fixed, override, try,
+case, float, params, typeof,
+catch, for, private, uint,
+char, foreach, protected, ulong,
+checked, goto, public, unchecked,
+class, if, readonly, unsafe,
+const, implicit, ref, ushort,
+continue, in, return, using,
+decimal, int, sbyte, virtual,
+default, interface, sealed, volatile,
+delegate, internal, short, void,
+do, is, sizeof, while,
+double, lock, stackalloc,
+else, long, static,
+enum, namespace, string},
+keywordstyle=\color{cyan},
+identifierstyle=\color{red}
+}
+
+\definecolor{main}{RGB}{35,54,59}
+\usepackage{caption}
+\DeclareCaptionFont{white}{\color{white}}
+\DeclareCaptionFormat{listing}{\colorbox{main}{\parbox{\textwidth}{\hspace{15pt}#1#2#3}}}
+\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white, singlelinecheck=false, margin=0pt, font={bf,footnotesize}}
+
+\setbeamertemplate{frame footer}{\insertsectionhead}
+
+
+\title{Systèmes de Gestion de Bases de Données - 2e}
+\subtitle{Présentation}
+\date{\today}
+\author{Daniel Schreurs}
+\institute{Haute École de Province de Liège}
+%\titlegraphic{\hfill\includegraphics[height=1.5cm]{logo.eps}}
+
+\begin{document}
+
+\maketitle
+
+\setbeamerfont{subsection in toc}{size=\small}
+\begin{frame}[allowframebreaks]{Table des matières}
+    \setbeamertemplate{section in toc}[sections numbered]
+    \tableofcontents
+\end{frame}
+
+\section{Introduction}
+
+\subsection{Informations relatives au cours}
+\begin{frame}{\secname : \subsecname}
+    \begin{itemize}
+        \item Mon adresse mail : \href{mailto:daniel.schreurs@hepl.be}{daniel.schreurs@hepl.be}
+        \item Moodle : \href{https://moodle.ecolevirtuelle.be/course/view.php?id=20914}{Système de gestion de bases de données - Théorie}
+        \item Forum du cours : \href{https://moodle.ecolevirtuelle.be/mod/forum/view.php?id=116963}{Poser une question}
+    \end{itemize}
+\end{frame}
+
+\subsection{Répartition du cours}
+\begin{frame}{\secname : \subsecname}
+    \begin{table}[]
+        \begin{tabular}{ll}
+            Théorie 15 heures   & Laboratoire 15 heures \\
+            Examen écrit : 50\% & Examen oral : 50\%
+        \end{tabular}
+        \caption*{Bachelier en informatique et systèmes}
+    \end{table}
+    \begin{table}[]
+        \begin{tabular}{ll}
+            Théorie 22.5 heures & Laboratoire 22.5 heures \\
+            Examen écrit : 50\% & Examen oral : 50\%
+        \end{tabular}
+        \caption*{Master en sciences de l'ingénieur industriel, orientation informatique}
+    \end{table}
+\end{frame}
+
+\subsection{Les objectifs de ce cours}
+\begin{frame}{\secname : \subsecname}
+    \begin{itemize}
+        \item Décrire et utiliser les fonctions d’un système de gestion de bases données.
+        \item Décrire le fonctionnement interne d’un système de gestion de bases de données et ses interactions avec le système d’exploitation
+        \item Interpréter du code écrit dans un langage relationnel de type SQL sous ses aspects de description, manipulation et contrôle des données.
+        \item Comprendre et employer le modèle relationnel de données
+        \item Employer des instructions de création d'une base de données à partir d’un modèle logique
+        \item Utiliser le SQL afin de manipuler des données (ajout, recherche, suppression)
+    \end{itemize}
+\end{frame}
+\subsection{Aperçu du contenu du cours de théorie}
+\begin{frame}{\secname : \subsecname}
+    \begin{itemize}
+        \item Chapitre 1 : Concepts de base
+        \item Chapitre 2 : Modèle relationnel
+        \item Chapitre 3 : Langage de définition des données - LDD
+        \item Chapitre 4 : Langage de manipulation des données - LMD
+        \item Chapitre 5 : Transactions et accès concurrents - LCD
+        \item Chapitre 6 : Confidentialité des données
+        \item Chapitre 7 : Vues
+        \item Chapitre 8 : Contraintes d'intégrité et déclencheurs
+        \item Chapitre 9 : PL-SQL
+    \end{itemize}
+\end{frame}
+
+\section{Sondage}
+\subsection{Langage de manipulation de données}
+\begin{frame}{\secname : \subsecname}
+    \begin{itemize}
+        \item Valeur NULL
+        \item Opérateur CASE
+        \item Jointure (produit cartésien, naturelle, externe)
+        \item Opérateurs ensemblistes (union, différence, intersection)
+        \item Requêtes imbriquées (IN, ALL, ANY, SOME, EXISTS)
+        \item UPDATE, DELETE, INSERT
+    \end{itemize}
+\end{frame}
+
+\subsection{Langage de définition de données}
+\begin{frame}{\secname : \subsecname}
+    \begin{itemize}
+        \item Notion de schéma et d’utilisateurs
+        \item CREATE TABLE
+        \item Notion de clé (primaire, étrangère)
+        \item Contraintes d’intégrité (domaine, entité, relation, référence)
+        \item Notion d’index (et cluster)
+        \item ALTER TABLE
+        \item DROP TABLE
+    \end{itemize}
+\end{frame}
+
+\subsection{Transactions}
+\begin{frame}{\secname : \subsecname}
+    \begin{itemize}
+        \item Transactions concurrentes et cohérences
+        \item Transactions ACID
+        \item Niveaux d’isolation
+        \item COMMIT, ROLLBACK?
+        \item Verrous explicites (LOCK, SELECT FOR UPDATE)?
+        \item Verrouillage en deux phases (two-phase locking)?
+    \end{itemize}
+\end{frame}
+
+\subsection{Divers}
+\begin{frame}{\secname : \subsecname}
+    \begin{itemize}
+        \item Gestion des droits d’accès des utilisateurs?
+        \item Les vues et les tables temporaires
+        \item Les déclencheurs (triggers)?
+    \end{itemize}
+\end{frame}
+
+
+
+\end{document}

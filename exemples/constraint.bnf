@@ -1,0 +1,4 @@
+<contrainte de valeur> ::=
+	    [CONSTRAINT nom_contrainte]
+	    {[NOT] NULL | DEFAULT <expression_defaut> 
+	        | CHECK (expression_validation)}

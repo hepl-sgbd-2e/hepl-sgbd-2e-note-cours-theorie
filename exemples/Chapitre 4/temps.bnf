@@ -1,0 +1,8 @@
+expression_date_temps ::=
+   		   constante
+ | nom_colonne
+ | CAST ( expression AS type_de_donnée |  domaine)
+ | CURRENT_DATE
+ | CURRENT_TIME [ précision ]
+ | CURRENT_TIMESTAMP [ précision ]
+ | EXTRACT ( champ FROM source )

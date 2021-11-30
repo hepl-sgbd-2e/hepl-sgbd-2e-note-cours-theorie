@@ -1,0 +1,3 @@
+nom_col [NOT] LIKE 
+  'modèle de chaîne' 
+  [ESCAPE escape-car]

@@ -1,0 +1,7 @@
+instruction_de_modification ::=
+UPDATE nom_table
+SET liste_colonne_valeur
+[ WHERE condition ] ;
+
+liste_colonne_valeur ::=
+  nom_colonne = expression

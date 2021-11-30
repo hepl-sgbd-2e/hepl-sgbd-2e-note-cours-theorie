@@ -1,0 +1,13 @@
+contrainte_table ::= CONSTRAINT nom_contrainte
+	type_contrainte_table mode_contrainte
+
+type_contrainte_table ::=
+      PRIMARY KEY ( liste_colonne )
+     | UNIQUE ( liste_colonne )
+     | CHECK ( condition )
+     | FOREIGN KEY ( liste_colonne )
+             REFERENCES nom_table ( liste_colonne )
+                [ON DELETE { NO ACTION | CASCADE | SET DEFAULT | SET NULL}]
+                [ON UPDATE { NO ACTION | CASCADE | SET DEFAULT | SET NULL}]
+
+mode_contrainte ::= [  NOT ] DEFERRABLE

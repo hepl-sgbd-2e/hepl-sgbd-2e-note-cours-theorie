@@ -1,0 +1,2 @@
+retirer_privilege ::=
+	REVOKE privilege ON objet FROM utilisateur;

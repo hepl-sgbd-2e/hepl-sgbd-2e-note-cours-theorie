@@ -1,0 +1,245 @@
+\documentclass[10pt]{beamer}
+
+\input{/Users/danielschreurs/Documents/LaTeX/beamer-style.tex.tex}
+
+\title{Systèmes de Gestion de Bases de Données - 2e}
+\subtitle{Chapitre 7 - Les vues}
+\date{\today}
+\author{Daniel Schreurs}
+\institute{Haute École de Province de Liège}
+%\titlegraphic{\hfill\includegraphics[height=1.5cm]{logo.eps}}
+
+
+\setbeamertemplate{frame footer}{\insertsectionhead}
+\begin{document}
+\maketitle
+
+\setbeamerfont{subsection in toc}{size=\small}
+\setbeamerfont{subsubsection in toc}{size=\normalsize}
+\setbeamertemplate{section in toc}[sections numbered]
+\setbeamertemplate{subsection in toc}[subsections numbered]
+\setbeamertemplate{subsubsection in toc}[subsubsections numbered]
+\begin{frame}[allowframebreaks]{Table des matières du chapitre}
+    \tableofcontents[subsectionstyle=show/show/hide,subsubsectionstyle=show/show/hide,]
+\end{frame}
+
+\section{Introduction}
+\tocss
+\subsection{Définition}
+\begin{frame}{\secname : \subsecname}
+    \begin{itemize}
+        \item Jusqu'à présent, nous avons parlé des \textbf{tables de base permanentes}.
+        \item Une \textbf{table de base} existe réellement : il lui correspond des enregistrements stockés sur le support physique contenant la base.
+        \item \textbf{Permanent} indique que, dès que la table est créée, elle persiste dans la base de données jusqu'à ce qu'elle soit explicitement effacée au moyen de la commande \lstinline[language=sql]!DROP TABLE!
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    Dans les SGBD relationnels, la notion de schéma externe correspond au concept de table dérivée.  On distingue 2 types de tables dérivées :
+    \begin{itemize}
+        \item les \textbf{photographies}
+        \item les \textbf{vues}.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    Une photographie est une table contenant des données déduites à partir des tables de base (ou même d'autres photographies).\\
+    Une photographie est stockée physiquement dans la base.
+    Deux inconvénients :
+    \begin{itemize}
+        \item Perte d'espace de stockage
+        \item Difficulté de maintenir la cohérence entre la photographie et les tables de base du fait de la redondance
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    La norme SQL2 définit le concept de tables temporaires.\\
+    Cela convient, par exemple, aux applications qui ont besoin de tables pour contenir des résultats intermédiaires pendant un petit intervalle de temps.\\
+    Les tables temporaires sont privées à l'application qui les utilise : donc, pas d'accès concurrents.
+    Caractéristiques essentielles :
+    \begin{itemize}
+        \item Elles se créent en spécifiant TEMPORARY dans la commande \lstinline[language=sql]!CREATE TABLE!
+        \item Elles sont toujours vides au début d'un session SQL
+        \item Elles peuvent éventuellement être vidées à chaque \lstinline[language=sql]!COMMIT!
+        \item Elles sont effacées automatiquement à la fin de chaque session
+        \item Elles peuvent être modifiées même au sein d'une transaction en lecture seule
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    \begin{itemize}
+        \item Une vue est une table dérivée dynamique.
+        \item Elle n'est pas stockée physiquement dans la base.
+        \item Le problème de cohérence ne se pose donc pas.
+        \item Par contre, elle peut entraîner un ralentissement des traitements si la vue doit être générée souvent.
+    \end{itemize}
+\end{frame}
+
+\section{Définition des vues}
+\subsection{Syntaxe}
+\begin{frame}{\secname : \subsecname}
+    \lstinputlisting[language=bnf, title=Syntaxe pour la création d’une vue]{../exemples/Chapitre 7/create_view.bnf}
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    \begin{itemize}
+        \item Cette commande définit \textbf{une table virtuelle} à partir des tables de la clause \lstinline[language=sql]!FROM! de l'\lstinline[language=bnf]!expression\_de\_sélection!.  Les tables présentes dans la clause \lstinline[language=sql]!FROM! sont appelées tables sources.  Il peut s'agir de tables de base ou de vues.
+              La commande CREATE VIEW n'extrait aucune ligne de la base, elle inscrit la définition de la vue dans les tables de la méta-base (information schema) : \lstinline[language=sql]!TABLES!, \lstinline[language=sql]!VIEWS!, \lstinline[language=sql]!VIEW\_TABLE\_USAGE! et \lstinline[language=sql]!VIEW\_COLUMN\_USAGE!.
+        \item La commande \lstinline[language=sql]!CREATE VIEW! \textbf{n'extrait aucune ligne de la base}, elle inscrit la définition de la vue dans les tables de la méta-base (information schema) : \lstinline[language=sql]!TABLES!, \lstinline[language=sql]!VIEWS!, \lstinline[language=sql]!VIEW\_TABLE\_USAGE! et \lstinline[language=sql]!VIEW\_COLUMN\_USAGE!.
+
+    \end{itemize}
+\end{frame}
+\subsection{Exemples}
+\begin{frame}{\secname : \subsecname}
+    \lstinputlisting[language=sql, title=Exemple : Vue reprenant uniquement les étudiants de 1ère année]{../exemples/Chapitre 7/create_view.sql}
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    \begin{itemize}
+        \item Dès qu'une vue est définie, on peut l'utiliser comme s'il s'agissait d'une table de base.
+        \item \textbf{Rien ne permet à un utilisateur de faire la distinction entre une table de base et une vue.}
+        \item Cependant, il faut émettre des restrictions pour les requêtes de mises à jour sur les vues.
+    \end{itemize}
+\end{frame}
+\begin{frame}{\secname : \subsecname}
+    \lstinputlisting[language=sql, title=Exemple :Rechercher le nom des élèves de première année pratiquant le surf au niveau 1]{../exemples/Chapitre 7/create_view1.sql}
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    Afin de répondre à cette requête, le SGBD va d'abord rechercher dans la méta-base la définition de la vue \lstinline[language=sql]!eleves\_de\_premiere!.  Il transforme alors la requête initiale pour obtenir
+    \lstinputlisting[language=sql, title=Exemple :Rechercher le nom des élèves de première année pratiquant le surf au niveau 1]{../exemples/Chapitre 7/create_view2.sql}
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    Cette transformation est appelée composition de vues.
+    L'appellation \textbf{fenêtre dynamique sur la base} se justifie par le fait que toutes \textbf{les modifications effectuées sur la ou les tables sources sont automatiquement reportées au travers de la vue}.
+\end{frame}
+
+\section{Raisons d'être des vues}
+\begin{frame}{\secname}
+    Une vue peut être utile pour :
+    \begin{itemize}
+        \item Masquer la complexité du schéma de la base
+        \item Aider à la formulation d'une requête
+        \item Jouer le rôle de table intermédiaire dans la résolution d'une requête complexe nécessitant plusieurs étapes
+    \end{itemize}
+    Rôles plus profonds :
+    \begin{itemize}
+        \item \textbf{Augmenter l'indépendance logique} en définissant des schémas externes
+        \item \textbf{Préserver la confidentialité des données}
+    \end{itemize}
+\end{frame}
+\subsection{Augmenter l'indépendance logique}
+\begin{frame}{\secname : \subsecname}
+    \lstinputlisting[language=sql, title=Exemple (suite) : Et une vue contenant - en plus - pour chaque projet le prix de revient]{../exemples/Chapitre 7/create_view3.sql}
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    \lstinputlisting[language=sql, title=Exemple (suite) : Pour que les programmes ne souffrent pas de cette modification il suffit de modifier la définition de la vue en conservant les mêmes noms pour la vue et ses colonnes]{../exemples/Chapitre 7/create_view4.sql}
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    \lstinputlisting[language=sql, title=Exemple (suite) :
+        Pour éviter de la redondance si le tarif est lié au code activité on peut changer le schéma logique de la base vers le schéma équivalent]{../exemples/Chapitre 7/create_view5.sql}
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    \begin{itemize}
+        \item En conservant les mêmes noms pour la vue et ses colonnes, on ne doit pas changer les requêtes et donc les programmes d'applications qui l'utilisent.
+        \item Les programmes sont dès lors insensibles aux modifications logiques de la base de données
+    \end{itemize}
+\end{frame}
+
+\subsection{Préserver la confidentialité}
+\begin{frame}{\secname : \subsecname}
+    \begin{itemize}
+        \item Les vues permettent d'assurer la confidentialité des données.
+        \item Il est possible d'interdire l'accès à certaines lignes (contenu) et/ou à certaines colonnes (contenant) d'une table.
+        \item Grâce aux vues, il est possible d'émettre des restrictions d'accès en fonction du contexte.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    Quelques exemples vont permettre d'illustrer cette notion.  Ces exemples seront basés sur la table \lstinline[language=sql]!EMPLOYES! suivante :
+    \lstinline[language=sql]!EMPLOYES (Numero, nom, prenom, adresse,
+    num_service, salaire, performance!\\
+    Nous supposons qu'aucun des utilisateurs cités dans les exemples ne possède de privilèges sur la table \lstinline[language=sql]!EMPLOYES! et que cette dernière a été créée dans le schéma del.
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    Quelques exemples vont permettre d'illustrer cette notion.  Ces exemples seront basés sur la table \lstinline[language=sql]!EMPLOYES! suivante :
+    \lstinline[language=sql]!EMPLOYES (Numero, nom, prenom, adresse,
+    num_service, salaire, performance!\\
+    Nous supposons qu'aucun des utilisateurs cités dans les exemples ne possède de privilèges sur la table \lstinline[language=sql]!EMPLOYES! et que cette dernière a été créée dans le schéma del.
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    Contrôle dépendant du contexte
+    \lstinputlisting[language=sql, title=Chaque utilisateur peut visualiser un seul tuple de la relation : celui qui le concerne.]{../exemples/Chapitre 7/acces.sql}
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    Contrôle dépendant du contexte et du contenant
+    \lstinputlisting[language=sql, title=Chaque utilisateur peut visualiser un seul tuple de la relation : celui qui le concerne.  Il peut aussi modifier son adresse]{../exemples/Chapitre 7/acces1.sql}
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    Contrôle dépendant du contexte et du contenant
+    \lstinputlisting[language=sql, title=L'utilisateur Astérix ne peut connaître ni le nom ni le prénom ni l'adresse des employés gagnant plus de 3000 mais il peut connaître toutes les autres informations]{../exemples/Chapitre 7/acces2.sql}
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    Contrôle dépendant du contexte et du contenant
+    \lstinputlisting[language=sql, title=L'utilisateur Panoramix peut visualiser le contenu de la table employes sauf le numero le nom le prénom et l'adresse des employés gagnant plus de 3000€]{../exemples/Chapitre 7/acces3.sql}
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    Les utilisateurs Astérix,  Panoramix et Abraracourcix sont responsables d'un service. Ils peuvent consulter toutes les informations des employés de leur service.
+    On suppose qu'il existe une relation
+    \lstinline[language=sql]!SERVICES (num\_service, \#num\_chef)!
+    La vue de sécurité va être construite avec une jointure.
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    Contrôle dépendant du contexte et du contenant
+    \lstinputlisting[language=sql, title=L'utilisateur Panoramix peut visualiser le contenu de la table employes sauf le numero le nom le prénom et l'adresse des employés gagnant plus de 3000€]{../exemples/Chapitre 7/acces4.sql}
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    Contrôle dépendant du contexte et du contenant
+    \lstinputlisting[language=sql, title=on souhaite que chaque élève puisse consulter sa moyenne sans pour autant connaître le détail des différentes cotes.]{../exemples/Chapitre 7/acces5.sql}
+\end{frame}
+
+\section{Mises à jour au travers des vues}
+\begin{frame}{\secname}
+    Il n'est pas toujours possible d'effectuer des mises à jour au travers des vues.\footnote{Si la vue est telle qu'il existe une correspondance biunivoque entre les lignes de la vue et celle d'une seule table source, les modifications et les suppressions ne posent pas de problèmes et peuvent être propagées.
+    }
+\end{frame}
+
+\begin{frame}{\secname}
+    SQL2 a défini un ensemble de conditions que doit respecter une vue pour être modifiable :
+    \begin{itemize}
+        \item La définition ne peut contenir les mots réservés : \lstinline[language=sql]!JOIN!, \lstinline[language=sql]!UNION!, \lstinline[language=sql]!INTERSECT! ou \lstinline[language=sql]!EXCEPT! (une seule table source)
+        \item La clause \lstinline[language=sql]!SELECT! ne peut contenir \lstinline[language=sql]!DISTINCT!
+        \item La clause \lstinline[language=sql]!SELECT! ne peut contenir que des références aux colonnes de la table source (pas de \lstinline[language=sql]!SUM!, \lstinline[language=sql]!COUNT!,..)
+        \item La clause \lstinline[language=sql]!FROM! contient une seule table ou une vue elle-même modifiable
+        \item La clause \lstinline[language=sql]!WHERE! ne peut contenir une sous-question dont la clause \lstinline[language=sql]!FROM! possède une référence à la table de la requête principale
+        \item La vue ne peut contenir de \lstinline[language=sql]!GROUP BY! ou \lstinline[language=sql]!HAVING!
+    \end{itemize}
+\end{frame}
+
+\section{Les possibilités d'Oracle}
+\begin{frame}{\secname}
+    Oracle possède quelques possibilités supplémentaires dans le domaine des vues.
+    Depuis Oracle 7.3, une vue dont la clause FROM de la définition contient plusieurs tables, est modifiable à condition de ne pas comporter :
+
+    \begin{itemize}
+        \item \lstinline[language=sql]!DISTINCT!
+        \item Des fonctions de calculs : \lstinline[language=sql]!AVG!, \lstinline[language=sql]!COUNT!, \lstinline[language=sql]!MAX!, \lstinline[language=sql]!MIN!, \lstinline[language=sql]!SUM!
+        \item Des opérateurs ensemblistes : \lstinline[language=sql]!UNION!, \lstinline[language=sql]!UNION ALL!, \lstinline[language=sql]!INTERSECT!, \lstinline[language=sql]!MINUS!
+        \item \lstinline[language=sql]!GROUP BY!, \lstinline[language=sql]!HAVING!
+        \item \lstinline[language=sql]!START WITH!, \lstinline[language=sql]!CONNECT BY!
+        \item \lstinline[language=sql]!ROWNUM!
+    \end{itemize}
+\end{frame}
+\end{document}
