@@ -1,6 +1,6 @@
 \documentclass[10pt]{beamer}
 
-\input{/Users/danielschreurs/Documents/LaTeX/beamer-style.tex.tex}
+\input{/Users/danielschreurs/Documents/LaTeX/beamer-style.tex}
 
 \title{Systèmes de Gestion de Bases de Données - 2\textsuperscript{e}}
 \subtitle{PL-SQL - Chapitre 1 - PL-SQL - Généralités}
@@ -64,7 +64,7 @@
 \begin{frame}{\secname : \subsecname}
     \begin{figure}
         \begin{center}
-            \includegraphics[width=0.9\textwidth]{../assets/img/envoi_instruction.png}
+            \includegraphics[width=0.9\textwidth]{../assets/img/envoi_instruction-2.png}
             \caption{Avec PL/SQL : écriture de blocs de programmation intégrant SQL}
         \end{center}
     \end{figure}
@@ -73,7 +73,7 @@
 \begin{frame}{\secname : \subsecname}
     Une des principales forces du PL/SQL est son intégration avec SQL, surtout au niveau des différents types de données manipulés :
     \begin{itemize}
-        \item Une donnée de type DATE ou VARCHAR stockée dans la base de données va être stockée dans une variable de même type dans du code PL/SQL
+        \item Une donnée de type \lstinline[language=sql]!DATE! ou \lstinline[language=sql]!VARCHAR! stockée dans la base de données va être stockée dans une variable de même type dans du code PL/SQL
         \item Un instruction de sélection SQL retourne un result set qui peut être défini et exploité en PL/SQL
     \end{itemize}
 \end{frame}
@@ -97,9 +97,8 @@
 \begin{frame}{\secname}
     Pour un administrateur, possibilité :
     \begin{itemize}
-        \item Pour un administrateur, possibilité :
-        \item d'écrire des routines d'administration de définir des jobs récurrents,
-        \item ...
+        \item d'écrire des routines d'administration;
+        \item de définir des jobs récurrents,etc.
     \end{itemize}
 \end{frame}
 
