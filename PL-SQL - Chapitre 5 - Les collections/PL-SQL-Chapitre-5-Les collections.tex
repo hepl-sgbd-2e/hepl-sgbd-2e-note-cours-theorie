@@ -1,0 +1,173 @@
+\documentclass[10pt]{beamer}
+
+\input{/Users/daniel/Documents/LaTeX/beamer-style.tex}
+
+\title{Systèmes de Gestion de Bases de Données - 2\textsuperscript{e}}
+\subtitle{PL-SQL - Chapitre 5 - Les collections}
+\date{\today}
+\author{Daniel Schreurs}
+\institute{Haute École de Province de Liège}
+%\titlegraphic{\hfill\includegraphics[height=1.5cm]{logo.eps}}
+
+
+\setbeamertemplate{frame footer}{\insertsectionhead}
+\begin{document}
+\maketitle
+
+\setbeamerfont{subsection in toc}{size=\small}
+\setbeamerfont{subsubsection in toc}{size=\normalsize}
+\setbeamertemplate{section in toc}[sections numbered]
+\setbeamertemplate{subsection in toc}[subsections numbered]
+\setbeamertemplate{subsubsection in toc}[subsubsections numbered]
+\begin{frame}[allowframebreaks]{Table des matières du chapitre}
+    \tableofcontents[subsectionstyle=show/show/hide,subsubsectionstyle=show/show/hide,]
+\end{frame}
+
+\section{Définir des types \textit{collections}}
+\tocss
+\subsection{Définitions}
+\begin{frame}{\secname : \subsecname}
+    \metroset{block=fill}
+    \begin{alertblock}{Important}
+        Une \emph{collection} est un ensemble, éventuellement ordonné, d'éléments de même type.
+        Chaque élément est repéré au moyen d'un indice.\footnote{Dans d'autres langages, on parle aussi de liste ou de vecteur.}
+    \end{alertblock}
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    Le PL/SQL possède 3 types de collections :
+    \begin{itemize}
+        \item Les tableaux associatifs (\emph{associative arrays} ou \emph{index-by tables})
+        \item Les tables imbriquées (\emph{nested tables})
+        \item Les tableaux prédimensionnés (\emph{variable-size arrays})
+    \end{itemize}
+\end{frame}
+\subsection{Les tableaux associatifs}
+\begin{frame}{\secname : \subsecname}
+    Les tableaux associatifs (\emph{associative arrays} ou \emph{index-by tables})
+    \metroset{block=fill}
+    \begin{alertblock}{Important}
+        Ensemble ordonné d'éléments repérés par un indice de type numérique ou chaîne de caractères. On parle également de table de hachage ou de table PL/SQL.
+    \end{alertblock}
+\end{frame}
+\subsection{Les tables imbriquées}
+\begin{frame}{\secname : \subsecname}
+    Les tables imbriquées (\emph{nested tables})
+    \metroset{block=fill}
+    \begin{alertblock}{Important}
+        Qui peuvent contenir un ensemble non ordonné d'éléments indicés par des valeurs numériques consécutives.
+    \end{alertblock}
+\end{frame}
+\subsection{Les tableaux prédimensionnés}
+\begin{frame}{\secname : \subsecname}
+    Les tableaux prédimensionnés (\emph{variable-size arrays})
+    \metroset{block=fill}
+    \begin{alertblock}{Important}
+        Ensemble ordonné d'éléments de même type dont le nombre d'éléments est fixé lors de la déclaration (bien que maintenant, il soit possible de modifier cette limite lors de l'exécution).  Les éléments sont indicés par des nombres consécutifs.
+    \end{alertblock}
+\end{frame}
+\section{Les méthodes associées aux collections}
+\tocss
+\subsection{Déclaration}
+\begin{frame}{\secname : \subsecname}
+    \metroset{block=fill}
+    \begin{alertblock}{Important}
+        Il n'y a pas de clause d'initialisation ni de constructeur associé à un type tableau associatif !
+    \end{alertblock}
+    \lstinputlisting[language=bnf, title=Syntaxe]{../exemples/PLSQL Chapitre 5/init_index_by_table.bnf}
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    \lstinputlisting[language=sql, title=Exemple 1]{../exemples/PLSQL Chapitre 5/exemple1.sql}
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    \lstinputlisting[language=sql, title=Exemple avec ROWTYPE]{../exemples/PLSQL Chapitre 5/exemple2.sql}
+\end{frame}
+
+\subsection{Initialisation}
+\begin{frame}{\secname : \subsecname}
+    \lstinputlisting[language=sql, title=Exemple avec initialisation]{../exemples/PLSQL Chapitre 5/exemple3.sql}
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    \lstinputlisting[language=sql, title=Initialiser un tableau associatif]{../exemples/PLSQL Chapitre 5/exemple4.sql}
+\end{frame}
+
+\subsection{Méthode exists}
+\begin{frame}{\secname : \subsecname}
+    \lstinputlisting[language=sql, title=Tester l'existence ou non d'un élément : méthode exists]{../exemples/PLSQL Chapitre 5/exemple5.sql}
+\end{frame}
+
+\subsection{Méthode count}
+\begin{frame}{\secname : \subsecname}
+    \lstinputlisting[language=sql, title=Compter le nombre d'éléments d'une collection : méthode count]{../exemples/PLSQL Chapitre 5/exemple6.sql}
+\end{frame}
+
+\subsection{Méthode first et last}
+\begin{frame}{\secname : \subsecname}
+    \lstinputlisting[language=sql, title=Déterminer le premier et le dernier indice des éléments d'une collection : méthodes first et last]{../exemples/PLSQL Chapitre 5/exemple7.sql}
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    \metroset{block=fill}
+    \begin{alertblock}{Important}
+        Si la collection est vide, \lstinline[language=sql]!FIRST! et \lstinline[language=sql]!LAST! donnent \lstinline[language=sql]!NULL!
+    \end{alertblock}
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    \lstinputlisting[language=sql, title=L’indice du dernier élément]{../exemples/PLSQL Chapitre 5/exemple8.sql}
+\end{frame}
+
+\subsection{Méthode next}
+\begin{frame}{\secname : \subsecname}
+    \lstinputlisting[language=sql, title=Indices non consécutifs]{../exemples/PLSQL Chapitre 5/exemple9.sql}
+\end{frame}
+
+\subsection{Méthode delete}
+\begin{frame}{\secname : \subsecname}
+    \begin{itemize}
+        \item \lstinline[language=sql]!DELETE! supprime tous les éléments d'une collection
+        \item \lstinline[language=sql]!DELETE(n)! supprime le nième élément d'une table.  Si $n$ est \lstinline[language=sql]!NULL!, \lstinline[language=sql]!DELETE! n'a pas d'effet
+        \item \lstinline[language=sql]!DELETE(m, n)! supprime tous les éléments dans la fouchette $m..n$.  Si m est plus grand que $n$, \lstinline[language=sql]!DELETE(m, n)! n'a pas d'effet.
+    \end{itemize}
+\end{frame}
+
+\section{Exceptions liées aux collections}
+\tocss
+\subsection{Définitions}
+\begin{frame}{\secname : \subsecname}
+    \begin{itemize}
+        \item \lstinline[language=sql]!NO_DATA_FOUND! Un indice désigne un élément supprimé ou un élément qui n'existe pas dans une table PL/SQL
+        \item \lstinline[language=sql]!VALUE_ERROR! Un indice est null ou ne peut être converti dans le type de l'indice
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    \lstinputlisting[language=sql, title=ORA-06502: PL/SQL : erreur numérique ou erreur sur une valeur]{../exemples/PLSQL Chapitre 5/exemple10.sql}
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    \lstinputlisting[language=sql, title=Exemple complet : parcourir des résultats de recherches]{../exemples/PLSQL Chapitre 5/exemple11.sql}
+\end{frame}
+
+\begin{frame}{\secname : \subsecname}
+    Liste complète des exceptions liées aux collections :
+    \begin{table}[]
+        \resizebox{\textwidth}{!}{%
+            \begin{tabular}{|l|l|}
+                \hline
+                \textbf{EXCEPTION}      & \textbf{Déclenchée lorsque... }                                      \\ \hline
+                \lstinline[language=sql]!COLLECTION\_IS\_NULL ! & On utilise une collection atomicaly null                             \\ \hline
+                \lstinline[language=sql]!NO\_DATA\_FOUND! & \begin{tabular}[c]{@{}l@{}}Un indice désigne un élément supprimé ou un élément qui n'existe\\ pas dans une table PL/SQL\end{tabular}                                           \\ \hline
+                \lstinline[language=sql]!SUBSCRIPT\_BEYOND\_COUNT! & Un indice dépasse le nombre d'éléments de la collection              \\ \hline
+                \lstinline[language=sql]!SUBSCRIPT\_OUTSIDE\_LIMIT! & Un indice est en dehors de la fourchette permise                     \\ \hline
+                \lstinline[language=sql]!VALUE\_ERROR ! & Un indice est null ou ne peut être converti dans le type de l'indice \\ \hline
+            \end{tabular}
+        }
+    \end{table}
+\end{frame}
+
+
+\end{document}

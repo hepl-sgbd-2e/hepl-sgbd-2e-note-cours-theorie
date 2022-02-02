@@ -1,0 +1,5 @@
+TYPE type_name
+  IS TABLE OF element_type [NOT NULL]
+  INDEX BY [PLS_INTEGER |
+            BINARY_INTEGER |
+            VARCHAR2 (size_limit)];
