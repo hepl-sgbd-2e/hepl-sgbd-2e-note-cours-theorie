@@ -115,16 +115,16 @@
 \begin{frame}{\secname : \subsecname}
     \metroset{block=fill}
     \begin{alertblock}{Important}
-       Avec \lstinline[language=plsql]!BULK COLLECT INTO!, \lstinline[language=plsql]!NO_DATA_FOUND! n'est pas déclenchée lorsque le résultat de la recherche est vide !
+        Avec \lstinline[language=plsql]!BULK COLLECT INTO!, \lstinline[language=plsql]!NO_DATA_FOUND! n'est pas déclenchée lorsque le résultat de la recherche est vide !
     \end{alertblock}
 \end{frame}
 
 \subsection{FORALL}
 \begin{frame}{\secname : \subsecname}
-\begin{itemize}
-    \item L'instruction \lstinline[language=plsql]!FORALL! permet d'envoyer en une fois un lot d'instructions SQL et les collections \lstinline[language=plsql]!bulk! permettent de récupérer les résultats;
-    \item Pour accélérer le traitement des instructions insert, update ou delete, on les place dans un forall plutôt que dans une boucle classique.  Pour optimiser les instructions select, on utilise la clause into bulk collect !
-\end{itemize}
+    \begin{itemize}
+        \item L'instruction \lstinline[language=plsql]!FORALL! permet d'envoyer en une fois un lot d'instructions SQL et les collections \lstinline[language=plsql]!bulk! permettent de récupérer les résultats;
+        \item Pour accélérer le traitement des instructions, \lstinline[language=plsql]!insert!, \lstinline[language=plsql]!update! ou \lstinline[language=plsql]!delete!, on les place dans un \lstinline[language=plsql]!forall! plutôt que dans une boucle classique. Pour optimiser les instructions \lstinline[language=plsql]!select!, on utilise la clause \lstinline[language=plsql]!into bulk collect! !
+    \end{itemize}
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
@@ -158,11 +158,11 @@
 
 \subsection{save exceptions}
 \begin{frame}{\secname : \subsecname}
-\begin{itemize}
-    \item PL/SQL possède un mécanisme pour gérer les exceptions déclenchées pendant l'exécution d'un FORALL.
-    \item Ce mécanisme, déclenché par la clause \lstinline[language=plsql]!save exceptions!, permet de sauver les informations sur les exceptions et de continuer le traitement des instructions.
-    \item L'absence de cette clause dans une instructions FORALL provoque l'arrêt de l'instruction dès la première exception rencontrée.
-\end{itemize}
+    \begin{itemize}
+        \item PL/SQL possède un mécanisme pour gérer les exceptions déclenchées pendant l'exécution d'un FORALL.
+        \item Ce mécanisme, déclenché par la clause \lstinline[language=plsql]!save exceptions!, permet de sauver les informations sur les exceptions et de continuer le traitement des instructions.
+        \item L'absence de cette clause dans une instruction FORALL provoque l'arrêt de l'instruction dès la première exception rencontrée.
+    \end{itemize}
 \end{frame}
 
 
@@ -190,41 +190,41 @@
     \lstinline[language=plsql]!SELECT ... INTO ... FROM ... WHERE ... ;!
     \begin{itemize}
         \item Le tuple est trouve : l'exécution continue
-        \item Le tuple n'est pas trouvé : 
-            exception \lstinline[language=plsql]!NO_DATA_FOUND!
+        \item Le tuple n'est pas trouvé :
+              exception \lstinline[language=plsql]!NO_DATA_FOUND!
         \item La sélection renvoie plus d'un tuple
-            exception \lstinline[language=plsql]!TOO_MANY_ROWS!
+              exception \lstinline[language=plsql]!TOO_MANY_ROWS!
     \end{itemize}
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
     \lstinputlisting[language=plsql, title=La boucle FOR]{../exemples/PLSQL Chapitre 6/exemple15.sql}
-\begin{itemize}
-    \item Un ou plusieurs tuples sélectionnés => exécution LOOP
-    \item Aucun tuple sélectionné => pas exécution LOOP, on continue l'exécution après LOOP
-    \item PAS d'exception \lstinline[language=plsql]!NO_DATA_FOUND! déclenchée !!!
-\end{itemize}
+    \begin{itemize}
+        \item Un ou plusieurs tuples sélectionnés => exécution LOOP
+        \item Aucun tuple sélectionné => pas exécution LOOP, on continue l'exécution après LOOP
+        \item PAS d'exception \lstinline[language=plsql]!NO_DATA_FOUND! déclenchée !!!
+    \end{itemize}
 \end{frame}
 
 \subsection{Recherche de plus d'un tuple, initialisation d'une collection de records}
 \begin{frame}{\secname : \subsecname}
     \lstinputlisting[language=plsql, title=BULK COLLECT INTO]{../exemples/PLSQL Chapitre 6/exemple16.sql}
-\begin{itemize}
-    \item Un ou plusieurs tuples sélectionnés => initialisation de la VariableTable indicée de 1 à n
-    \item Aucun tuple sélectionné => on continue l'exécution après le \lstinline[language=plsql]!SELECT!
-    \item PAS d'exception \lstinline[language=plsql]!NO_DATA_FOUND! déclenchée !!!
-\end{itemize}
+    \begin{itemize}
+        \item Un ou plusieurs tuples sélectionnés => initialisation de la VariableTable indicée de 1 à n
+        \item Aucun tuple sélectionné => on continue l'exécution après le \lstinline[language=plsql]!SELECT!
+        \item PAS d'exception \lstinline[language=plsql]!NO_DATA_FOUND! déclenchée !!!
+    \end{itemize}
 \end{frame}
 
 \subsection{BULK\_EXCEPTIONS}
 \begin{frame}{\secname : \subsecname}
-\begin{itemize}
-    \item Option \lstinline[language=plsql]!SAVE EXCEPTIONS! permet de sauver toutes les exceptions détectées pendant l’exécution de \lstinline[language=plsql]!FORALL! dans une table PL/SQL et de continuer le traitement.
-    \item \lstinline[language=plsql]!SQL\%BULK_EXCEPTIONS.COUNT! le nombre d’exceptions rencontrées pendant l’exécution du \lstinline[language=plsql]!FORALL!
-    \item \lstinline[language=plsql]!SQL\%BULK_EXCEPTIONS(i).ERROR_INDEX! contient l’indice de l’itération qui a provoqué l’exception
-    \item \lstinline[language=plsql]!SQL\%BULK_EXCEPTIONS(i).ERROR_CODE! contient le code d’erreur d’Oracle
-    \item Le nième élément de \lstinline[language=plsql]!SQL\%BULK_ROWCOUNT! contient le nombre de lignes traitées dans la nième instructions LMD
-\end{itemize}
+    \begin{itemize}
+        \item Option \lstinline[language=plsql]!SAVE EXCEPTIONS! permet de sauver toutes les exceptions détectées pendant l’exécution de \lstinline[language=plsql]!FORALL! dans une table PL/SQL et de continuer le traitement.
+        \item \lstinline[language=plsql]!SQL\%BULK_EXCEPTIONS.COUNT! le nombre d’exceptions rencontrées pendant l’exécution du \lstinline[language=plsql]!FORALL!
+        \item \lstinline[language=plsql]!SQL\%BULK_EXCEPTIONS(i).ERROR_INDEX! contient l’indice de l’itération qui a provoqué l’exception
+        \item \lstinline[language=plsql]!SQL\%BULK_EXCEPTIONS(i).ERROR_CODE! contient le code d’erreur d’Oracle
+        \item Le nième élément de \lstinline[language=plsql]!SQL\%BULK_ROWCOUNT! contient le nombre de lignes traitées dans la nième instruction LMD
+    \end{itemize}
 \end{frame}
 
 

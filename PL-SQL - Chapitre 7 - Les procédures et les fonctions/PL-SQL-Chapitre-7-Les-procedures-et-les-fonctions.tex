@@ -1,0 +1,136 @@
+\documentclass[10pt]{beamer}
+
+\input{/Users/daniel/Documents/LaTeX/beamer-style.tex}
+
+\title{SGBD - 2\textsuperscript{e}}
+\subtitle{PL-SQL - Chapitre 7 - Les procédures et les fonctions}
+\date{\today}
+\author{Daniel Schreurs}
+\institute{Haute École de Province de Liège}
+%\titlegraphic{\hfill\includegraphics[height=1.5cm]{logo.eps}}
+
+\begin{document}
+\maketitle
+
+\setbeamerfont{subsection in toc}{size=\small}
+\setbeamerfont{subsubsection in toc}{size=\normalsize}
+\setbeamertemplate{section in toc}[sections numbered]
+\setbeamertemplate{subsection in toc}[subsections numbered]
+\setbeamertemplate{subsubsection in toc}[subsubsections numbered]
+\begin{frame}[allowframebreaks]{Table des matières du chapitre}
+    \tableofcontents[subsectionstyle=show/show/hide,subsubsectionstyle=show/show/hide,]
+\end{frame}
+
+\section{CREATE PROCEDURE}
+\begin{frame}{\secname}
+    \lstinputlisting[language=plsql, title=Création d’une procédure]{../exemples/PLSQL Chapitre 7/exemple1.sql}
+\end{frame}
+
+
+
+\begin{frame}{\secname}
+    Chaque procédure ou fonction peut comprendre des paramètres. Pour chaque paramètre, on doit spécifier :
+    \begin{itemize}
+        \item Son nom;
+        \item Son mode d'accessibilité (\lstinline[language=sql]!IN!, \lstinline[language=sql]!OUT! ou \lstinline[language=sql]!IN OUT!);
+        \item Son type (pas de précision ni de longueur);
+        \item Éventuellement sa valeur par défaut.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{\secname}
+    \lstinputlisting[language=plsql, title=Afficher l’employé]{../exemples/PLSQL Chapitre 7/exemple2.sql}
+\end{frame}
+
+\begin{frame}{\secname}
+    \metroset{block=fill}
+    \begin{alertblock}{Important}
+        Une procédure ou une fonction peut également être déclarée localement dans une autre.
+    \end{alertblock}
+\end{frame}
+
+
+
+\section{Compilation}
+\begin{frame}{\secname}
+    \lstinputlisting[language=plsql, title=Compilation sous SQLPLUS]{../exemples/PLSQL Chapitre 7/exemple3.sh}
+    Le code est stocké dans le dictionnaire de données.\footnote{Les sources des objets (procédures, fonctions, packages) sont mémorisés dans la table \lstinline[language=sql]!SOURCE\$! (propriétaire \lstinline[language=sql]!SYS!).}
+\end{frame}
+
+\begin{frame}{\secname}
+    Compilation sous SQLPLUS :
+    \begin{itemize}
+        \item Lors de la compilation d'un objet, le moteur PL/SQL génère les messages d'erreurs dans la table \lstinline[language=sql]!ERROR$!
+        \item Sous SQLPLUS, la commande SHOW ERRORS permet de visualiser les erreurs de compilation.
+    \end{itemize}
+\end{frame}
+
+\section{Exécuter une procédure}
+\begin{frame}{\secname}
+    \lstinputlisting[language=plsql, title=Appeler une procédure]{../exemples/PLSQL Chapitre 7/exemple4.sql}
+\end{frame}
+
+\section{Création d’une fonction}
+\begin{frame}{\secname}
+    \lstinputlisting[language=plsql, title=Sortir d’une fonction]{../exemples/PLSQL Chapitre 7/exemple5.sql}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{\secname}
+    \lstinputlisting[language=plsql, title=Recherche]{../exemples/PLSQL Chapitre 7/exemple6.sql}
+\end{frame}
+
+\section{Exécuter une fonction}
+\begin{frame}{\secname}
+    \lstinputlisting[language=plsql, title=Recherche]{../exemples/PLSQL Chapitre 7/exemple7.sql}
+\end{frame}
+
+\section{Utiliser les paramètres avec \textit{NOCOPY}}
+\begin{frame}{\secname}
+    \begin{itemize}
+        \item Par défaut, les paramètres \lstinline[language=sql]!OUT! et \lstinline[language=sql]!IN OUT! sont passés par valeur.\footnote{Les valeurs sont donc copiées avant l’exécution du  sous-programme.}
+        \item Pendant l’exécution de celui-ci, des variables temporaires sont créées pour contenir les données des paramètres de type \lstinline[language=sql]!OUT!.
+        \item Si le sous-programme termine normalement son exécution, les valeurs sont alors recopiées dans les paramètres.
+        \item \textbf{Ces copies ralentissent fortement les performances et encombrent la mémoire}.
+        \item Pour éviter ces inconvénients : \lstinline[language=sql]!NOCOPY!.
+    \end{itemize}
+\end{frame}
+
+\section{\textit{RAISE\_APPLICATION\_ERROR}}
+\begin{frame}{\secname}
+    \lstinputlisting[language=plsql, title=Lancer une exception]{../exemples/PLSQL Chapitre 7/exemple8.sql}
+    \begin{itemize}
+        \item Définie dans \lstinline[language=sql]!DBMS_STANDARD!
+        \item Plage de codes d'erreur de -20000 à -20999
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{\secname}
+    \lstinputlisting[language=plsql, title=Fonction retournant un code d'erreur personnalisé]{../exemples/PLSQL Chapitre 7/exemple9.sql}
+\end{frame}
+
+\begin{frame}{\secname}
+    \lstinputlisting[language=plsql, title=Appel de cette nouvelle fonction]{../exemples/PLSQL Chapitre 7/exemple10.sql}
+\end{frame}
+
+\section{Les notations nommées}
+
+\begin{frame}{\secname}
+    Les notations nommées sont nécessaires lors de l'appel :
+    \begin{itemize}
+        \item Pour utiliser les valeurs par défaut des paramètres
+        \item Pour spécifier les paramètres dans n'importe quel ordre
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{\secname}
+    \lstinputlisting[language=plsql, title=L’ordre des paramètres n’a plus d’importance]{../exemples/PLSQL Chapitre 7/exemple11.sql}
+\end{frame}
+
+\section{Les paramètres par défaut}
+
+\begin{frame}{\secname}
+    \lstinputlisting[language=plsql, title=Lorsque les paramètres sont spécifiés dans le mode IN il est possible de leur affecter des valeurs par défaut]{../exemples/PLSQL Chapitre 7/exemple12.sql}
+\end{frame}
+
+
+\end{document}
