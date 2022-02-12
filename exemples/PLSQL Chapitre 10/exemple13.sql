@@ -1,0 +1,18 @@
+CREATE OR REPLACE TRIGGER tlogoff
+    BEFORE LOGOFF
+    ON SCHEMA
+BEGIN
+    INSERT INTO loginout
+    VALUES (DBMS_STANDARD.SYSEVENT ||
+            ' de ' || USER || ' le ' || CURRENT_DATE);
+END;
+
+
+CREATE OR REPLACE TRIGGER tlogon
+    AFTER LOGON
+    ON SCHEMA
+BEGIN
+    INSERT INTO loginout
+    VALUES (DBMS_STANDARD.SYSEVENT ||
+            ' de ' || USER || ' le ' || CURRENT_DATE);
+END;

@@ -1,0 +1,151 @@
+\documentclass[10pt]{beamer}
+
+\input{/Users/daniel/Documents/LaTeX/beamer-style.tex}
+
+\title{SGBD - 2\textsuperscript{e}}
+\subtitle{PL-SQL - Chapitre 10 - Les déclencheurs}
+\date{\today}
+\author{Daniel Schreurs}
+\institute{Haute École de Province de Liège}
+%\titlegraphic{\hfill\includegraphics[height=1.5cm]{logo.eps}}
+
+\begin{document}
+\maketitle
+
+\setbeamerfont{subsection in toc}{size=\small}
+\setbeamerfont{subsubsection in toc}{size=\normalsize}
+\setbeamertemplate{section in toc}[sections numbered]
+\setbeamertemplate{subsection in toc}[subsections numbered]
+\setbeamertemplate{subsubsection in toc}[subsubsections numbered]
+\begin{frame}[allowframebreaks]{Table des matières du chapitre}
+    \tableofcontents[subsectionstyle=show/show/hide,subsubsectionstyle=show/show/hide,]
+\end{frame}
+
+\section{Introduction}
+\begin{frame}{\secname}
+    \begin{itemize}
+        \item Un déclencheur (trigger) permet de définir un ensemble d'actions qui sont déclenchées automatiquement par le SGBD lorsque certains phénomènes se produisent.
+        \item Les actions sont enregistrées dans la base et non plus dans les programmes d'application.
+        \item Cette notion n'est pas spécifiée dans SQL2, elle le sera dans SQL3.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{\secname}
+    Les déclencheurs permettent de définir des contraintes dynamiques, ils peuvent être utilisés pour :
+    \begin{itemize}
+        \item Générer automatiquement une valeur de clé primaire;
+        \item Résoudre le problème des mises à jour en cascade;
+        \item Enregistrer les accès à une table;
+        \item Gérer automatiquement la redondance;
+        \item Empêcher la modification par des personnes non autorisées (dans le domaine de la confidentialité);
+        \item Mettre en œuvre des règles de fonctionnement plus complexes;
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{\secname}
+    \begin{itemize}
+        \item Les déclencheurs permettent de réaliser des opérations sophistiquées car ils constituent un bloc PL/SQL
+        \item Depuis Oracle8i, il est possible de définir des déclencheurs s'activant suite à des commandes du LDD ou à certains événements systèmes
+        \item Il existe 12 types de déclencheurs sensibles aux commandes LMD en fonction de l'instruction déclenchante (ajout, suppression, modification), du \item niveau du déclencheur (ligne ou table) et du moment du déclenchement (avant ou après)
+    \end{itemize}
+\end{frame}
+
+
+\section{Déclencheurs réagissant aux instructions LMD}
+\begin{frame}{\secname}
+    \lstinputlisting[language=plsql, title=Syntaxe]{../exemples/PLSQL Chapitre 10/exemple1.sql}
+\end{frame}
+
+
+
+\begin{frame}{\secname}
+    Deux restrictions sur les commandes du bloc PL/SQL d'un déclencheur :
+    \begin{itemize}
+        \item Un déclencheur ne peut contenir de \lstinline[language=plsql]!COMMIT! ni de \lstinline[language=plsql]!ROLLBACK!;
+        \item Il est impossible d'exécuter une commande du LDD dans un déclencheur;
+        \item Un déclencheur  de niveau de ligne ne peut pas :
+              \begin{itemize}
+                  \item Lire ou modifier le contenu d'une table mutante.\footnote{Table contraignante : table qui peut éventuellement être accédée en lecture afin de vérifier une contrainte de référence}
+                  \item Lire ou modifier les colonnes d'une clé primaire, unique ou étrangère d'une table contraignante.\footnote{Table Mutante : table en cours de modification. }
+              \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{\secname}
+    \lstinputlisting[language=plsql, title=Contrainte dynamique]{../exemples/PLSQL Chapitre 10/exemple2.sql}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{\secname}
+    \lstinputlisting[language=plsql, title=Un chef de département doit être un employé attaché à ce département]{../exemples/PLSQL Chapitre 10/exemple3.sql}
+\end{frame}
+
+
+\begin{frame}[allowframebreaks]{\secname}
+    Gestion automatique de la redondance :
+    Dans la table Service : colonne \lstinline[language=plsql]!Nombre_Emp! contient le nombre d'employés de chaque service => redondance
+\end{frame}
+
+\begin{frame}[allowframebreaks]{\secname}
+    \lstinputlisting[language=plsql, title=On gère la redondance au moyen d'un déclencheur.]{../exemples/PLSQL Chapitre 10/exemple4.sql}
+\end{frame}
+
+\begin{frame}{\secname}
+    \lstinputlisting[language=plsql, title=Mise à jour en cascade]{../exemples/PLSQL Chapitre 10/exemple5.sql}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{\secname}
+    \lstinputlisting[language=plsql, title=Sécurité et enregistrement des accès]{../exemples/PLSQL Chapitre 10/exemple6.sql}
+\end{frame}
+
+
+\section{Contourner les tables mutantes}
+\begin{frame}[allowframebreaks]{\secname}
+    \lstinputlisting[language=plsql]{../exemples/PLSQL Chapitre 10/exemple7.sql}
+    \begin{itemize}
+        \item OK  SI insertion d’une seule ligne
+        \item Erreur SI insertion de plusieurs lignes( ORA-04091: la table INFOSOFT.DEPARTEMENTS est en mutation)
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}[allowframebreaks]{\secname}
+    \lstinputlisting[language=plsql,title=Syntaxe du COMPOUND TRIGGER]{../exemples/PLSQL Chapitre 10/exemple8.sql}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{\secname}
+    \lstinputlisting[language=plsql,title=Exemple COMPOUND TRIGGER]{../exemples/PLSQL Chapitre 10/exemple9.sql}
+\end{frame}
+
+
+
+\section{Déclencheurs réagissant aux instr. du LDD}
+
+\begin{frame}[allowframebreaks]{\secname}
+    \lstinputlisting[language=plsql,title=La syntaxe]{../exemples/PLSQL Chapitre 10/exemple10.sql}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{\secname}
+    \lstinputlisting[language=plsql,title=Chaque fois qu'un utilisateur crée un objet dans son schéma]{../exemples/PLSQL Chapitre 10/exemple11.sql}
+\end{frame}
+
+\section{Déclencheurs réagissant aux événements syst}
+\begin{frame}[allowframebreaks]{\secname}
+    \lstinputlisting[language=plsql,title=La syntaxe]{../exemples/PLSQL Chapitre 10/exemple12.sql}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{\secname}
+    \begin{itemize}
+        \item SERVERERROR : AFTER
+        \item LOGON : est possible AFTER
+        \item LOGOFF : est possible BEFORE
+        \item STARTUP : est possible AFTER
+        \item SHUTDOWN : est possible BEFORE
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{\secname}
+    \lstinputlisting[language=plsql,title=Exemple déclencheur système ]{../exemples/PLSQL Chapitre 10/exemple13.sql}
+\end{frame}
+
+
+\end{document}

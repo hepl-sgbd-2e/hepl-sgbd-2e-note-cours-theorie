@@ -1,0 +1,101 @@
+\documentclass[10pt]{beamer}
+
+\input{/Users/daniel/Documents/LaTeX/beamer-style.tex}
+
+\title{SGBD - 2\textsuperscript{e}}
+\subtitle{PL-SQL - Chapitre 8 - Les packages}
+\date{\today}
+\author{Daniel Schreurs}
+\institute{Haute École de Province de Liège}
+%\titlegraphic{\hfill\includegraphics[height=1.5cm]{logo.eps}}
+
+\begin{document}
+\maketitle
+
+\setbeamerfont{subsection in toc}{size=\small}
+\setbeamerfont{subsubsection in toc}{size=\normalsize}
+\setbeamertemplate{section in toc}[sections numbered]
+\setbeamertemplate{subsection in toc}[subsections numbered]
+\setbeamertemplate{subsubsection in toc}[subsubsections numbered]
+\begin{frame}[allowframebreaks]{Table des matières du chapitre}
+    \tableofcontents[subsectionstyle=show/show/hide,subsubsectionstyle=show/show/hide,]
+\end{frame}
+
+\section{Le concept du package}
+
+\begin{frame}{\secname}
+    \begin{itemize}
+        \item Un package est composé de \textbf{deux parties} de code bien distinctes : la \textbf{spécification} (specification) et le \textbf{corps} (body);
+        \item La \textbf{spécification} du package contient les prototypes des procédures et fonctions et la déclaration des variables publiques
+        \item Le \textbf{corps} du package contient l'implémentation des éléments définis dans la spécification.  Le corps peut également contenir et définir des éléments privés.
+        \item Le corps du package peut également contenir une section d'instructions appelée initialization section.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{\secname}
+    \begin{itemize}
+        \item Le code défini publiquement est accessible à tout utilisateur possédant le \textbf{privilège} \lstinline[language=plsql]!EXECUTE! sur le package
+        \item La sécurité repose sur des \lstinline[language=plsql]!GRANT EXECUTE!. Aucun accès aux données n'est accordé, uniquement aux procédures, fonctions et packages.
+        \item Le code privé est inaccessible : ceci renforce encore l'indépendance données-programmes et la réutilisabilité
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{\secname}
+    \lstinputlisting[language=plsql, title=Le serveur de bases de données assure que le code n'est exécuté qu'une seule fois par session lorsque le package est instancié]{../exemples/PLSQL Chapitre 8/exemple1.sql}
+\end{frame}
+
+\section{Persistance de la session}
+\begin{frame}{\secname}
+    Il est possible :
+    \begin{itemize}
+        \item D'établir une session;
+        \item D'exécuter un programme qui assigne une valeur à une variable d'un package;
+    \end{itemize}
+    Cette variable est donc initialisée et persistera jusqu'à la fin de la session
+\end{frame}
+
+\begin{frame}{\secname}
+    L'exemple le plus simple est celui d'un package ne comprenant qu'une spécification où une \textbf{variable publique} est déclarée.
+    \lstinputlisting[language=plsql]{../exemples/PLSQL Chapitre 8/exemple3.sql}
+\end{frame}
+
+\begin{frame}{\secname}
+    Accès à la variable publique :
+    \begin{itemize}
+        \item Tout utilisateur ayant reçu le privilège d'exécuter le package possède une instance de celui-ci dès qu'il y accède pour la première fois
+        \item Ainsi, un tel utilisateur pourra exécuter la portion de code suivante où INPRES est le nom du schéma propriétaire du package.
+    \end{itemize}
+    \lstinputlisting[language=plsql, title=Accès à la variable publique]{../exemples/PLSQL Chapitre 8/exemple4.sql}
+\end{frame}
+
+\begin{frame}{\secname}
+    Pour rendre une variable privée, il suffit de ne pas la mettre dans la spécification.
+    \lstinputlisting[language=plsql]{../exemples/PLSQL Chapitre 8/exemple5.sql}
+\end{frame}
+
+\begin{frame}{\secname}
+    \metroset{block=fill}
+    \begin{alertblock}{Important}
+        Les variables publiques sont locales à une session.
+    \end{alertblock}
+\end{frame}
+
+\section{Principaux avantages des packages}
+\begin{frame}{\secname}
+    \begin{itemize}
+        \item Un package permet de regrouper plusieurs unités de programmation dans un même container réduction du nombre d'objets stockés à maintenir
+        \item Le fait de séparer l'implémentation de l'interface permet de maintenir ou modifier l'implémentation sans toucher à l'interface ni aux programmes appelants.
+        \item Il n'est même pas nécessaire de recompiler les programmes appelants si l'interface n'est pas elle-même recompilée
+    \end{itemize}
+\end{frame}
+
+\section{Procédures et fonctions polymorphes et surchargées}
+\begin{frame}{\secname}
+    \lstinputlisting[language=plsql, title=Spécification du package contenant 2 fonctions polymorphes]{../exemples/PLSQL Chapitre 8/exemple11.sql}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{\secname}
+    \lstinputlisting[language=plsql, title=Body du package contenant 2 fonctions polymorphes]{../exemples/PLSQL Chapitre 8/exemple12.sql}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,3 @@
+SELECT ... FROM ...
+FOR UPDATE [OF liste_colonnes]
+[WAIT/NOWAIT]

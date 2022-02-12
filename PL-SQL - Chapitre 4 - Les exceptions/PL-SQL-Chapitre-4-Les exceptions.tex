@@ -216,8 +216,9 @@
 \section{Petit guide...}
 \begin{frame}{\secname}
     \begin{itemize}
-        \item Utiliser systématiquement la déclaration d'un gestionnaire d'exception dans tout bloc PL/SQL où une erreur est susceptible d'intervenir.
-        \item Tout gestionnaire d'exceptions minimal doit comporter la clause WHEN OTHERS.
+        \item Utiliser systématiquement la déclaration d'un gestionnaire d'exception dans tout bloc PL/SQL où une erreur est susceptible d'intervenir;
+        \item Laisser remonter les erreurs quand vous ne savez pas les gérer;
+        \item Profitez des exceptions pour gérer les transactions;
     \end{itemize}
 \end{frame}
 

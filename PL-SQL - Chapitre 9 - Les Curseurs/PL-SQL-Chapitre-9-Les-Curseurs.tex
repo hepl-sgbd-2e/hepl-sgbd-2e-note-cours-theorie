@@ -1,0 +1,236 @@
+\documentclass[10pt]{beamer}
+
+\input{/Users/daniel/Documents/LaTeX/beamer-style.tex}
+
+\title{SGBD - 2\textsuperscript{e}}
+\subtitle{PL-SQL - Chapitre 9 - Les Curseurs}
+\date{\today}
+\author{Daniel Schreurs}
+\institute{Haute École de Province de Liège}
+%\titlegraphic{\hfill\includegraphics[height=1.5cm]{logo.eps}}
+
+\begin{document}
+\maketitle
+
+\setbeamerfont{subsection in toc}{size=\small}
+\setbeamerfont{subsubsection in toc}{size=\normalsize}
+\setbeamertemplate{section in toc}[sections numbered]
+\setbeamertemplate{subsection in toc}[subsections numbered]
+\setbeamertemplate{subsubsection in toc}[subsubsections numbered]
+\begin{frame}[allowframebreaks]{Table des matières du chapitre}
+    \tableofcontents[subsectionstyle=show/show/hide,subsubsectionstyle=show/show/hide,]
+\end{frame}
+
+\section{Introduction}
+\begin{frame}{\secname}
+    \begin{itemize}
+        \item Les curseurs permettent de traiter les requêtes de recherche dont le résultat contient un nombre quelconque de tuples.
+        \item La notion de curseur réalise le lien entre la philosophie ensembliste de SQL (set-retrieval) et celle, enregistrement par enregistrement (record-at-a-time) des langages de 3ème génération.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{\secname}
+    \begin{itemize}
+        \item Un curseur peut être considéré comme une espèce de pointeur\footnote{Il peut être utilisé pour parcourir un ensemble ordonné de tuples (active set};
+        \item Un curseur est toujours associé à une expression de sélection.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{\secname}
+    \lstinputlisting[language=plsql, title=Exemple simple]{../exemples/PLSQL Chapitre 9/exemple1.sql}
+\end{frame}
+
+\begin{frame}{\secname}
+    \begin{itemize}
+        \item L'expression de sélection n'est pas évaluée au moment de la déclaration
+        \item L'expression de sélection est évaluée lorsque le curseur est ouvert
+        \item À ce moment, l'ensemble des tuples du résultat de l'expression de sélection est associé au curseur.
+        \item L'association se maintient jusqu'à la fermeture du curseur
+        \item Le résultat de l'expression de sélection est figé jusqu'à la fermeture du curseur
+    \end{itemize}
+\end{frame}
+
+
+\section{Curseurs explicites}
+\begin{frame}{\secname : \subsecname}
+    \begin{itemize}
+        \item Un curseur peut être déclaré dans un bloc PL/SQL, une procédure ou un package
+              \lstinline[language=plsql]! CURSOR nom_curseur IS expression_de_sélection;!
+        \item Aucune restriction au niveau de la requête de sélection
+        \item Un curseur DOIT ÊTRE déclaré avant d'être utilisé.  Sinon : exception \lstinline[language=plsql]!invalid_cursor!
+        \item 3 opérations pour manipuler les curseurs : \lstinline[language=plsql]!open!, \lstinline[language=plsql]!fetch! et \lstinline[language=plsql]!close!
+    \end{itemize}
+\end{frame}
+
+\subsection{Open}
+\begin{frame}{\secname : \subsecname}
+    \begin{itemize}
+        \item \lstinline[language=plsql]!OPEN nom_curseur!;
+        \item L'effet du \lstinline[language=plsql]!OPEN! est d'évaluer l'expression de sélection associée.
+        \item Le curseur est dans l'état ouvert et est positionné avant la première ligne du résultat
+        \item Un curseur ouvert peut être parcouru par une série de \lstinline[language=plsql]!fetch!
+        \item La tentative d'ouverture d'un curseur déjà ouvert provoque l'exception \lstinline[language=plsql]!cursor_already_open!
+    \end{itemize}
+\end{frame}
+
+\subsection{FETCH}
+\begin{frame}{\secname : \subsecname}
+    \lstinputlisting[language=plsql, title=Récupérer les données]{../exemples/PLSQL Chapitre 9/exemple2.sql}
+\end{frame}
+
+
+\begin{frame}{\secname : \subsecname}
+    \begin{itemize}
+        \item Les variables de la liste ou les champs du record doivent être compatibles avec la clause select
+        \item Idem si on utilise \lstinline[language=plsql]!BULK COLLECT INTO!
+    \end{itemize}
+\end{frame}
+
+\subsection{CLOSE}
+\begin{frame}{\secname : \subsecname}
+    \begin{itemize}
+        \item \lstinline[language=plsql]!CLOSE nom_curseur!;
+        \item La fermeture d'un curseur non ouvert déclenche l'exception \lstinline[language=plsql]!invalid_cursor!
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}[allowframebreaks]{\secname}
+    \lstinputlisting[language=plsql, title=Exemple complet]{../exemples/PLSQL Chapitre 9/exemple3.sql}
+\end{frame}
+
+
+\begin{frame}[allowframebreaks]{\secname}
+    \lstinputlisting[language=plsql, title=Exemple complet 2]{../exemples/PLSQL Chapitre 9/exemple4.sql}
+\end{frame}
+
+\begin{frame}{\secname}
+    Chaque curseur possède 4 attributs :
+    \begin{itemize}
+        \item \lstinline[language=plsql]!\%FOUND! vaut \lstinline[language=plsql]!TRUE! si un \lstinline[language=plsql]!FETCH! a pu extraire un tuple
+        \item \lstinline[language=plsql]!\%NOTFOUND! vaut \lstinline[language=plsql]!TRUE! si un \lstinline[language=plsql]!FETCH! n'a pas pu extraire de tuple
+        \item \lstinline[language=plsql]!\%ISOPEN! vaut \lstinline[language=plsql]!TRUE! si le curseur est ouvert
+        \item \lstinline[language=plsql]!\%ROWCOUNT! vaut le nombre de tuples qui ont déjà été extraits par des \lstinline[language=plsql]!FETCH!
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{\secname}
+    \begin{table}[]
+        \resizebox{\textwidth}{!}{%
+            \begin{tabular}{|l|l|l|l|l|l|}
+                \hline
+                                                &       & \lstinline[language=plsql]!\%FOUND! & \lstinline[language=plsql]!\%NOTFOUND! & \lstinline[language=plsql]!\%ISOPEN! & \lstinline[language=plsql]!\%ROWCOUNT! \\ \hline
+                \lstinline[language=plsql]!OPEN!         & Avant & Exception               & Exception               & \lstinline[language=plsql]!FALSE! & Exception               \\ \hline
+                                                & Après & \lstinline[language=plsql]!NULL! & \lstinline[language=plsql]!NULL! & \lstinline[language=plsql]!TRUE! & \lstinline[language=plsql]!0! \\ \hline
+                1er \lstinline[language=plsql]!FETCH!     & Avant & \lstinline[language=plsql]!NULL! & \lstinline[language=plsql]!NULL! & \lstinline[language=plsql]!TRUE! & \lstinline[language=plsql]!0! \\ \hline
+                                                & Après & \lstinline[language=plsql]!TRUE! & \lstinline[language=plsql]!FALSE! & \lstinline[language=plsql]!TRUE! & 1                       \\ \hline
+                Nème \lstinline[language=plsql]!FETCH!    & Avant & \lstinline[language=plsql]!TRUE! & \lstinline[language=plsql]!FALSE! & \lstinline[language=plsql]!TRUE! & \lstinline[language=plsql]!*! \\ \hline
+                                                & Après & \lstinline[language=plsql]!TRUE! & \lstinline[language=plsql]!FALSE! & \lstinline[language=plsql]!TRUE! & \lstinline[language=plsql]!*! \\ \hline
+                Dernier \lstinline[language=plsql]!FETCH! & Avant & \lstinline[language=plsql]!TRUE! & \lstinline[language=plsql]!FALSE! & \lstinline[language=plsql]!TRUE! & \lstinline[language=plsql]!*! \\ \hline
+                                                & Après & \lstinline[language=plsql]!FALSE! & \lstinline[language=plsql]!TRUE! & \lstinline[language=plsql]!TRUE! & \lstinline[language=plsql]!*! \\ \hline
+                \lstinline[language=plsql]!CLOSE!         & Avant & \lstinline[language=plsql]!FALSE! & \lstinline[language=plsql]!TRUE! & \lstinline[language=plsql]!TRUE! & \lstinline[language=plsql]!*! \\ \hline
+                                                & Après & Exception               & Exception               & \lstinline[language=plsql]!FALSE! & Exception               \\ \hline
+            \end{tabular}
+        }
+    \end{table}
+\end{frame}
+
+\begin{frame}{\secname}
+    Légende du tableau :
+    \begin{itemize}
+        \item \lstinline[language=plsql]!*! signifie que le résultat dépend du nombre de \lstinline[language=plsql]!FETCH! exécutés
+        \item Après le 1er \lstinline[language=plsql]!FETCH!, si le résultat est vide, \lstinline[language=plsql]!\%FOUND! donne \lstinline[language=plsql]!FALSE!, \lstinline[language=plsql]!\%NOTFOUND! donne \lstinline[language=plsql]!TRUE! et \lstinline[language=plsql]!\%ROWCOUNT! donne \lstinline[language=plsql]!0!
+        \item \lstinline[language=plsql]!\%ISOPEN! est souvent utilisé dans le traitement des exceptions pour fermer le ou les curseurs ouverts
+    \end{itemize}
+    \lstinputlisting[language=plsql]{../exemples/PLSQL Chapitre 9/exemple5.sql}
+\end{frame}
+
+
+\section{Curseurs for implicites}
+\begin{frame}{\secname}
+    Du point de vue programmation : ce sont les plus simples ! Il suffit de placer la requête de sélection.
+    \lstinputlisting[language=plsql]{../exemples/PLSQL Chapitre 9/exemple6.sql}
+\end{frame}
+
+
+\section{Curseurs for explicites}
+\begin{frame}{\secname}
+    \begin{itemize}
+        \item Le curseur est déclaré de manière explicite;
+        \item Son parcours est réalisé au moyen d'une boucle \lstinline[language=plsql]!for! et d'un record ad hoc implicitement déclaré dans la boucle;
+        \item Il est possible d'utiliser les attributs \lstinline[language=plsql]!\%FOUND!, \lstinline[language=plsql]!\%NOTFOUND!, \lstinline[language=plsql]!\%ISOPEN!, \lstinline[language=plsql]!\%ROWCOUNT!.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{\secname}
+    \lstinputlisting[language=plsql, title=Curseurs for explicites]{../exemples/PLSQL Chapitre 9/exemple7.sql}
+\end{frame}
+
+
+
+\section{Curseurs avec paramètres}
+\begin{frame}{\secname}
+    \begin{itemize}
+        \item Il est possible de passer des paramètres à un curseur
+        \item La déclaration des paramètres dans le curseur se fait lors de la déclaration du curseur, de la même manière que pour une procédure
+        \item L'évaluation et la transmission des paramètres se fait au moment de l'ouverture du curseur
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{\secname}
+    \lstinputlisting[language=plsql, title=Curseurs avec paramètres]{../exemples/PLSQL Chapitre 9/exemple8.sql}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{\secname}
+    \lstinputlisting[language=plsql, title=Curseurs avec paramètres]{../exemples/PLSQL Chapitre 9/exemple9.sql}
+\end{frame}
+
+\section{Curseurs for update}
+\begin{frame}{\secname}
+    \begin{itemize}
+        \item Les curseurs for update permettent de modifier le tuple qui vient d'être extrait par un \lstinline[language=plsql]!FETCH!
+        \item Oracle place des verrous exclusifs sur les tuples de l'active set des curseurs for update
+    \end{itemize}
+    \lstinputlisting[language=plsql]{../exemples/PLSQL Chapitre 9/exemple10.sql}
+\end{frame}
+% \section{Commit et les curseurs}
+% \begin{frame}[allowframebreaks]{\secname}
+%     \lstinputlisting[language=plsql, title=Modifier le salaire de certains employés]{../exemples/PLSQL Chapitre 9/exemple11.sql}
+% \end{frame}
+
+% \begin{frame}[allowframebreaks]{\secname}
+%     \begin{itemize}
+%         \item Le \lstinline[language=plsql]!COMMIT! DOIT être placé en dehors de la boucle car il ferme les curseurs ouverts
+%         \item Dès lors placer le \lstinline[language=plsql]!COMMIT! dans la boucle provoque l'erreur "ORA-1002 : fetch out of sequence" lors du \lstinline[language=plsql]!FETCH! suivant
+%         \item Inconvénient : l'active set  peut être important et des tuples peuvent rester verrouillés longtemps après que la transaction les ait modifiés
+%     \end{itemize}
+% \end{frame}
+
+\section{Le curseur implicite SQL}
+\begin{frame}{\secname}
+    \begin{itemize}
+        \item PL/SQL utilise un curseur implicite pour chaque opération du LMD de SQL (\lstinline[language=plsql]!INSERT!, \lstinline[language=plsql]!UPDATE!, \lstinline[language=plsql]!DELETE!);
+        \item Ce curseur porte le nom SQL et il est exploitable après avoir exécuté l'instruction;
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{\secname}
+    Le curseur implicite SQL :
+    \begin{itemize}
+        \item Ne nécessite pas de déclaration;
+        \item Ne doit pas être ouvert, ni fermé;
+        \item Peut utiliser les attributs \lstinline[language=plsql]!\%FOUND!, \lstinline[language=plsql]!\%NOTFOUND!, \lstinline[language=plsql]!\%ISOPEN!, \lstinline[language=plsql]!\%ROWCOUNT!;
+        \item Permet d'exécuter des \lstinline[language=plsql]!INSERT!, \lstinline[language=plsql]!UPDATE!, \lstinline[language=plsql]!DELETE!, \lstinline[language=plsql]!SELECT INTO! d'un seul tuple\footnote{Contrairement aux autres curseurs : recherche portant sur plusieurs tuples.}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{\secname}
+    \lstinputlisting[language=plsql, title=Mise à jour ou insertion]{../exemples/PLSQL Chapitre 9/exemple12.sql}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{\secname}
+    \lstinputlisting[language=plsql, title=Effacer le projet si ce projet a commencé il y plus de trois ans]{../exemples/PLSQL Chapitre 9/exemple13.sql}
+\end{frame}
+
+
+\end{document}
