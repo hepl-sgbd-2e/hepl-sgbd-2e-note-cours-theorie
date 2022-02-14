@@ -75,46 +75,47 @@
         \item Les privilèges de niveau système
               \begin{itemize}
                   \item Permettent la création, modification, suppression de groupes d'objets.
-                        Exemple : \lstinline[language=sql]!CREATE TABLE!, \lstinline[language=sql]!CREATE VIEW!, \lstinline[language=sql]!CREATE SEQUENCE!, permettent, à l'utilisateur qui les a reçus de créer des tables, des vues et des séquences.
+                        Exemple : \lstinline[language=plsql]!CREATE TABLE!, \lstinline[language=plsql]!CREATE VIEW!, \lstinline[language=plsql]!CREATE SEQUENCE!, permettent, à l'utilisateur qui les a reçus de créer des tables, des vues et des séquences.
               \end{itemize}
               Les privilèges de niveau Objet
               \begin{itemize}
                   \item Permettent les manipulations sur des objets spécifiques.
-                        Exemple : les privilèges \lstinline[language=sql]!SELECT!, \lstinline[language=sql]!INSERT!, \lstinline[language=sql]!UPDATE!, \lstinline[language=sql]!DELETE! sur la table \lstinline[language=sql]!INFOSOFT.employes! permettent à l'utilisateur qui les a reçus de sélectionner, ajouter, modifier et supprimer des lignes dans la table EMPLOYES appartenant à l'utilisateur INFOSOFT.
+                        Exemple : les privilèges \lstinline[language=plsql]!SELECT!, \lstinline[language=plsql]!INSERT!, \lstinline[language=plsql]!UPDATE!, \lstinline[language=plsql]!DELETE! sur la table \lstinline[language=plsql]!INFOSOFT.employes! permettent à l'utilisateur qui les a reçus de sélectionner, ajouter, modifier et supprimer des lignes dans la table EMPLOYES appartenant à l'utilisateur INFOSOFT.
               \end{itemize}
     \end{itemize}
 \end{frame}
+
 \subsection{Assigner des privilèges}
 \begin{frame}{\secname : \subsecname}
     Assigner des privilèges système à un utilisateur
     \begin{itemize}
         \item Lorsqu'un utilisateur est créé avec l'instruction CREATE USER, il ne dispose d'aucun droit.  Il ne peut même pas se connecter à la base !
-        \item Il doit pouvoir se connecter, créer des tables, des vues, des séquences.  Pour lui assigner ces privilèges de niveau système, il faut utiliser l'instruction \lstinline[language=sql]!GRANT!
+        \item Il doit pouvoir se connecter, créer des tables, des vues, des séquences.  Pour lui assigner ces privilèges de niveau système, il faut utiliser l'instruction \lstinline[language=plsql]!GRANT!
     \end{itemize}
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=Assigner des privilèges système à un utilisateur]{../exemples/Chapitre 6/grant-acces-1.sql}
+    \lstinputlisting[language=plsql, title=Assigner des privilèges système à un utilisateur]{../exemples/Chapitre 6/grant-acces-1.sql}
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
-    La liste des privilèges système assignés à l'utilisateur au cours de sa session est visible via la vue \lstinline[language=sql]!SESSION\_PRIVS!
+    La liste des privilèges système assignés à l'utilisateur au cours de sa session est visible via la vue \lstinline[language=plsql]!SESSION\_PRIVS!
     Pour les voir, il suffit donc d'exécuter l'instruction :
-    \lstinline[language=sql]!SELECT * FROM SESSION\_PRIVS;!
+    \lstinline[language=plsql]!SELECT * FROM SESSION\_PRIVS;!
 \end{frame}
 \begin{frame}{\secname : \subsecname}
     Au centre des mécanismes d'octroi/annulation et de contrôle des autorisations se trouve le dictionnaire des données (ou méta-base) dans lequel sont enregistrées toutes les autorisations d'accès.\\
     Pour SQL2, les privilèges sont enregistrés dans les tables
-    \lstinline[language=sql]!TABLE\_PRIVILEGES!, \lstinline[language=sql]!COLUMN\_PRIVILEGE! et \lstinline[language=sql]!USAGE\_PRIVILEGES! (\lstinline[language=sql]!all\_tab\_privs! en Oracle)
+    \lstinline[language=plsql]!TABLE\_PRIVILEGES!, \lstinline[language=plsql]!COLUMN\_PRIVILEGE! et \lstinline[language=plsql]!USAGE\_PRIVILEGES! (\lstinline[language=plsql]!all\_tab\_privs! en Oracle)
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
     Le contrôle des autorisations (niveau objet)\\
-    Le mécanisme d'octroi/annulation des privilèges permet à l'ADB ou à toute personne autorisée d'accorder ou de retirer les privilèges à des \lstinline[language=sql]!sujets! sur des \textbf{objets}.
+    Le mécanisme d'octroi/annulation des privilèges permet à l'ADB ou à toute personne autorisée d'accorder ou de retirer les privilèges à des \lstinline[language=plsql]!sujets! sur des \textbf{objets}.
     \begin{itemize}
         \item \textbf{Sujets} : un utilisateur, un groupe d'utilisateur, tous les utilisateurs
         \item \textbf{Objets} : la base de données, les tables, les vues, les index, les procédures stockées, …
-        \item \textbf{Privilèges} : varient d'un SGBD à l'autre, mais au minimum \lstinline[language=sql]!SELECT!, \lstinline[language=sql]!INSERT!, \lstinline[language=sql]!DELETE!, \lstinline[language=sql]!UPDATE!
+        \item \textbf{Privilèges} : varient d'un SGBD à l'autre, mais au minimum \lstinline[language=plsql]!SELECT!, \lstinline[language=plsql]!INSERT!, \lstinline[language=plsql]!DELETE!, \lstinline[language=plsql]!UPDATE!
     \end{itemize}
 \end{frame}
 
@@ -127,28 +128,28 @@
     \begin{itemize}
         \item Un utilisateur possède automatiquement tous les privilèges sur un objet qui lui appartient
         \item Un utilisateur ne peut pas donner plus de privilèges qu'il n'en a reçus
-        \item S'il n'a pas reçu le privilège avec l'option \lstinline[language=sql]!WITH GRANT OPTION!, un utilisateur ne peut pas donner à son tour ce privilège à un autre utilisateur
+        \item S'il n'a pas reçu le privilège avec l'option \lstinline[language=plsql]!WITH GRANT OPTION!, un utilisateur ne peut pas donner à son tour ce privilège à un autre utilisateur
     \end{itemize}
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=Octroi de privilèges (niveau objet)]{../exemples/Chapitre 6/grant.bnf}
+    \lstinputlisting[language=plsql, title=Octroi de privilèges (niveau objet)]{../exemples/Chapitre 6/grant.bnf}
     \begin{itemize}
-        \item \textbf{privilege} \lstinline[language=sql]!SELECT!, \lstinline[language=sql]!INSERT!, \lstinline[language=sql]!INSERT(x)!, \lstinline[language=sql]!UPDATE!, \lstinline[language=sql]!UPDATE(x)!, \lstinline[language=sql]!DELETE!, \lstinline[language=sql]!ALL! (= tous les privilèges que le donneur peut accorder sur l'objet)
-        \item \textbf{objet} liste de tables, vues ou colonnes précédée de TABLE ou VIEW suivant qu'il s'agit d'une table ou d'une vueutilisateur liste d'utilisateurs ou \lstinline[language=sql]!PUBLIC!
-        \item \lstinline[language=sql]!WITH GRANT OPTION! : permet au donneur d'indiquer que le receveur pourra transmettre les privilèges qu'il reçoit.
+        \item \textbf{privilege} \lstinline[language=plsql]!SELECT!, \lstinline[language=plsql]!INSERT!, \lstinline[language=plsql]!INSERT(x)!, \lstinline[language=plsql]!UPDATE!, \lstinline[language=plsql]!UPDATE(x)!, \lstinline[language=plsql]!DELETE!, \lstinline[language=plsql]!ALL! (= tous les privilèges que le donneur peut accorder sur l'objet)
+        \item \textbf{objet} liste de tables, vues ou colonnes précédée de TABLE ou VIEW suivant qu'il s'agit d'une table ou d'une vueutilisateur liste d'utilisateurs ou \lstinline[language=plsql]!PUBLIC!
+        \item \lstinline[language=plsql]!WITH GRANT OPTION! : permet au donneur d'indiquer que le receveur pourra transmettre les privilèges qu'il reçoit.
     \end{itemize}
 
 \end{frame}
 
 
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=Exemple : Le directeur possède tous les privilèges sur la table RESULTATS et peut les transmettre.]{../exemples/Chapitre 6/grant-acces-2.sql}
+    \lstinputlisting[language=plsql, title=Exemple : Le directeur possède tous les privilèges sur la table RESULTATS et peut les transmettre.]{../exemples/Chapitre 6/grant-acces-2.sql}
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
     \lstinputlisting[language=bnf, title=Privilège objet et utilisateur ont la même signification que celle de la commande GRANT]{../exemples/Chapitre 6/remove-acces-1.bnf}
-    \lstinline[language=sql]!REVOKE SELECT ON TABLE t FROM Obelix;!
+    \lstinline[language=plsql]!REVOKE SELECT ON TABLE t FROM Obelix;!
 \end{frame}
 
 \section{Complément SQL2}

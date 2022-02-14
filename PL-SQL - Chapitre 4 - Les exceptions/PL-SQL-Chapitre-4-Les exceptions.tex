@@ -27,8 +27,8 @@
 \subsection{Déclaration des exceptions}
 \begin{frame}{\secname : \subsecname}
     \begin{itemize}
-        \item Dans la section \lstinline[language=sql]!DECLARE!
-        \item \lstinline[language=sql]!Nom\_de\_l\_exception EXCEPTION;!
+        \item Dans la section \lstinline[language=plsql]!DECLARE!
+        \item \lstinline[language=plsql]!Nom\_de\_l\_exception EXCEPTION;!
         \item Lorsqu'une erreur survient, elle est lancée dans le \emph{gestionnaire d'exception}.
         \item À nous d'en faire quelque chose.
     \end{itemize}
@@ -39,7 +39,7 @@
     \begin{itemize}
         \item Est chargé d'intercepter les différentes erreurs
         \item Peut être déclaré dans n'importe quel bloc PL/SQL
-        \item Commence par le mot clé \lstinline[language=sql]!EXCEPTION!
+        \item Commence par le mot clé \lstinline[language=plsql]!EXCEPTION!
     \end{itemize}
     Une exception est lancée :
     \begin{itemize}
@@ -51,13 +51,13 @@
 \subsection{La clause WHEN OTHERS}
 \begin{frame}{\secname : \subsecname}
     \begin{itemize}
-        \item La clause \lstinline[language=sql]!WHEN OTHERS! dans un gestionnaire d'exceptions permet d'intercepter n'importe quel type d'exceptions non géré par ailleurs.
+        \item La clause \lstinline[language=plsql]!WHEN OTHERS! dans un gestionnaire d'exceptions permet d'intercepter n'importe quel type d'exceptions non géré par ailleurs.
         \item La définition de cette clause devrait devenir systématique.
     \end{itemize}
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=La clause WHEN OTHERS]{../exemples/PLSQL Chapitre 4/exception.sql}
+    \lstinputlisting[language=plsql, title=La clause WHEN OTHERS]{../exemples/PLSQL Chapitre 4/exception.sql}
 \end{frame}
 
 \section{Catégories d'exceptions}
@@ -87,7 +87,7 @@
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=Exceptions définies "non redirigées"]{../exemples/PLSQL Chapitre 4/exception2.sql}
+    \lstinputlisting[language=plsql, title=Exceptions définies "non redirigées"]{../exemples/PLSQL Chapitre 4/exception2.sql}
 \end{frame}
 \begin{frame}{\secname : \subsecname}
     \begin{table}[]
@@ -130,43 +130,43 @@
 
 \subsection{Exceptions prédéfinies : NO\_DATA\_FOUND}
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=Le nr de l'employé n’existe pas]{../exemples/PLSQL Chapitre 4/exception3.sql}
+    \lstinputlisting[language=plsql, title=Le nr de l'employé n’existe pas]{../exemples/PLSQL Chapitre 4/exception3.sql}
 \end{frame}
 
 \subsection{Exceptions prédéfinies : TOO\_MANY\_ROWS}
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=Plus d'un employé SCOTT]{../exemples/PLSQL Chapitre 4/exception4.sql}
+    \lstinputlisting[language=plsql, title=Plus d'un employé SCOTT]{../exemples/PLSQL Chapitre 4/exception4.sql}
 \end{frame}
 
 \subsection{Exceptions prédéfinies : DUP\_VAL\_ON\_INDEX}
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=Erreur de données]{../exemples/PLSQL Chapitre 4/exception5.sql}
+    \lstinputlisting[language=plsql, title=Erreur de données]{../exemples/PLSQL Chapitre 4/exception5.sql}
 \end{frame}
 
 \subsection{Exceptions prédéfinies : INVALID\_NUMBER}
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=Erreur de données]{../exemples/PLSQL Chapitre 4/exception6.sql}
+    \lstinputlisting[language=plsql, title=Erreur de données]{../exemples/PLSQL Chapitre 4/exception6.sql}
 \end{frame}
 
 \subsection{Exceptions prédéfinies : VALUE\_ERROR}
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=Chaine réceptrice trop petite !]{../exemples/PLSQL Chapitre 4/exception7.sql}
+    \lstinputlisting[language=plsql, title=Chaine réceptrice trop petite !]{../exemples/PLSQL Chapitre 4/exception7.sql}
 \end{frame}
 
 \subsection{Exceptions définies "redirigées"}
 \begin{frame}{\secname : \subsecname}
     \begin{itemize}
         \item Une exception définie par le programmeur peut être associée au code d'erreur d'une exception définie par Oracle
-        \item Oracle se charge de lancer ce type d'exception : pas besoin de lancer un \lstinline[language=sql]!RAISE!
-        \item Une exception redirigée se définit en utilisant le pragma \lstinline[language=sql]!EXCEPTION\_INIT!
+        \item Oracle se charge de lancer ce type d'exception : pas besoin de lancer un \lstinline[language=plsql]!RAISE!
+        \item Une exception redirigée se définit en utilisant le pragma \lstinline[language=plsql]!EXCEPTION\_INIT!
     \end{itemize}
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
     Techniques des exceptions définies "redirigées" :
     \begin{itemize}
-        \item Déclarer l'exception : \lstinline[language=sql]!NameExc EXCEPTION!
-        \item Associer le nom de l'exception à un numéro d'erreur Oracle \lstinline[language=sql]!PRAGMA EXCEPTION_INIT (NameExc, Oracle_error);!
+        \item Déclarer l'exception : \lstinline[language=plsql]!NameExc EXCEPTION!
+        \item Associer le nom de l'exception à un numéro d'erreur Oracle \lstinline[language=plsql]!PRAGMA EXCEPTION_INIT (NameExc, Oracle_error);!
         \item Utiliser l'exception dans la section des gestions d'exceptions.
     \end{itemize}
     \metroset{block=fill}
@@ -177,12 +177,12 @@
 
 \subsection{Exceptions définies "redirigées" : intégrité référentielle}
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=Contrainte d'intégrité sur Mgr est violée]{../exemples/PLSQL Chapitre 4/EXCEPTION-INIT.sql}
+    \lstinputlisting[language=plsql, title=Contrainte d'intégrité sur Mgr est violée]{../exemples/PLSQL Chapitre 4/EXCEPTION-INIT.sql}
 \end{frame}
 
 \subsection{Exceptions définies "redirigées" : Ressource Busy}
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=La ressource est occupée]{../exemples/PLSQL Chapitre 4/EXCEPTION-INIT2.sql}
+    \lstinputlisting[language=plsql, title=La ressource est occupée]{../exemples/PLSQL Chapitre 4/EXCEPTION-INIT2.sql}
 \end{frame}
 
 \subsection{Exceptions définies "redirigées" : Ressource Busy}
@@ -194,23 +194,23 @@
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=Une erreur non interceptée]{../exemples/PLSQL Chapitre 4/EXCEPTION-INIT3.sql}
+    \lstinputlisting[language=plsql, title=Une erreur non interceptée]{../exemples/PLSQL Chapitre 4/EXCEPTION-INIT3.sql}
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=Une erreur interceptée]{../exemples/PLSQL Chapitre 4/EXCEPTION-INIT4.sql}
+    \lstinputlisting[language=plsql, title=Une erreur interceptée]{../exemples/PLSQL Chapitre 4/EXCEPTION-INIT4.sql}
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=Une erreur non interceptée dans un bloc imbriqué]{../exemples/PLSQL Chapitre 4/EXCEPTION-INIT5.sql}
+    \lstinputlisting[language=plsql, title=Une erreur non interceptée dans un bloc imbriqué]{../exemples/PLSQL Chapitre 4/EXCEPTION-INIT5.sql}
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=Une erreur interceptée dans un bloc imbriqué]{../exemples/PLSQL Chapitre 4/EXCEPTION-INIT6.sql}
+    \lstinputlisting[language=plsql, title=Une erreur interceptée dans un bloc imbriqué]{../exemples/PLSQL Chapitre 4/EXCEPTION-INIT6.sql}
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=L'instruction NULL]{../exemples/PLSQL Chapitre 4/EXCEPTION-INIT7.sql}
+    \lstinputlisting[language=plsql, title=L'instruction NULL]{../exemples/PLSQL Chapitre 4/EXCEPTION-INIT7.sql}
 \end{frame}
 
 \section{Petit guide...}
@@ -226,16 +226,16 @@
     Les erreurs surviennent généralement :
     \begin{itemize}
         \item Pendant les opérations arithmétiques;
-        \item Les opérations sur la base de données (\lstinline[language=sql]!SELECT!, \lstinline[language=sql]!INSERT!, \lstinline[language=sql]!UPDATE!, \lstinline[language=sql]!DELETE!);
+        \item Les opérations sur la base de données (\lstinline[language=plsql]!SELECT!, \lstinline[language=plsql]!INSERT!, \lstinline[language=plsql]!UPDATE!, \lstinline[language=plsql]!DELETE!);
         \item Ainsi que les conversions de données et/ou manipulations de chaînes de caractères.
     \end{itemize}
 \end{frame}
 
 \begin{frame}{\secname}
     \begin{itemize}
-        \item Définir des exceptions si le code écrit reçoit des encodages de données erronées ou ne respectant pas un format ou un type prédéfini.  Exemple : les paramètres \lstinline[language=sql]!NULL! ou les sélections qui ne ramènent aucune donnée
-              Utiliser les attributs \lstinline[language=sql]!\%TYPE! et \lstinline[language=sql]!\%ROWTYPE! pour rendre le code indépendant des données accédées et des modifications, ajouts ou suppressions de colonnes.
-        \item Pour chaque exception interceptée, se poser la question de savoir si les opérations effectuées dans la base de données doivent être confirmées ou annulées (\lstinline[language=sql]!COMMIT! ou \lstinline[language=sql]!ROLLBACK! ?)
+        \item Définir des exceptions si le code écrit reçoit des encodages de données erronées ou ne respectant pas un format ou un type prédéfini.  Exemple : les paramètres \lstinline[language=plsql]!NULL! ou les sélections qui ne ramènent aucune donnée
+              Utiliser les attributs \lstinline[language=plsql]!\%TYPE! et \lstinline[language=plsql]!\%ROWTYPE! pour rendre le code indépendant des données accédées et des modifications, ajouts ou suppressions de colonnes.
+        \item Pour chaque exception interceptée, se poser la question de savoir si les opérations effectuées dans la base de données doivent être confirmées ou annulées (\lstinline[language=plsql]!COMMIT! ou \lstinline[language=plsql]!ROLLBACK! ?)
     \end{itemize}
 \end{frame}
 
@@ -248,7 +248,7 @@
 \end{frame}
 
 \begin{frame}{\secname}
-    \lstinputlisting[language=sql, title=Traitement dans le gestionnaire d'exceptions]{../exemples/PLSQL Chapitre 4/EXCEPTION-INIT8.sql}
+    \lstinputlisting[language=plsql, title=Traitement dans le gestionnaire d'exceptions]{../exemples/PLSQL Chapitre 4/EXCEPTION-INIT8.sql}
 \end{frame}
 
 \end{document}

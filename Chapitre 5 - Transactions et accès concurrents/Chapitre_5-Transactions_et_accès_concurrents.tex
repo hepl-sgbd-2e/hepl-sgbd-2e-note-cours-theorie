@@ -57,7 +57,7 @@
 \end{frame}
 \subsection{Exemple}
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=SQL,title=Exemple]{../exemples/Chapitre 5/notion_de_base-exemple--1.sql}\footnote{Si on a une panne entre les 2 updates, on ne veut pas perdre le montant $S$. Et donc les 2 opérations doivent obligatoirement être réalisées toutes les deux ou aucune.}
+    \lstinputlisting[language=plsql,title=Exemple]{../exemples/Chapitre 5/notion_de_base-exemple--1.sql}\footnote{Si on a une panne entre les 2 updates, on ne veut pas perdre le montant $S$. Et donc les 2 opérations doivent obligatoirement être réalisées toutes les deux ou aucune.}
 \end{frame}
 \subsection{Définition}
 \begin{frame}{\secname : \subsecname}
@@ -101,7 +101,7 @@
 
 \begin{frame}{\secname : \subsecname}
     La \textbf{durabilité} rend permanents les changements. Considérant aussi les pannes.
-    La commande SQL qui valide et termine une transaction est : \lstinline[language=sql]!COMMIT!
+    La commande SQL qui valide et termine une transaction est : \lstinline[language=plsql]!COMMIT!
 \end{frame}
 
 \subsection{Un arrêt interne}
@@ -109,7 +109,7 @@
     Exemple : lors de son exécution, une transaction \textbf{détecte une erreur} de conversion de type de données ou une violation de contrainte d'intégrité.
     Dans ce cas, la transaction arrête son exécution en émettant l'\textbf{action annuler}.
     Afin d'assurer la propriété d'atomicité, le SGBD doit effacer toute trace du passage de la transaction annulée.
-    La commande SQL qui défait et termine une transaction est : \lstinline[language=sql]!ROLLBACK!
+    La commande SQL qui défait et termine une transaction est : \lstinline[language=plsql]!ROLLBACK!
 \end{frame}
 
 \subsection{Un arrêt externe}
@@ -517,7 +517,7 @@
         \item Le mode d'accès (lecture seule (read only) ou lecture écriture (read write)),
         \item La taille de la zone de diagnostic (diagnotics area)
     \end{itemize}
-    \lstinputlisting[language=sql, title=Le niveau d'isolation]{../exemples/Chapitre 5/isolation.sql}\footnote{Ne peut pas être exécutée s'il y a une transaction en cours. NE démarre PAS une transaction. Serializable : niveau par défaut}
+    \lstinputlisting[language=plsql, title=Le niveau d'isolation]{../exemples/Chapitre 5/isolation.sql}\footnote{Ne peut pas être exécutée s'il y a une transaction en cours. NE démarre PAS une transaction. Serializable : niveau par défaut}
 \end{frame}
 
 \subsection{sérialisable}
@@ -549,15 +549,15 @@
     Oracle implémente également
     \begin{itemize}
         \item La notion de point de sauvegarde intermédiaire (\textbf{savepoint})\footnote{ Les savepoints permettent de diviser une transaction en plusieurs petites parties qu'il est possible d'annuler sans annuler toute la transaction.}.
-        \item Un point de sauvegarde intermédiaire se définit par : \lstinline[language=sql]!SAVEPOINT point;!
-        \item L'annulation des opérations comprises entre le point courant et un point de sauvegarde intermédiaire donné se réalise par : \lstinline[language=sql]!ROLLBACK point;!
+        \item Un point de sauvegarde intermédiaire se définit par : \lstinline[language=plsql]!SAVEPOINT point;!
+        \item L'annulation des opérations comprises entre le point courant et un point de sauvegarde intermédiaire donné se réalise par : \lstinline[language=plsql]!ROLLBACK point;!
     \end{itemize}
 \end{frame}
 \subsection{Comportements par défaut}
 \begin{frame}{\secname : \subsecname}
     \begin{itemize}
         \item Par défaut, Oracle garantit la cohérence en lecture au niveau opération mais ne garantit pas une lecture cohérente au niveau transaction.
-        \item Pour réaliser des lectures cohérentes au niveau transaction, il faut démarrer une transaction read only au moyen de la commande \lstinline[language=sql]!set transaction read only! ou utiliser des verrous explicites.
+        \item Pour réaliser des lectures cohérentes au niveau transaction, il faut démarrer une transaction read only au moyen de la commande \lstinline[language=plsql]!set transaction read only! ou utiliser des verrous explicites.
     \end{itemize}
 \end{frame}
 
@@ -625,10 +625,10 @@
     Oracle et les niveaux d'isolation
     \begin{itemize}
         \item Oracle empêche toute lecture impropre.
-        \item Le niveau \lstinline[language=sql]!READ COMMITTED! est le niveau par défaut.
-        \item Oracle ne supporte pas directement le niveau \lstinline[language=sql]!REPEATABLE READ! (il ne le supporte qu'on mode \lstinline[language=sql]!READ ONLY!)
-        \item En écriture, ce niveau est inclus dans le niveau \lstinline[language=sql]!SERIALIZABLE!.
-        \item Le niveau d'isolation est spécifié au moyen de la clause \lstinline[language=sql]!ISOLATION LEVEL! de la commande \lstinline[language=sql]!SET TRANSACTION!
+        \item Le niveau \lstinline[language=plsql]!READ COMMITTED! est le niveau par défaut.
+        \item Oracle ne supporte pas directement le niveau \lstinline[language=plsql]!REPEATABLE READ! (il ne le supporte qu'on mode \lstinline[language=plsql]!READ ONLY!)
+        \item En écriture, ce niveau est inclus dans le niveau \lstinline[language=plsql]!SERIALIZABLE!.
+        \item Le niveau d'isolation est spécifié au moyen de la clause \lstinline[language=plsql]!ISOLATION LEVEL! de la commande \lstinline[language=plsql]!SET TRANSACTION!
     \end{itemize}
 \end{frame}
 
@@ -659,20 +659,20 @@
 \begin{frame}{\secname : \subsecname}
     Oracle permet au programmeur de placer des verrous explicitement. Ceci se fait au moyen des commandes :
     \begin{itemize}
-        \item \lstinline[language=sql]!SELECT name FOR UPDATE [NOWAIT]!
-        \item \lstinline[language=sql]!LOCK TABLE!
+        \item \lstinline[language=plsql]!SELECT name FOR UPDATE [NOWAIT]!
+        \item \lstinline[language=plsql]!LOCK TABLE!
     \end{itemize}
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=Verrouillage explicite dans Oracle]{../exemples/Chapitre 5/select-for-update.sql}
-    Cette commande verrouille explicitement les tuples répondant à la condition de la clause \lstinline[language=sql]!WHERE!.
-    \lstinline[language=sql]!verrou ROW SHARE!
+    \lstinputlisting[language=plsql, title=Verrouillage explicite dans Oracle]{../exemples/Chapitre 5/select-for-update.sql}
+    Cette commande verrouille explicitement les tuples répondant à la condition de la clause \lstinline[language=plsql]!WHERE!.
+    \lstinline[language=plsql]!verrou ROW SHARE!
     Les tuples sont verrouillés en vue d'être modifiés.  Une autre transaction pourra lire ces tuples mais pas les modifier.
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=Ici on ne souhaite pas attendre et donc risque d'erreur]{../exemples/Chapitre 5/select-for-update.sql}
+    \lstinputlisting[language=plsql, title=Ici on ne souhaite pas attendre et donc risque d'erreur]{../exemples/Chapitre 5/select-for-update2.sql}
 \end{frame}
 
 \subsection{La double transaction}
@@ -713,7 +713,7 @@
     \begin{itemize}
         \item  Lire le tuple à modifier (ancien tuple) et la lecture sera faite sans verrou !
         \item Encoder les nouvelles valeurs : nouveau tuple
-        \item Relire le tuple à modifer en posant un verrou avec l'option \lstinline[language=sql]!NOWAIT! dans l'idée de le remplacer par le tuple qui contient les nouvelles valeurs.
+        \item Relire le tuple à modifer en posant un verrou avec l'option \lstinline[language=plsql]!NOWAIT! dans l'idée de le remplacer par le tuple qui contient les nouvelles valeurs.
     \end{itemize}
 \end{frame}
 
@@ -721,7 +721,7 @@
     Trois cas de figure peuvent se présenter lors de la lecture du tuple avec pose de verrou :
     \begin{itemize}
         \item La ressource est occupée (-54)
-        \item La ressource n'existe plus (\lstinline[language=sql]!NO\_DATA\_FOUND!)
+        \item La ressource n'existe plus (\lstinline[language=plsql]!NO\_DATA\_FOUND!)
         \item La ressource est disponible.
     \end{itemize}
 \end{frame}
@@ -734,7 +734,7 @@
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
-    \textbf{La ressource n'existe plus (\lstinline[language=sql]!NO\_DATA\_FOUND!)}
+    \textbf{La ressource n'existe plus (\lstinline[language=plsql]!NO\_DATA\_FOUND!)}
     La ressource a été supprimée entretemps, la modification est alors interrompue
 \end{frame}
 \begin{frame}{\secname : \subsecname}

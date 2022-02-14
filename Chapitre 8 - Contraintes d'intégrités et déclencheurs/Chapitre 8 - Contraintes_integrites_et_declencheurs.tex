@@ -92,30 +92,30 @@
 \section{Particularités d'Oracle}
 \subsection{DEFERRABLE}
 \begin{frame}{\secname : \subsecname}
-    Oracle possède la clause \lstinline[language=sql]![NOT] DEFERRABLE!
-    Pour Oracle, une contrainte déclarée \lstinline[language=sql]!DEFERRABLE! pourra être différée pendant la durée d'une transaction à condition de le préciser explicitement au moyen de la commande \lstinline[language=sql]!SET CONSTRAINT!
+    Oracle possède la clause \lstinline[language=plsql]![NOT] DEFERRABLE!
+    Pour Oracle, une contrainte déclarée \lstinline[language=plsql]!DEFERRABLE! pourra être différée pendant la durée d'une transaction à condition de le préciser explicitement au moyen de la commande \lstinline[language=plsql]!SET CONSTRAINT!
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=Exemple]{../exemples/Chapitre 8/DEFERRABLE.sql}
+    \lstinputlisting[language=plsql, title=Exemple]{../exemples/Chapitre 8/DEFERRABLE.sql}
     \textbf{La contrainte N'EST PAS différée !}
     Pour qu'elle le soit : \\
-    \lstinline[language=sql]!SET CONSTRAINT c DEFERRED;!
+    \lstinline[language=plsql]!SET CONSTRAINT c DEFERRED;!
 \end{frame}
 \subsection{IMMEDIATE}
 
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=Exemple]{../exemples/Chapitre 8/DEFERRABLE2.sql}
+    \lstinputlisting[language=plsql, title=Exemple]{../exemples/Chapitre 8/DEFERRABLE2.sql}
     \textbf{Pour inverser le comportement d'une contraint INITIALLY DEFERRED, on utilise la commande}
     Pour qu'elle le soit : \\
-    \lstinline[language=sql]!SET CONSTRAINT c IMMEDIATE;!
+    \lstinline[language=plsql]!SET CONSTRAINT c IMMEDIATE;!
 \end{frame}
 
 \subsection{En résumé}
 \begin{frame}{\secname : \subsecname}
     \begin{itemize}
-        \item \lstinline[language=sql]!INITIALLY IMMEDIATE! correspond à \lstinline[language=sql]!NOT DEFERRABLE! de la norme et est le comportement par défaut
-        \item \lstinline[language=sql]!INITIALLY DEFERRED! est équivalent à \lstinline[language=sql]!DEFERRABLE! de la norme
+        \item \lstinline[language=plsql]!INITIALLY IMMEDIATE! correspond à \lstinline[language=plsql]!NOT DEFERRABLE! de la norme et est le comportement par défaut
+        \item \lstinline[language=plsql]!INITIALLY DEFERRED! est équivalent à \lstinline[language=plsql]!DEFERRABLE! de la norme
     \end{itemize}
 \end{frame}
 \section{Les déclencheurs}
@@ -154,12 +154,12 @@
 \end{frame}
 \subsection{FOR EACH ROW}
 \begin{frame}{\secname : \subsecname}
-    \lstinline[language=sql]!FOR EACH ROW! : déclencheur du niveau tuple : sera exécuté pour toutes les lignes provoquant l'activation du déclencheur.  En son absence, le déclencheur est du niveau table et le bloc PL/SQL n'est exécuté qu'une seule fois.
+    \lstinline[language=plsql]!FOR EACH ROW! : déclencheur du niveau tuple : sera exécuté pour toutes les lignes provoquant l'activation du déclencheur.  En son absence, le déclencheur est du niveau table et le bloc PL/SQL n'est exécuté qu'une seule fois.
 \end{frame}
 
 \subsection{WHEN}
 \begin{frame}{\secname : \subsecname}
-    \lstinline[language=sql]!WHEN! : permet de préciser une condition supplémentaire. Le bloc PL/SQL ne sera exécuté que si la condition de la clause WHEN est évaluée à vrai.
+    \lstinline[language=plsql]!WHEN! : permet de préciser une condition supplémentaire. Le bloc PL/SQL ne sera exécuté que si la condition de la clause WHEN est évaluée à vrai.
     Ex : vérifier, lors d'une mise à jour d'une colonne que la nouvelle valeur dépasse l'ancienne valeur.
 \end{frame}
 
@@ -167,7 +167,7 @@
 \begin{frame}{\secname : \subsecname}
     Deux restrictions sur les commandes du bloc PL/SQL d'un déclencheur :
     \begin{itemize}
-        \item Un déclencheur ne peut contenir de \lstinline[language=sql]!COMMIT! ni de \lstinline[language=sql]!ROLLBACK!
+        \item Un déclencheur ne peut contenir de \lstinline[language=plsql]!COMMIT! ni de \lstinline[language=plsql]!ROLLBACK!
         \item Il est impossible d'exécuter une commande du LDD dans un déclencheur
         \item Un déclencheur  de niveau de ligne ne peut pas :
               \begin{itemize}
@@ -188,20 +188,20 @@
 \end{frame}
 \subsection{Exemple}
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=Exemple : contrainte dynamique]{../exemples/Chapitre 8/contrainte-dynamique.sql}
+    \lstinputlisting[language=plsql, title=Exemple : contrainte dynamique]{../exemples/Chapitre 8/contrainte-dynamique.sql}
     Exemple qui ne fait que lancer une exception
-    \lstinline[language=sql]!Raise\_application\_error! : permet de transmettre un code d'erreur et un message au bloc appelant
-    \lstinline[language=sql]!OLD! et \lstinline[language=sql]!NEW! sont prédéfinis, accèdent aux anciennes et nouvelles valeurs
+    \lstinline[language=plsql]!Raise\_application\_error! : permet de transmettre un code d'erreur et un message au bloc appelant
+    \lstinline[language=plsql]!OLD! et \lstinline[language=plsql]!NEW! sont prédéfinis, accèdent aux anciennes et nouvelles valeurs
 \end{frame}
 
 \begin{frame}[allowframebreaks]{\secname : \subsecname}
-    Dans la table Service : colonne \lstinline[language=sql]!Nombre\_Emp! contient le nombre d'employés de chaque service $\implies$ redondance
-    \lstinputlisting[language=sql, title=Exemple: gestion automatique de la redondance]{../exemples/Chapitre 8/redondance.sql}
-    Pour assurer la cohérence des données, on crée la table Service avec 0 comme valeur par défaut pour la colonne \lstinline[language=sql]!Nombre\_Emp! et on gère la redondance au moyen d'un déclencheur.
+    Dans la table Service : colonne \lstinline[language=plsql]!Nombre\_Emp! contient le nombre d'employés de chaque service $\implies$ redondance
+    \lstinputlisting[language=plsql, title=Exemple: gestion automatique de la redondance]{../exemples/Chapitre 8/redondance.sql}
+    Pour assurer la cohérence des données, on crée la table Service avec 0 comme valeur par défaut pour la colonne \lstinline[language=plsql]!Nombre\_Emp! et on gère la redondance au moyen d'un déclencheur.
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=Exemple: gestion automatique de la redondance]{../exemples/Chapitre 8/redondance2.sql}
+    \lstinputlisting[language=plsql, title=Exemple: gestion automatique de la redondance]{../exemples/Chapitre 8/redondance2.sql}
 \end{frame}
 
 
@@ -216,6 +216,7 @@
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=Exemple : mise à jour en cascade]{../exemples/Chapitre 8/redondance3.sql}
+    \lstinputlisting[language=plsql, title=Exemple : mise à jour en cascade]{../exemples/Chapitre 8/redondance3.sql}
 \end{frame}
+
 \end{document}

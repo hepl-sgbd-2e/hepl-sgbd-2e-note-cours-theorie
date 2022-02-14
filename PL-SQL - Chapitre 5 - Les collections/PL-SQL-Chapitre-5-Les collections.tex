@@ -78,59 +78,59 @@
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=Exemple 1]{../exemples/PLSQL Chapitre 5/exemple1.sql}
+    \lstinputlisting[language=plsql, title=Exemple 1]{../exemples/PLSQL Chapitre 5/exemple1.sql}
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=Exemple avec ROWTYPE]{../exemples/PLSQL Chapitre 5/exemple2.sql}
+    \lstinputlisting[language=plsql, title=Exemple avec ROWTYPE]{../exemples/PLSQL Chapitre 5/exemple2.sql}
 \end{frame}
 
 \subsection{Initialisation}
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=Exemple avec initialisation]{../exemples/PLSQL Chapitre 5/exemple3.sql}
+    \lstinputlisting[language=plsql, title=Exemple avec initialisation]{../exemples/PLSQL Chapitre 5/exemple3.sql}
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=Initialiser un tableau associatif]{../exemples/PLSQL Chapitre 5/exemple4.sql}
+    \lstinputlisting[language=plsql, title=Initialiser un tableau associatif]{../exemples/PLSQL Chapitre 5/exemple4.sql}
 \end{frame}
 
 \subsection{Méthode exists}
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=Tester l'existence ou non d'un élément : méthode exists]{../exemples/PLSQL Chapitre 5/exemple5.sql}
+    \lstinputlisting[language=plsql, title=Tester l'existence ou non d'un élément : méthode exists]{../exemples/PLSQL Chapitre 5/exemple5.sql}
 \end{frame}
 
 \subsection{Méthode count}
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=Compter le nombre d'éléments d'une collection : méthode count]{../exemples/PLSQL Chapitre 5/exemple6.sql}
+    \lstinputlisting[language=plsql, title=Compter le nombre d'éléments d'une collection : méthode count]{../exemples/PLSQL Chapitre 5/exemple6.sql}
 \end{frame}
 
 \subsection{Méthode first et last}
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=Déterminer le premier et le dernier indice des éléments d'une collection : méthodes first et last]{../exemples/PLSQL Chapitre 5/exemple7.sql}
+    \lstinputlisting[language=plsql, title=Déterminer le premier et le dernier indice des éléments d'une collection : méthodes first et last]{../exemples/PLSQL Chapitre 5/exemple7.sql}
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
     \metroset{block=fill}
     \begin{alertblock}{Important}
-        Si la collection est vide, \lstinline[language=sql]!FIRST! et \lstinline[language=sql]!LAST! donnent \lstinline[language=sql]!NULL!
+        Si la collection est vide, \lstinline[language=plsql]!FIRST! et \lstinline[language=plsql]!LAST! donnent \lstinline[language=plsql]!NULL!
     \end{alertblock}
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=L’indice du dernier élément]{../exemples/PLSQL Chapitre 5/exemple8.sql}
+    \lstinputlisting[language=plsql, title=L’indice du dernier élément]{../exemples/PLSQL Chapitre 5/exemple8.sql}
 \end{frame}
 
 \subsection{Méthode next}
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=Indices non consécutifs]{../exemples/PLSQL Chapitre 5/exemple9.sql}
+    \lstinputlisting[language=plsql, title=Indices non consécutifs]{../exemples/PLSQL Chapitre 5/exemple9.sql}
 \end{frame}
 
 \subsection{Méthode delete}
 \begin{frame}{\secname : \subsecname}
     \begin{itemize}
-        \item \lstinline[language=sql]!DELETE! supprime tous les éléments d'une collection
-        \item \lstinline[language=sql]!DELETE(n)! supprime le nième élément d'une table.  Si $n$ est \lstinline[language=sql]!NULL!, \lstinline[language=sql]!DELETE! n'a pas d'effet
-        \item \lstinline[language=sql]!DELETE(m, n)! supprime tous les éléments dans la fouchette $m..n$.  Si m est plus grand que $n$, \lstinline[language=sql]!DELETE(m, n)! n'a pas d'effet.
+        \item \lstinline[language=plsql]!DELETE! supprime tous les éléments d'une collection
+        \item \lstinline[language=plsql]!DELETE(n)! supprime le nième élément d'une table.  Si $n$ est \lstinline[language=plsql]!NULL!, \lstinline[language=plsql]!DELETE! n'a pas d'effet
+        \item \lstinline[language=plsql]!DELETE(m, n)! supprime tous les éléments dans la fouchette $m..n$.  Si m est plus grand que $n$, \lstinline[language=plsql]!DELETE(m, n)! n'a pas d'effet.
     \end{itemize}
 \end{frame}
 
@@ -139,17 +139,17 @@
 \subsection{Définitions}
 \begin{frame}{\secname : \subsecname}
     \begin{itemize}
-        \item \lstinline[language=sql]!NO_DATA_FOUND! Un indice désigne un élément supprimé ou un élément qui n'existe pas dans une table PL/SQL
-        \item \lstinline[language=sql]!VALUE_ERROR! Un indice est null ou ne peut être converti dans le type de l'indice
+        \item \lstinline[language=plsql]!NO_DATA_FOUND! Un indice désigne un élément supprimé ou un élément qui n'existe pas dans une table PL/SQL
+        \item \lstinline[language=plsql]!VALUE_ERROR! Un indice est null ou ne peut être converti dans le type de l'indice
     \end{itemize}
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=ORA-06502: PL/SQL : erreur numérique ou erreur sur une valeur]{../exemples/PLSQL Chapitre 5/exemple10.sql}
+    \lstinputlisting[language=plsql, title=ORA-06502: PL/SQL : erreur numérique ou erreur sur une valeur]{../exemples/PLSQL Chapitre 5/exemple10.sql}
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=Exemple complet : parcourir des résultats de recherches]{../exemples/PLSQL Chapitre 5/exemple11.sql}
+    \lstinputlisting[language=plsql, title=Exemple complet : parcourir des résultats de recherches]{../exemples/PLSQL Chapitre 5/exemple11.sql}
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
@@ -159,11 +159,11 @@
             \begin{tabular}{|l|l|}
                 \hline
                 \textbf{EXCEPTION}      & \textbf{Déclenchée lorsque... }                                      \\ \hline
-                \lstinline[language=sql]!COLLECTION\_IS\_NULL ! & On utilise une collection atomicaly null                             \\ \hline
-                \lstinline[language=sql]!NO\_DATA\_FOUND! & \begin{tabular}[c]{@{}l@{}}Un indice désigne un élément supprimé ou un élément qui n'existe\\ pas dans une table PL/SQL\end{tabular}                                           \\ \hline
-                \lstinline[language=sql]!SUBSCRIPT\_BEYOND\_COUNT! & Un indice dépasse le nombre d'éléments de la collection              \\ \hline
-                \lstinline[language=sql]!SUBSCRIPT\_OUTSIDE\_LIMIT! & Un indice est en dehors de la fourchette permise                     \\ \hline
-                \lstinline[language=sql]!VALUE\_ERROR ! & Un indice est null ou ne peut être converti dans le type de l'indice \\ \hline
+                \lstinline[language=plsql]!COLLECTION\_IS\_NULL ! & On utilise une collection atomicaly null                             \\ \hline
+                \lstinline[language=plsql]!NO\_DATA\_FOUND! & \begin{tabular}[c]{@{}l@{}}Un indice désigne un élément supprimé ou un élément qui n'existe\\ pas dans une table PL/SQL\end{tabular}                                           \\ \hline
+                \lstinline[language=plsql]!SUBSCRIPT\_BEYOND\_COUNT! & Un indice dépasse le nombre d'éléments de la collection              \\ \hline
+                \lstinline[language=plsql]!SUBSCRIPT\_OUTSIDE\_LIMIT! & Un indice est en dehors de la fourchette permise                     \\ \hline
+                \lstinline[language=plsql]!VALUE\_ERROR ! & Un indice est null ou ne peut être converti dans le type de l'indice \\ \hline
             \end{tabular}
         }
     \end{table}

@@ -158,14 +158,14 @@
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=SQL,title=Exemple : CREATE DOMAIN]{../exemples/CREATE-DOMAIN.sql}
+    \lstinputlisting[language=plsql,title=Exemple : CREATE DOMAIN]{../exemples/CREATE-DOMAIN.sql}
 \end{frame}
 
 \section{Relations}
 \tocss
 \subsection{CREATE TABLE}
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=SQL,title=CREATE TABLE]{../exemples/CREATE-table.bnf}
+    \lstinputlisting[language=plsql,title=CREATE TABLE]{../exemples/CREATE-table.bnf}
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
@@ -181,7 +181,7 @@
 
 \subsection{CREATE CONSTRAINT}
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=SQL,title=CREATE CONSTRAINT]{../exemples/CREATE-CONSTRAINT.bnf}\footnote{Le mode de la contrainte est différé ou non.  Par défaut, une contrainte n'est pas différée.  Elle est vérifiée au moment de l'exécution de l'instruction d'insertion ou mise à jour.  Si la contrainte est différée, elle est contrôlée au moment du commit.
+    \lstinputlisting[language=plsql,title=CREATE CONSTRAINT]{../exemples/CREATE-CONSTRAINT.bnf}\footnote{Le mode de la contrainte est différé ou non.  Par défaut, une contrainte n'est pas différée.  Elle est vérifiée au moment de l'exécution de l'instruction d'insertion ou mise à jour.  Si la contrainte est différée, elle est contrôlée au moment du commit.
     }
 \end{frame}
 
@@ -226,7 +226,7 @@
 \begin{frame}{\secname : \subsecname}
     Sans la clause CONSTRAINT, SQL génère automatiquement un nom pour chaque contrainte.
     Il est donc vivement conseillé d’utiliser systématiquement la clause CONSTRAINT
-    \lstinputlisting[language=SQL,title=Exemple : nom de contrainte]{../exemples/exemple-constraint.sql}
+    \lstinputlisting[language=plsql,title=Exemple : nom de contrainte]{../exemples/exemple-constraint.sql}
 \end{frame}
 
 \subsection{Contraintes sur les valeurs propres}
@@ -363,9 +363,9 @@
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql,title=Exemple contrainte 1]{../exemples/constraint--short.sql}
+    \lstinputlisting[language=plsql,title=Exemple contrainte 1]{../exemples/constraint--short.sql}
     Deux manières équivalentes
-    \lstinputlisting[language=sql,title=Exemple contrainte 2]{../exemples/constraint--full.sql}
+    \lstinputlisting[language=plsql,title=Exemple contrainte 2]{../exemples/constraint--full.sql}
 \end{frame}
 
 \subsection{Tables temporaires}
@@ -430,7 +430,7 @@
 
 \begin{frame}{\secname : \subsecname}
     Aperçu des instructions Oracle pour créer une base de données, un tablespace,...
-    \lstinputlisting[language=sql,title=Quelques instructions Oracle]{../exemples/cmd-oracle.sql}
+    \lstinputlisting[language=plsql,title=Quelques instructions Oracle]{../exemples/cmd-oracle.sql}
 \end{frame}
 
 \subsection{Information schema}
@@ -631,11 +631,11 @@
     \begin{alertblock}{Important}
         Ce type de structure optimise le temps nécessaire aux opérations de jointure.
     \end{alertblock}
-    \lstinputlisting[language=sql,title=Cluster indexé]{../exemples/CREATE-INDEX--cluster.sql}
+    \lstinputlisting[language=plsql,title=Cluster indexé]{../exemples/CREATE-INDEX--cluster.sql}
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql,title=Cluster indexé]{../exemples/CREATE-INDEX--cluster-2.sql}
+    \lstinputlisting[language=plsql,title=Cluster indexé]{../exemples/CREATE-INDEX--cluster-2.sql}
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
@@ -680,7 +680,7 @@
     \begin{itemize}
         \item Exemple : le hachage est réalisé à partir de la colonne $Num\_Article$. Il y aura 25000 valeurs hachées. On aura donc des collisions dès que la table Articles contiendra plus de 25000 tuples.
     \end{itemize}
-    \lstinputlisting[language=sql,title=Cluster indexé]{../exemples/CREATE-INDEX--hash.sql}
+    \lstinputlisting[language=plsql,title=Cluster indexé]{../exemples/CREATE-INDEX--hash.sql}
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
@@ -720,7 +720,7 @@
 
 
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=Création d'un index bitmap en Oracle]{../exemples/CREATE-INDEX--bitmap.sql}
+    \lstinputlisting[language=plsql, title=Création d'un index bitmap en Oracle]{../exemples/CREATE-INDEX--bitmap.sql}
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
@@ -736,7 +736,7 @@
 \subsection{Index basé sur une fonction}
 \begin{frame}{\secname : \subsecname}
     À partir d'une fonction ou d'une expression faisant intervenir des colonnes de la table indexée.\footnote{La fonction peut être une fonction SQL, PL/SQL ou externe.}
-    \lstinputlisting[language=sql, title=Création d'un index bitmap en Oracle]{../exemples/CREATE-INDEX--bitmap-2.sql}
+    \lstinputlisting[language=plsql, title=Création d'un index bitmap en Oracle]{../exemples/CREATE-INDEX--bitmap-2.sql}
 \end{frame}
 
 \section{Suppression d’un objet}

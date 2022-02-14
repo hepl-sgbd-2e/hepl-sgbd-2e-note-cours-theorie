@@ -27,12 +27,11 @@
 \end{frame}
 
 
-
 \begin{frame}{\secname}
     Chaque procédure ou fonction peut comprendre des paramètres. Pour chaque paramètre, on doit spécifier :
     \begin{itemize}
         \item Son nom;
-        \item Son mode d'accessibilité (\lstinline[language=sql]!IN!, \lstinline[language=sql]!OUT! ou \lstinline[language=sql]!IN OUT!);
+        \item Son mode d'accessibilité (\lstinline[language=plsql]!IN!, \lstinline[language=plsql]!OUT! ou \lstinline[language=plsql]!IN OUT!);
         \item Son type (pas de précision ni de longueur);
         \item Éventuellement sa valeur par défaut.
     \end{itemize}
@@ -54,13 +53,13 @@
 \section{Compilation}
 \begin{frame}{\secname}
     \lstinputlisting[language=plsql, title=Compilation sous SQLPLUS]{../exemples/PLSQL Chapitre 7/exemple3.sh}
-    Le code est stocké dans le dictionnaire de données.\footnote{Les sources des objets (procédures, fonctions, packages) sont mémorisés dans la table \lstinline[language=sql]!SOURCE\$! (propriétaire \lstinline[language=sql]!SYS!).}
+    Le code est stocké dans le dictionnaire de données.\footnote{Les sources des objets (procédures, fonctions, packages) sont mémorisés dans la table \lstinline[language=plsql]!SOURCE\$! (propriétaire \lstinline[language=plsql]!SYS!).}
 \end{frame}
 
 \begin{frame}{\secname}
     Compilation sous SQLPLUS :
     \begin{itemize}
-        \item Lors de la compilation d'un objet, le moteur PL/SQL génère les messages d'erreurs dans la table \lstinline[language=sql]!ERROR$!
+        \item Lors de la compilation d'un objet, le moteur PL/SQL génère les messages d'erreurs dans la table \lstinline[language=plsql]!ERROR$!
         \item Sous SQLPLUS, la commande SHOW ERRORS permet de visualiser les erreurs de compilation.
     \end{itemize}
 \end{frame}
@@ -87,11 +86,11 @@
 \section{Utiliser les paramètres avec \textit{NOCOPY}}
 \begin{frame}{\secname}
     \begin{itemize}
-        \item Par défaut, les paramètres \lstinline[language=sql]!OUT! et \lstinline[language=sql]!IN OUT! sont passés par valeur.\footnote{Les valeurs sont donc copiées avant l’exécution du  sous-programme.}
-        \item Pendant l’exécution de celui-ci, des variables temporaires sont créées pour contenir les données des paramètres de type \lstinline[language=sql]!OUT!.
+        \item Par défaut, les paramètres \lstinline[language=plsql]!OUT! et \lstinline[language=plsql]!IN OUT! sont passés par valeur.\footnote{Les valeurs sont donc copiées avant l’exécution du  sous-programme.}
+        \item Pendant l’exécution de celui-ci, des variables temporaires sont créées pour contenir les données des paramètres de type \lstinline[language=plsql]!OUT!.
         \item Si le sous-programme termine normalement son exécution, les valeurs sont alors recopiées dans les paramètres.
         \item \textbf{Ces copies ralentissent fortement les performances et encombrent la mémoire}.
-        \item Pour éviter ces inconvénients : \lstinline[language=sql]!NOCOPY!.
+        \item Pour éviter ces inconvénients : \lstinline[language=plsql]!NOCOPY!.
     \end{itemize}
 \end{frame}
 
@@ -99,7 +98,7 @@
 \begin{frame}{\secname}
     \lstinputlisting[language=plsql, title=Lancer une exception]{../exemples/PLSQL Chapitre 7/exemple8.sql}
     \begin{itemize}
-        \item Définie dans \lstinline[language=sql]!DBMS_STANDARD!
+        \item Définie dans \lstinline[language=plsql]!DBMS_STANDARD!
         \item Plage de codes d'erreur de -20000 à -20999
     \end{itemize}
 \end{frame}

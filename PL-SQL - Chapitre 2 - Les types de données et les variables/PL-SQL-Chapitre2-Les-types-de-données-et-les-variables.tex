@@ -53,16 +53,16 @@
         \item Types de données numériques
         \item Types de données "caractères"
         \item Type de données booléen
-        \item Types de données \lstinline[language=sql]!DATE!, \lstinline[language=sql]!TIME! et \lstinline[language=sql]!INTERVAL!
+        \item Types de données \lstinline[language=plsql]!DATE!, \lstinline[language=plsql]!TIME! et \lstinline[language=plsql]!INTERVAL!
     \end{enumerate}
 \end{frame}
 \subsection{Types de données numériques}
 \begin{frame}{\secname : \subsecname}
     \begin{itemize}
-        \item \lstinline[language=sql]!NUMBER[(P, S)]!
-        \item \lstinline[language=sql]!BINARY_INTEGER!
-        \item \lstinline[language=sql]!PLS_INTEGER!
-        \item \lstinline[language=sql]!BINARY_FLOAT! et \lstinline[language=sql]!BINARY_DOUBLE!
+        \item \lstinline[language=plsql]!NUMBER[(P, S)]!
+        \item \lstinline[language=plsql]!BINARY_INTEGER!
+        \item \lstinline[language=plsql]!PLS_INTEGER!
+        \item \lstinline[language=plsql]!BINARY_FLOAT! et \lstinline[language=plsql]!BINARY_DOUBLE!
     \end{itemize}
 
 \end{frame}
@@ -72,20 +72,20 @@
     \begin{itemize}
         \item P : nombre de chiffres significatifs
         \item S : nombre de décimales
-        \item \lstinline[language=sql]!NUMBER! possède quelques sous-types permettant une compatibilité ANSI/ISO dont, entre autres :
-        \item \lstinline[language=sql]!DEC! ou \lstinline[language=sql]!DECIMAL! : nombre, virgule fixe, de 38 chiffres max
-        \item \lstinline[language=sql]!INTEGER!, \lstinline[language=sql]!INT! ou \lstinline[language=sql]!SMALLINT! : entier de 38 chiffres max
+        \item \lstinline[language=plsql]!NUMBER! possède quelques sous-types permettant une compatibilité ANSI/ISO dont, entre autres :
+        \item \lstinline[language=plsql]!DEC! ou \lstinline[language=plsql]!DECIMAL! : nombre, virgule fixe, de 38 chiffres max
+        \item \lstinline[language=plsql]!INTEGER!, \lstinline[language=plsql]!INT! ou \lstinline[language=plsql]!SMALLINT! : entier de 38 chiffres max
     \end{itemize}
 \end{frame}
 \subsection{Types de données numériques BINARY\_INTEGER}
 \begin{frame}{\secname : \subsecname}
     \begin{itemize}
-        \item \lstinline[language=sql]!BINARY_INTEGER! Nombres entiers signés compris entre -2.147.483.647 et +2.147.483.647
+        \item \lstinline[language=plsql]!BINARY_INTEGER! Nombres entiers signés compris entre -2.147.483.647 et +2.147.483.647
         \item Types dérivés :
               \begin{itemize}
-                  \item \lstinline[language=sql]!NATURAL! ou \lstinline[language=sql]!POSITIVE! : Permettent de restreindre uniquement aux valeurs non négatives (pour \lstinline[language=sql]!NATURAL!) ou positives (pour \lstinline[language=sql]!POSITIVE!)
-                  \item \lstinline[language=sql]!NATURALN! ou \lstinline[language=sql]!POSITIVEN! : Idem que pour NATURAL et POSITIVE, mais n'acceptent pas la valeur nulle
-                  \item \lstinline[language=sql]!SIGNTYPE! : Retreint un entier aux valeurs -1, 0, 1
+                  \item \lstinline[language=plsql]!NATURAL! ou \lstinline[language=plsql]!POSITIVE! : Permettent de restreindre uniquement aux valeurs non négatives (pour \lstinline[language=plsql]!NATURAL!) ou positives (pour \lstinline[language=plsql]!POSITIVE!)
+                  \item \lstinline[language=plsql]!NATURALN! ou \lstinline[language=plsql]!POSITIVEN! : Idem que pour NATURAL et POSITIVE, mais n'acceptent pas la valeur nulle
+                  \item \lstinline[language=plsql]!SIGNTYPE! : Retreint un entier aux valeurs -1, 0, 1
               \end{itemize}
     \end{itemize}
 \end{frame}
@@ -93,10 +93,10 @@
 \subsection{Types de données numériques PLS\_INTEGER}
 \begin{frame}{\secname : \subsecname}
     \begin{itemize}
-        \item Il est \textbf{plus performant} que \lstinline[language=sql]!NUMBER! et \lstinline[language=sql]!BINARY_INTEGER! qui utilisent des librairies arithmétiques
-        \item Même s'il possède le même rang que \lstinline[language=sql]!BINARY_INTEGER!, il ne se comporte pas toujours de la même manière
-        \item Alors que \lstinline[language=sql]!BINARY_INTEGER! ne génère pas une \textbf{exception} lorsqu'un dépassement de capacité intervient lors d'un calcul si le résultat est transféré dans un \lstinline[language=sql]!NUMBER!, \lstinline[language=sql]!PLS_INTEGER! génère bien une exception
-        \item Pour des raisons de compatibilité, il est toujours possible d'utiliser \lstinline[language=sql]!BINARY_INTEGER!, mais il est conseillé d'utiliser \lstinline[language=sql]!PLS_INTEGER! dans les nouvelles applications
+        \item Il est \textbf{plus performant} que \lstinline[language=plsql]!NUMBER! et \lstinline[language=plsql]!BINARY_INTEGER! qui utilisent des librairies arithmétiques
+        \item Même s'il possède le même rang que \lstinline[language=plsql]!BINARY_INTEGER!, il ne se comporte pas toujours de la même manière
+        \item Alors que \lstinline[language=plsql]!BINARY_INTEGER! ne génère pas une \textbf{exception} lorsqu'un dépassement de capacité intervient lors d'un calcul si le résultat est transféré dans un \lstinline[language=plsql]!NUMBER!, \lstinline[language=plsql]!PLS_INTEGER! génère bien une exception
+        \item Pour des raisons de compatibilité, il est toujours possible d'utiliser \lstinline[language=plsql]!BINARY_INTEGER!, mais il est conseillé d'utiliser \lstinline[language=plsql]!PLS_INTEGER! dans les nouvelles applications
 
     \end{itemize}
 \end{frame}
@@ -104,7 +104,7 @@
 \subsection{Types de données numériques BINARY\_FLOAT}
 \begin{frame}{\secname : \subsecname}
     \begin{itemize}
-        \item \lstinline[language=sql]!BINARY_FLOAT! et \lstinline[language=sql]!BINARY_DOUBLE!
+        \item \lstinline[language=plsql]!BINARY_FLOAT! et \lstinline[language=plsql]!BINARY_DOUBLE!
         \item Ces 2 types de données sont nouveaux depuis Oracle 10g
         \item Il s'agit de nombres floating-point de format IEEE-754 simple et double précision
         \item Ils permettent d'augmenter la performance d'applications nécessitant certains types de calculs notamment certaines applications manipulant des données scientifiques.
@@ -114,12 +114,12 @@
 \subsection{Types de données numériques CHAR}
 \begin{frame}{\secname : \subsecname}
     \begin{itemize}
-        \item \lstinline[language=sql]!CHAR [(maximum size [CHAR | BYTE])]!
+        \item \lstinline[language=plsql]!CHAR [(maximum size [CHAR | BYTE])]!
         \item Chaînes de longueur fixe
         \item Stockage dépendant du jeu de caractères de DB
         \item Taille exprimée par défaut en bytes (maximum 32767)
     \end{itemize}
-    ATTENTION : Aux jeux de caractères multi byte. On préfère \lstinline[language=sql]!CHAR(20 CHAR)!
+    ATTENTION : Aux jeux de caractères multi byte. On préfère \lstinline[language=plsql]!CHAR(20 CHAR)!
 \end{frame}
 
 \subsection{Types de données numériques VARCHAR2}
@@ -135,17 +135,17 @@
 \subsection{Types de données numériques LONG}
 \begin{frame}{\secname : \subsecname}
     \begin{itemize}
-        \item \lstinline[language=sql]!LONG! et \lstinline[language=sql]!LONG RAW!
-        \item Le type \lstinline[language=sql]!LONG! est similaire à \lstinline[language=sql]!VARCHAR2! sauf que le nombre maximum de bytes est 32760
-        \item \lstinline[language=sql]!LONG RAW! est similaire mais n'est pas interprété par le PL/SQL
-        \item Les variables de type \lstinline[language=sql]!LOB! sont destinées à remplacer les types \lstinline[language=sql]!LONG! et \lstinline[language=sql]!LONG RAW!
+        \item \lstinline[language=plsql]!LONG! et \lstinline[language=plsql]!LONG RAW!
+        \item Le type \lstinline[language=plsql]!LONG! est similaire à \lstinline[language=plsql]!VARCHAR2! sauf que le nombre maximum de bytes est 32760
+        \item \lstinline[language=plsql]!LONG RAW! est similaire mais n'est pas interprété par le PL/SQL
+        \item Les variables de type \lstinline[language=plsql]!LOB! sont destinées à remplacer les types \lstinline[language=plsql]!LONG! et \lstinline[language=plsql]!LONG RAW!
     \end{itemize}
 \end{frame}
 
 \subsection{Types de données numériques RAW}
 \begin{frame}{\secname : \subsecname}
     \begin{itemize}
-        \item \lstinline[language=sql]!RAW (maximum size)!
+        \item \lstinline[language=plsql]!RAW (maximum size)!
         \item Ce type de données permet de traiter des données binaires ou des caractères en binaire.
     \end{itemize}
 \end{frame}
@@ -153,17 +153,17 @@
 \subsection{Types de données numériques ROWID}
 \begin{frame}{\secname : \subsecname}
     \begin{itemize}
-        \item \lstinline[language=sql]!ROWID! \lstinline[language=sql]!UROWID!
-        \item De manière interne, chaque table de base de données possède une pseudo-colonne \lstinline[language=sql]!ROWID! qui comprend une valeur binaire.  Chacune de ces valeurs (rowid) représente l'adresse de stockage de la ligne correspondante.
-        \item \lstinline[language=sql]!ROWID! permet uniquement de traiter des rowids physiques \lstinline[language=sql]!UROWID! (rowids universels) permet de traiter les rowids physiques, logiques et "étranger", c'est-à-dire vers des tables étrangères (non Oracle).
+        \item \lstinline[language=plsql]!ROWID! \lstinline[language=plsql]!UROWID!
+        \item De manière interne, chaque table de base de données possède une pseudo-colonne \lstinline[language=plsql]!ROWID! qui comprend une valeur binaire.  Chacune de ces valeurs (rowid) représente l'adresse de stockage de la ligne correspondante.
+        \item \lstinline[language=plsql]!ROWID! permet uniquement de traiter des rowids physiques \lstinline[language=plsql]!UROWID! (rowids universels) permet de traiter les rowids physiques, logiques et "étranger", c'est-à-dire vers des tables étrangères (non Oracle).
     \end{itemize}
-    \lstinputlisting[language=sql, title=La fonction CAST permet de convertir une donnée de type rowid]{../exemples/PLSQL Chapitre 2/rowid.sql}
+    \lstinputlisting[language=plsql, title=La fonction CAST permet de convertir une donnée de type rowid]{../exemples/PLSQL Chapitre 2/rowid.sql}
 \end{frame}
 
 \subsection{Types de données numériques NCHAR}
 \begin{frame}{\secname : \subsecname}
     \begin{itemize}
-        \item \lstinline[language=sql]!NCHAR[(maximum size)]! et \lstinline[language=sql]!NVARCHAR2! (maximum size)
+        \item \lstinline[language=plsql]!NCHAR[(maximum size)]! et \lstinline[language=plsql]!NVARCHAR2! (maximum size)
         \item Les types de données NCHAR et NVARCHAR2 sont identiques au types CHAR et VARCHAR2 mais les données sont traitées et stockéeS au format du jeu de caractères national.
     \end{itemize}
 \end{frame}
@@ -171,10 +171,10 @@
 \subsection{Types de données DATE, TIME et INTERVAL}
 \begin{frame}{\secname : \subsecname}
     \begin{itemize}
-        \item Type \lstinline[language=sql]!DATE!
-        \item Type \lstinline[language=sql]!TIMESTAMP [(précision)]!
-        \item Type \lstinline[language=sql]!INTERVAL  DAY [(précision)] TO SECOND [(précision)]!
-        \item Type \lstinline[language=sql]!INTERVAL  YEAR [(précision)] TO MONTH!
+        \item Type \lstinline[language=plsql]!DATE!
+        \item Type \lstinline[language=plsql]!TIMESTAMP [(précision)]!
+        \item Type \lstinline[language=plsql]!INTERVAL  DAY [(précision)] TO SECOND [(précision)]!
+        \item Type \lstinline[language=plsql]!INTERVAL  YEAR [(précision)] TO MONTH!
     \end{itemize}
 \end{frame}
 
@@ -189,7 +189,7 @@
 
 \section{Structure d'un bloc}
 \begin{frame}{\secname}
-    \lstinputlisting[language=sql, title=Structure d'un bloc]{../exemples/PLSQL Chapitre 2/bloc.sql}
+    \lstinputlisting[language=plsql, title=Structure d'un bloc]{../exemples/PLSQL Chapitre 2/bloc.sql}
 \end{frame}
 
 \begin{frame}{\secname}
@@ -218,11 +218,11 @@
 \end{frame}
 
 \begin{frame}{\secname}
-    \lstinputlisting[language=sql, title=Une variable déclarée NOT NULL doit avoir une affectation d'initialisation]{../exemples/PLSQL Chapitre 2/bloc1.sql}
+    \lstinputlisting[language=plsql, title=Une variable déclarée NOT NULL doit avoir une affectation d'initialisation]{../exemples/PLSQL Chapitre 2/bloc1.sql}
 \end{frame}
 
 \begin{frame}{\secname}
-    \lstinputlisting[language=sql, title=L'expression 'VCONST' ne peut pas être utilisée comme cible d'une affectation]{../exemples/PLSQL Chapitre 2/bloc2.sql}
+    \lstinputlisting[language=plsql, title=L'expression 'VCONST' ne peut pas être utilisée comme cible d'une affectation]{../exemples/PLSQL Chapitre 2/bloc2.sql}
 \end{frame}
 
 \section{Types composites ou composés}
@@ -237,7 +237,7 @@
 \begin{frame}{\secname : \subsecname}
     Le type de données RECORD permet de déclarer des types de variables composites.
     \begin{itemize}
-        \item Un \lstinline[language=sql]!RECORD! est l'équivalent de la définition d'un enregistrement ou d'une structure de données d'un langage de 3ème génération
+        \item Un \lstinline[language=plsql]!RECORD! est l'équivalent de la définition d'un enregistrement ou d'une structure de données d'un langage de 3ème génération
         \item Il doit faire l'objet d'une déclaration d'un type de données et ensuite une variable peut être définie à l'aide de ce type
     \end{itemize}
 \end{frame}
@@ -251,64 +251,64 @@
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=Exemple : (cfr schéma SCOTT\, table emp)]{../exemples/PLSQL Chapitre 2/record.sql}
+    \lstinputlisting[language=plsql, title=Exemple : (cfr schéma SCOTT\, table emp)]{../exemples/PLSQL Chapitre 2/record.sql}
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=Exemple : Initialisation d'un RECORD]{../exemples/PLSQL Chapitre 2/record2.sql}
+    \lstinputlisting[language=plsql, title=Exemple : Initialisation d'un RECORD]{../exemples/PLSQL Chapitre 2/record2.sql}
 \end{frame}
 
 \subsection{Utilisation de \%TYPE}
 \begin{frame}{\secname : \subsecname}
     \begin{itemize}
-        \item L'attribut \lstinline[language=sql]!\%TYPE! permet de déclarer une variable dont le type est basé sur le type d'une colonne ou d'une autre variable
-        \item Les variables déclarées à l'aide de l'attribut \lstinline[language=sql]!\%TYPE! héritent du type de données de la colonne ou de la variable référencée mais non automatiquement des contraintes (comme \lstinline[language=sql]!NOT NULL! ou \lstinline[language=sql]!DEFAULT!)
+        \item L'attribut \lstinline[language=plsql]!\%TYPE! permet de déclarer une variable dont le type est basé sur le type d'une colonne ou d'une autre variable
+        \item Les variables déclarées à l'aide de l'attribut \lstinline[language=plsql]!\%TYPE! héritent du type de données de la colonne ou de la variable référencée mais non automatiquement des contraintes (comme \lstinline[language=plsql]!NOT NULL! ou \lstinline[language=plsql]!DEFAULT!)
     \end{itemize}
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=Utilisation de \%TYPE]{../exemples/PLSQL Chapitre 2/record3.sql}
+    \lstinputlisting[language=plsql, title=Utilisation de \%TYPE]{../exemples/PLSQL Chapitre 2/record3.sql}
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=ma\_variable hérite de la contrainte NOT NULL]{../exemples/PLSQL Chapitre 2/record4.sql}
+    \lstinputlisting[language=plsql, title=ma\_variable hérite de la contrainte NOT NULL]{../exemples/PLSQL Chapitre 2/record4.sql}
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=ma\_variable n'hérite pas de la clause DEFAULT]{../exemples/PLSQL Chapitre 2/record5.sql}
+    \lstinputlisting[language=plsql, title=ma\_variable n'hérite pas de la clause DEFAULT]{../exemples/PLSQL Chapitre 2/record5.sql}
 \end{frame}
 
 \subsection{Utilisation de \%ROWTYPE}
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=Utilisation de \%ROWTYPE]{../exemples/PLSQL Chapitre 2/rowtype.sql}
+    \lstinputlisting[language=plsql, title=Utilisation de \%ROWTYPE]{../exemples/PLSQL Chapitre 2/rowtype.sql}
     Il \textbf{n}'est \textbf{pas} nécessaire de \textbf{connaître le nom de toutes les colonnes} d'une table ni le nombre et l'ordre de ces colonnes pour effectuer une sélection.
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=Portée des variables]{../exemples/PLSQL Chapitre 2/rowtype2.sql}
+    \lstinputlisting[language=plsql, title=Portée des variables]{../exemples/PLSQL Chapitre 2/rowtype2.sql}
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=Portée des variables : solution]{../exemples/PLSQL Chapitre 2/rowtype3.sql}
+    \lstinputlisting[language=plsql, title=Portée des variables : solution]{../exemples/PLSQL Chapitre 2/rowtype3.sql}
 \end{frame}
 
 \section{Conversion de types}
 \subsection{Conversions explicites}
 \begin{frame}{\secname : \subsecname}
-    Fonction normalisée \lstinline[language=sql]!CAST! disponible depuis Oracle 9iR2.
-    \lstinputlisting[language=sql, title=Exemple]{../exemples/PLSQL Chapitre 2/cast.sql}
+    Fonction normalisée \lstinline[language=plsql]!CAST! disponible depuis Oracle 9iR2.
+    \lstinputlisting[language=plsql, title=Exemple]{../exemples/PLSQL Chapitre 2/cast.sql}
 \end{frame}
 
 \subsection{Conversions implicites}
 \begin{frame}{\secname : \subsecname}
-    Fonction normalisée \lstinline[language=sql]!CAST! disponible depuis Oracle 9iR2.
-    \lstinputlisting[language=sql, title=Exemple : conversions implicites]{../exemples/PLSQL Chapitre 2/conversion-implicite.sql}
+    Fonction normalisée \lstinline[language=plsql]!CAST! disponible depuis Oracle 9iR2.
+    \lstinputlisting[language=plsql, title=Exemple : conversions implicites]{../exemples/PLSQL Chapitre 2/conversion-implicite.sql}
 \end{frame}
 
 \section{Types REF}
 \begin{frame}{\secname}
     \begin{itemize}
-        \item Les types \lstinline[language=sql]!REF! (référence) représentent des valeurs correspondant à des pointeurs qui permettent de référencer d'autres objets du code.
+        \item Les types \lstinline[language=plsql]!REF! (référence) représentent des valeurs correspondant à des pointeurs qui permettent de référencer d'autres objets du code.
         \item Certaines de ces utilisations relèvent des extensions objet-relationnelles.\footnote{Nous ne les aborderons pas.}
     \end{itemize}
 \end{frame}
@@ -321,7 +321,7 @@
     \end{itemize}
 \end{frame}
 \begin{frame}{\secname}
-    \lstinputlisting[language=sql, title=Visibilité des variables]{../exemples/PLSQL Chapitre 2/visibilite.sql}
+    \lstinputlisting[language=plsql, title=Visibilité des variables]{../exemples/PLSQL Chapitre 2/visibilite.sql}
 \end{frame}
 
 \section{Opérateurs et expressions}
@@ -349,7 +349,7 @@
         \end{tabular}
         \caption{Opérateurs et expressions}
     \end{table}
-    \lstinline[language=sql]!<>!, \lstinline[language=sql]!\!=!, \lstinline[language=sql]!\~=!, \lstinline[language=sql]!\^=!  :  4 manière d'exprimer la différence.
+    \lstinline[language=plsql]!<>!, \lstinline[language=plsql]!\!=!, \lstinline[language=plsql]!\~=!, \lstinline[language=plsql]!\^=!  :  4 manière d'exprimer la différence.
 \end{frame}
 
 \begin{frame}{\secname}
@@ -358,7 +358,7 @@
         PL/SQL utilise des évaluations d'expression appelées "short-circuit"
     \end{alertblock}
     Dès que le résultat de l'expression peut être déterminé, l'évaluation s'arrête
-    \lstinputlisting[language=sql, title=Ne générera pas d'erreur]{../exemples/PLSQL Chapitre 2/short-circuit.sql}
+    \lstinputlisting[language=plsql, title=Ne générera pas d'erreur]{../exemples/PLSQL Chapitre 2/short-circuit.sql}
 \end{frame}
 
 \section{Logique trivalente et valeur NULL}
@@ -381,28 +381,28 @@
 \end{frame}
 \section{Séq. et pseudo-colonnes du PL/SQL}
 \begin{frame}{\secname}
-    Le PL/SQL reconnaît les pseudo-colonnes de SQL telles que \lstinline[language=sql]!ROWID!, \lstinline[language=sql]!CURRVAL!, \lstinline[language=sql]!NEXTVAL!, \lstinline[language=sql]!LEVEL! et \lstinline[language=sql]!ROWNUM!
-    \lstinputlisting[language=sql, title=Exemple]{../exemples/PLSQL Chapitre 2/pseudo-colonne.sql}
+    Le PL/SQL reconnaît les pseudo-colonnes de SQL telles que \lstinline[language=plsql]!ROWID!, \lstinline[language=plsql]!CURRVAL!, \lstinline[language=plsql]!NEXTVAL!, \lstinline[language=plsql]!LEVEL! et \lstinline[language=plsql]!ROWNUM!
+    \lstinputlisting[language=plsql, title=Exemple]{../exemples/PLSQL Chapitre 2/pseudo-colonne.sql}
 \end{frame}
 
 \begin{frame}{\secname}
-    \lstinputlisting[language=sql, title=Exemple]{../exemples/PLSQL Chapitre 2/pseudo-colonne2.sql}
+    \lstinputlisting[language=plsql, title=Exemple]{../exemples/PLSQL Chapitre 2/pseudo-colonne2.sql}
 \end{frame}
 
 \begin{frame}{\secname}
     \begin{itemize}
-        \item \lstinline[language=sql]!ROWNUM! permet de spécifier l'ordre dans lequel une ligne est sélectionnée dans une table.  Le premier tuple sélectionné porte le ROWNUM 1, le deuxième le
-        \item \lstinline[language=sql]!ROWNUM2! et ainsi de suite.
-        \item \lstinline[language=sql]!ROWNUM! est attribué avant l'opération de tri (\lstinline[language=sql]!ORDER BY!)
+        \item \lstinline[language=plsql]!ROWNUM! permet de spécifier l'ordre dans lequel une ligne est sélectionnée dans une table.  Le premier tuple sélectionné porte le ROWNUM 1, le deuxième le
+        \item \lstinline[language=plsql]!ROWNUM2! et ainsi de suite.
+        \item \lstinline[language=plsql]!ROWNUM! est attribué avant l'opération de tri (\lstinline[language=plsql]!ORDER BY!)
     \end{itemize}
 \end{frame}
 
 \begin{frame}{\secname}
-    \lstinputlisting[language=sql, title=Exemple]{../exemples/PLSQL Chapitre 2/pseudo-colonne3.sql}
+    \lstinputlisting[language=plsql, title=Exemple]{../exemples/PLSQL Chapitre 2/pseudo-colonne3.sql}
 \end{frame}
 
 \begin{frame}{\secname}
-    \lstinputlisting[language=sql, title=Exemple]{../exemples/PLSQL Chapitre 2/pseudo-colonne4.sql}
+    \lstinputlisting[language=plsql, title=Exemple]{../exemples/PLSQL Chapitre 2/pseudo-colonne4.sql}
 \end{frame}
 
 \end{document}

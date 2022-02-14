@@ -29,7 +29,7 @@
     \begin{itemize}
         \item Jusqu'à présent, nous avons parlé des \textbf{tables de base permanentes}.
         \item Une \textbf{table de base} existe réellement : il lui correspond des enregistrements stockés sur le support physique contenant la base.
-        \item \textbf{Permanent} indique que, dès que la table est créée, elle persiste dans la base de données jusqu'à ce qu'elle soit explicitement effacée au moyen de la commande \lstinline[language=sql]!DROP TABLE!
+        \item \textbf{Permanent} indique que, dès que la table est créée, elle persiste dans la base de données jusqu'à ce qu'elle soit explicitement effacée au moyen de la commande \lstinline[language=plsql]!DROP TABLE!
     \end{itemize}
 \end{frame}
 
@@ -57,9 +57,9 @@
     Les tables temporaires sont privées à l'application qui les utilise : donc, pas d'accès concurrents.
     Caractéristiques essentielles :
     \begin{itemize}
-        \item Elles se créent en spécifiant TEMPORARY dans la commande \lstinline[language=sql]!CREATE TABLE!
+        \item Elles se créent en spécifiant TEMPORARY dans la commande \lstinline[language=plsql]!CREATE TABLE!
         \item Elles sont toujours vides au début d'un session SQL
-        \item Elles peuvent éventuellement être vidées à chaque \lstinline[language=sql]!COMMIT!
+        \item Elles peuvent éventuellement être vidées à chaque \lstinline[language=plsql]!COMMIT!
         \item Elles sont effacées automatiquement à la fin de chaque session
         \item Elles peuvent être modifiées même au sein d'une transaction en lecture seule
     \end{itemize}
@@ -82,15 +82,15 @@
 
 \begin{frame}{\secname : \subsecname}
     \begin{itemize}
-        \item Cette commande définit \textbf{une table virtuelle} à partir des tables de la clause \lstinline[language=sql]!FROM! de l'\lstinline[language=bnf]!expression\_de\_sélection!.  Les tables présentes dans la clause \lstinline[language=sql]!FROM! sont appelées tables sources.  Il peut s'agir de tables de base ou de vues.
-              La commande CREATE VIEW n'extrait aucune ligne de la base, elle inscrit la définition de la vue dans les tables de la méta-base (information schema) : \lstinline[language=sql]!TABLES!, \lstinline[language=sql]!VIEWS!, \lstinline[language=sql]!VIEW\_TABLE\_USAGE! et \lstinline[language=sql]!VIEW\_COLUMN\_USAGE!.
-        \item La commande \lstinline[language=sql]!CREATE VIEW! \textbf{n'extrait aucune ligne de la base}, elle inscrit la définition de la vue dans les tables de la méta-base (information schema) : \lstinline[language=sql]!TABLES!, \lstinline[language=sql]!VIEWS!, \lstinline[language=sql]!VIEW\_TABLE\_USAGE! et \lstinline[language=sql]!VIEW\_COLUMN\_USAGE!.
-
+        \item Cette commande définit \textbf{une table virtuelle} à partir des tables de la clause \lstinline[language=plsql]!FROM! de l'\lstinline[language=bnf]!expression\_de\_sélection!.  Les tables présentes dans la clause \lstinline[language=plsql]!FROM! sont appelées tables sources.  Il peut s'agir de tables de base ou de vues.
+              La commande CREATE VIEW n'extrait aucune ligne de la base, elle inscrit la définition de la vue dans les tables de la méta-base (information schema) : \lstinline[language=plsql]!TABLES!, \lstinline[language=plsql]!VIEWS!, \lstinline[language=plsql]!VIEW\_TABLE\_USAGE! et \lstinline[language=plsql]!VIEW\_COLUMN\_USAGE!.
+        \item La commande \lstinline[language=plsql]!CREATE VIEW! \textbf{n'extrait aucune ligne de la base}, elle inscrit la définition de la vue dans les tables de la méta-base (information schema) : \lstinline[language=plsql]!TABLES!, \lstinline[language=plsql]!VIEWS!, \lstinline[language=plsql]!VIEW\_TABLE\_USAGE! et \lstinline[language=plsql]!VIEW\_COLUMN\_USAGE!.
     \end{itemize}
 \end{frame}
+
 \subsection{Exemples}
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=Exemple : Vue reprenant uniquement les étudiants de 1ère année]{../exemples/Chapitre 7/create_view.sql}
+    \lstinputlisting[language=plsql, title=Exemple : Vue reprenant uniquement les étudiants de 1ère année]{../exemples/Chapitre 7/create_view.sql}
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
@@ -101,12 +101,12 @@
     \end{itemize}
 \end{frame}
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=Exemple :Rechercher le nom des élèves de première année pratiquant le surf au niveau 1]{../exemples/Chapitre 7/create_view1.sql}
+    \lstinputlisting[language=plsql, title=Exemple :Rechercher le nom des élèves de première année pratiquant le surf au niveau 1]{../exemples/Chapitre 7/create_view1.sql}
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
-    Afin de répondre à cette requête, le SGBD va d'abord rechercher dans la méta-base la définition de la vue \lstinline[language=sql]!eleves\_de\_premiere!.  Il transforme alors la requête initiale pour obtenir
-    \lstinputlisting[language=sql, title=Exemple :Rechercher le nom des élèves de première année pratiquant le surf au niveau 1]{../exemples/Chapitre 7/create_view2.sql}
+    Afin de répondre à cette requête, le SGBD va d'abord rechercher dans la méta-base la définition de la vue \lstinline[language=plsql]!eleves\_de\_premiere!.  Il transforme alors la requête initiale pour obtenir
+    \lstinputlisting[language=plsql, title=Exemple :Rechercher le nom des élèves de première année pratiquant le surf au niveau 1]{../exemples/Chapitre 7/create_view2.sql}
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
@@ -130,15 +130,15 @@
 \end{frame}
 \subsection{Augmenter l'indépendance logique}
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=Exemple (suite) : Et une vue contenant - en plus - pour chaque projet le prix de revient]{../exemples/Chapitre 7/create_view3.sql}
+    \lstinputlisting[language=plsql, title=Exemple (suite) : Et une vue contenant - en plus - pour chaque projet le prix de revient]{../exemples/Chapitre 7/create_view3.sql}
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=Exemple (suite) : Pour que les programmes ne souffrent pas de cette modification il suffit de modifier la définition de la vue en conservant les mêmes noms pour la vue et ses colonnes]{../exemples/Chapitre 7/create_view4.sql}
+    \lstinputlisting[language=plsql, title=Exemple (suite) : Pour que les programmes ne souffrent pas de cette modification il suffit de modifier la définition de la vue en conservant les mêmes noms pour la vue et ses colonnes]{../exemples/Chapitre 7/create_view4.sql}
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
-    \lstinputlisting[language=sql, title=Exemple (suite) :
+    \lstinputlisting[language=plsql, title=Exemple (suite) :
         Pour éviter de la redondance si le tarif est lié au code activité on peut changer le schéma logique de la base vers le schéma équivalent]{../exemples/Chapitre 7/create_view5.sql}
 \end{frame}
 
@@ -159,54 +159,54 @@
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
-    Quelques exemples vont permettre d'illustrer cette notion.  Ces exemples seront basés sur la table \lstinline[language=sql]!EMPLOYES! suivante :
-    \lstinline[language=sql]!EMPLOYES (Numero, nom, prenom, adresse,
+    Quelques exemples vont permettre d'illustrer cette notion.  Ces exemples seront basés sur la table \lstinline[language=plsql]!EMPLOYES! suivante :
+    \lstinline[language=plsql]!EMPLOYES (Numero, nom, prenom, adresse,
     num_service, salaire, performance!\\
-    Nous supposons qu'aucun des utilisateurs cités dans les exemples ne possède de privilèges sur la table \lstinline[language=sql]!EMPLOYES! et que cette dernière a été créée dans le schéma del.
+    Nous supposons qu'aucun des utilisateurs cités dans les exemples ne possède de privilèges sur la table \lstinline[language=plsql]!EMPLOYES! et que cette dernière a été créée dans le schéma del.
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
-    Quelques exemples vont permettre d'illustrer cette notion.  Ces exemples seront basés sur la table \lstinline[language=sql]!EMPLOYES! suivante :
-    \lstinline[language=sql]!EMPLOYES (Numero, nom, prenom, adresse,
+    Quelques exemples vont permettre d'illustrer cette notion.  Ces exemples seront basés sur la table \lstinline[language=plsql]!EMPLOYES! suivante :
+    \lstinline[language=plsql]!EMPLOYES (Numero, nom, prenom, adresse,
     num_service, salaire, performance!\\
-    Nous supposons qu'aucun des utilisateurs cités dans les exemples ne possède de privilèges sur la table \lstinline[language=sql]!EMPLOYES! et que cette dernière a été créée dans le schéma del.
+    Nous supposons qu'aucun des utilisateurs cités dans les exemples ne possède de privilèges sur la table \lstinline[language=plsql]!EMPLOYES! et que cette dernière a été créée dans le schéma del.
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
     Contrôle dépendant du contexte
-    \lstinputlisting[language=sql, title=Chaque utilisateur peut visualiser un seul tuple de la relation : celui qui le concerne.]{../exemples/Chapitre 7/acces.sql}
+    \lstinputlisting[language=plsql, title=Chaque utilisateur peut visualiser un seul tuple de la relation : celui qui le concerne.]{../exemples/Chapitre 7/acces.sql}
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
     Contrôle dépendant du contexte et du contenant
-    \lstinputlisting[language=sql, title=Chaque utilisateur peut visualiser un seul tuple de la relation : celui qui le concerne.  Il peut aussi modifier son adresse]{../exemples/Chapitre 7/acces1.sql}
+    \lstinputlisting[language=plsql, title=Chaque utilisateur peut visualiser un seul tuple de la relation : celui qui le concerne.  Il peut aussi modifier son adresse]{../exemples/Chapitre 7/acces1.sql}
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
     Contrôle dépendant du contexte et du contenant
-    \lstinputlisting[language=sql, title=L'utilisateur Astérix ne peut connaître ni le nom ni le prénom ni l'adresse des employés gagnant plus de 3000 mais il peut connaître toutes les autres informations]{../exemples/Chapitre 7/acces2.sql}
+    \lstinputlisting[language=plsql, title=L'utilisateur Astérix ne peut connaître ni le nom ni le prénom ni l'adresse des employés gagnant plus de 3000 mais il peut connaître toutes les autres informations]{../exemples/Chapitre 7/acces2.sql}
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
     Contrôle dépendant du contexte et du contenant
-    \lstinputlisting[language=sql, title=L'utilisateur Panoramix peut visualiser le contenu de la table employes sauf le numero le nom le prénom et l'adresse des employés gagnant plus de 3000€]{../exemples/Chapitre 7/acces3.sql}
+    \lstinputlisting[language=plsql, title=L'utilisateur Panoramix peut visualiser le contenu de la table employes sauf le numero le nom le prénom et l'adresse des employés gagnant plus de 3000€]{../exemples/Chapitre 7/acces3.sql}
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
     Les utilisateurs Astérix,  Panoramix et Abraracourcix sont responsables d'un service. Ils peuvent consulter toutes les informations des employés de leur service.
     On suppose qu'il existe une relation
-    \lstinline[language=sql]!SERVICES (num\_service, \#num\_chef)!
+    \lstinline[language=plsql]!SERVICES (num\_service, \#num\_chef)!
     La vue de sécurité va être construite avec une jointure.
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
     Contrôle dépendant du contexte et du contenant
-    \lstinputlisting[language=sql, title=L'utilisateur Panoramix peut visualiser le contenu de la table employes sauf le numero le nom le prénom et l'adresse des employés gagnant plus de 3000€]{../exemples/Chapitre 7/acces4.sql}
+    \lstinputlisting[language=plsql, title=L'utilisateur Panoramix peut visualiser le contenu de la table employes sauf le numero le nom le prénom et l'adresse des employés gagnant plus de 3000€]{../exemples/Chapitre 7/acces4.sql}
 \end{frame}
 
 \begin{frame}{\secname : \subsecname}
     Contrôle dépendant du contexte et du contenant
-    \lstinputlisting[language=sql, title=on souhaite que chaque élève puisse consulter sa moyenne sans pour autant connaître le détail des différentes cotes.]{../exemples/Chapitre 7/acces5.sql}
+    \lstinputlisting[language=plsql, title=on souhaite que chaque élève puisse consulter sa moyenne sans pour autant connaître le détail des différentes cotes.]{../exemples/Chapitre 7/acces5.sql}
 \end{frame}
 
 \section{Mises à jour au travers des vues}
@@ -218,12 +218,12 @@
 \begin{frame}{\secname}
     SQL2 a défini un ensemble de conditions que doit respecter une vue pour être modifiable :
     \begin{itemize}
-        \item La définition ne peut contenir les mots réservés : \lstinline[language=sql]!JOIN!, \lstinline[language=sql]!UNION!, \lstinline[language=sql]!INTERSECT! ou \lstinline[language=sql]!EXCEPT! (une seule table source)
-        \item La clause \lstinline[language=sql]!SELECT! ne peut contenir \lstinline[language=sql]!DISTINCT!
-        \item La clause \lstinline[language=sql]!SELECT! ne peut contenir que des références aux colonnes de la table source (pas de \lstinline[language=sql]!SUM!, \lstinline[language=sql]!COUNT!,..)
-        \item La clause \lstinline[language=sql]!FROM! contient une seule table ou une vue elle-même modifiable
-        \item La clause \lstinline[language=sql]!WHERE! ne peut contenir une sous-question dont la clause \lstinline[language=sql]!FROM! possède une référence à la table de la requête principale
-        \item La vue ne peut contenir de \lstinline[language=sql]!GROUP BY! ou \lstinline[language=sql]!HAVING!
+        \item La définition ne peut contenir les mots réservés : \lstinline[language=plsql]!JOIN!, \lstinline[language=plsql]!UNION!, \lstinline[language=plsql]!INTERSECT! ou \lstinline[language=plsql]!EXCEPT! (une seule table source)
+        \item La clause \lstinline[language=plsql]!SELECT! ne peut contenir \lstinline[language=plsql]!DISTINCT!
+        \item La clause \lstinline[language=plsql]!SELECT! ne peut contenir que des références aux colonnes de la table source (pas de \lstinline[language=plsql]!SUM!, \lstinline[language=plsql]!COUNT!,..)
+        \item La clause \lstinline[language=plsql]!FROM! contient une seule table ou une vue elle-même modifiable
+        \item La clause \lstinline[language=plsql]!WHERE! ne peut contenir une sous-question dont la clause \lstinline[language=plsql]!FROM! possède une référence à la table de la requête principale
+        \item La vue ne peut contenir de \lstinline[language=plsql]!GROUP BY! ou \lstinline[language=plsql]!HAVING!
     \end{itemize}
 \end{frame}
 
@@ -233,12 +233,12 @@
     Depuis Oracle 7.3, une vue dont la clause FROM de la définition contient plusieurs tables, est modifiable à condition de ne pas comporter :
 
     \begin{itemize}
-        \item \lstinline[language=sql]!DISTINCT!
-        \item Des fonctions de calculs : \lstinline[language=sql]!AVG!, \lstinline[language=sql]!COUNT!, \lstinline[language=sql]!MAX!, \lstinline[language=sql]!MIN!, \lstinline[language=sql]!SUM!
-        \item Des opérateurs ensemblistes : \lstinline[language=sql]!UNION!, \lstinline[language=sql]!UNION ALL!, \lstinline[language=sql]!INTERSECT!, \lstinline[language=sql]!MINUS!
-        \item \lstinline[language=sql]!GROUP BY!, \lstinline[language=sql]!HAVING!
-        \item \lstinline[language=sql]!START WITH!, \lstinline[language=sql]!CONNECT BY!
-        \item \lstinline[language=sql]!ROWNUM!
+        \item \lstinline[language=plsql]!DISTINCT!
+        \item Des fonctions de calculs : \lstinline[language=plsql]!AVG!, \lstinline[language=plsql]!COUNT!, \lstinline[language=plsql]!MAX!, \lstinline[language=plsql]!MIN!, \lstinline[language=plsql]!SUM!
+        \item Des opérateurs ensemblistes : \lstinline[language=plsql]!UNION!, \lstinline[language=plsql]!UNION ALL!, \lstinline[language=plsql]!INTERSECT!, \lstinline[language=plsql]!MINUS!
+        \item \lstinline[language=plsql]!GROUP BY!, \lstinline[language=plsql]!HAVING!
+        \item \lstinline[language=plsql]!START WITH!, \lstinline[language=plsql]!CONNECT BY!
+        \item \lstinline[language=plsql]!ROWNUM!
     \end{itemize}
 \end{frame}
 \end{document}
