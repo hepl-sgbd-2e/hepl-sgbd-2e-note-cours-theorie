@@ -5,7 +5,6 @@ BEGIN
                 ('Viteration = ' || Viteration);
         END LOOP;
 END;
-
 -- Viteration = 1
 -- Viteration = 2
 -- Viteration = 3

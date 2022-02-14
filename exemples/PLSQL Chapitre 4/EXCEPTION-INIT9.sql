@@ -7,6 +7,4 @@ BEGIN
 EXCEPTION
     WHEN NO_DATA_FOUND THEN
         DBMS_OUTPUT.PUT_LINE('Problème de sélection');
-    WHEN OTHERS THEN DBMS_OUTPUT.PUT_LINE
-        ('Code erreur : ' || SQLCODE || ', message : ' || SQLERRM);
 END;

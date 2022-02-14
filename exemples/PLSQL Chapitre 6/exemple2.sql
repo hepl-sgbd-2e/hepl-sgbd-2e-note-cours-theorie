@@ -6,7 +6,6 @@ BEGIN
   UnDepartement.Deptno := 99;
   UnDepartement.Dname := 'Inpres';
   VDeptno := UnDepartement.Deptno;
-
   DBMS_OUTPUT.PUT_LINE ('Nom département : ' ||
             UnDepartement.Dname);
 END;

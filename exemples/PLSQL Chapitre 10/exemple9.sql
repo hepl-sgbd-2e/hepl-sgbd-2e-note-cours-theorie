@@ -9,18 +9,19 @@ AFTER EACH ROW IS
 BEGIN
     NewRowids(NewRowids.COUNT + 1) := :NEW.rowid;
 End AFTER EACH ROW;
-    AFTER STATEMENT IS
-    BEGIN
-        FOR i in 1.. NewRowids.COUNT
-            LOOP
-                SELECT COUNT(*)
-                INTO Compt
-                FROM employes
-                WHERE numdep = (SELECT numdep FROM employes WHERE ROWID = NewRowids(i));
-                IF Compt > MaxEmployes THEN RAISE NbreAtteint; END IF;
-            END LOOP;
-    EXCEPTION
-        WHEN NbreAtteint
-            THEN RAISE_APPLICATION_ERROR(-20002, 'Departement a atteint le max');
-    END AFTER STATEMENT;
-    END GestionDesDept;
+
+AFTER STATEMENT IS
+BEGIN
+    FOR i in 1.. NewRowids.COUNT
+        LOOP
+            SELECT COUNT(*)
+            INTO Compt
+            FROM employes
+            WHERE numdep = (SELECT numdep FROM employes WHERE ROWID = NewRowids(i));
+            IF Compt > MaxEmployes THEN RAISE NbreAtteint; END IF;
+        END LOOP;
+EXCEPTION
+    WHEN NbreAtteint
+        THEN RAISE_APPLICATION_ERROR(-20002, 'Departement a atteint le max');
+END AFTER STATEMENT;
+END GestionDesDept;

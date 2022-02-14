@@ -8,6 +8,5 @@ BEGIN
 EXCEPTION
     WHEN ExcCleEtrangere THEN DBMS_OUTPUT.PUT_LINE
         ('Contrainte d''intégrité sur Mgr est violée');
-    WHEN OTHERS THEN DBMS_OUTPUT.PUT_LINE(SQLERRM);
 END;
 -- Contrainte d'intégrité sur Mgr est violée

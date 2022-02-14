@@ -9,6 +9,5 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE ('Vtest FALSE');
   END IF;
 END;
-
 -- Vtest FALSE
 -- Résultat compréhensible, mais non souhaitable.

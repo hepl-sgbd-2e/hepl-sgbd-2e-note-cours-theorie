@@ -3,7 +3,6 @@ CREATE OR REPLACE PROCEDURE Select_Client
 BEGIN
   null;
 END;
-
 -- utilisation
 begin
 Select_Client ('DELMAL'); -- appel valide

@@ -9,7 +9,4 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE('VNotNull : ' || VNotNull);
     DBMS_OUTPUT.PUT_LINE('Vdefaut : ' || Vdefaut);
     DBMS_OUTPUT.PUT_LINE('Vconst : ' || Vconst);
-EXCEPTION
-    WHEN OTHERS THEN
-        DBMS_OUTPUT.PUT_LINE(SQLERRM);
 END;

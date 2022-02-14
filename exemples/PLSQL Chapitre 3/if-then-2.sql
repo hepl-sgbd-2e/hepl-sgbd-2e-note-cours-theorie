@@ -7,5 +7,4 @@ BEGIN
         DBMS_OUTPUT.PUT_LINE('Pas d’erreur de division');
     END IF;
 END;
-
 --Pas d'erreur de division

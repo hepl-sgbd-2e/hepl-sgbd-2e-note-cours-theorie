@@ -4,7 +4,6 @@ BEGIN
     UnDepartement.Deptno := 9;
     UnDepartement.Dname := 'Rennequins';
     UnDepartement.Loc := 'Liège';
-
     UPDATE Dept SET ROW = UnDepartement WHERE Deptno = 9;
     IF SQL%NOTFOUND
     THEN

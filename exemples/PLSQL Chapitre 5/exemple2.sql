@@ -1,5 +1,4 @@
 create table Emp (nom varchar2(100)); -- Création de la table
-
 declare
     TYPE TypeLesEmployes
         IS TABLE OF Emp%ROWTYPE

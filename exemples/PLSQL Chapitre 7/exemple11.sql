@@ -4,7 +4,6 @@ CREATE OR REPLACE PROCEDURE Search_Client(
 BEGIN
     null;
 END;
-
 -- utilisation
 begin
 Search_Client (p_NomClient=>'DELMAL',

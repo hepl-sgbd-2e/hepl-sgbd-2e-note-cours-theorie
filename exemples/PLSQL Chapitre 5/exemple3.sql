@@ -6,7 +6,6 @@ declare
         IS TABLE OF VARCHAR2(200)
         INDEX BY BINARY_INTEGER;
     TableMessErreur            TypeTableMessErreur;
-
 BEGIN
     --initialisation
     TableMessErreur(ConstHireDate) :=

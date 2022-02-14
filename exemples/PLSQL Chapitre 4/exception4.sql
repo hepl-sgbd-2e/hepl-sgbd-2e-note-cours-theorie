@@ -9,5 +9,4 @@ EXCEPTION
         DBMS_OUTPUT.PUT_LINE('Le nom n''existe pas');
     WHEN TOO_MANY_ROWS THEN
         DBMS_OUTPUT.PUT_LINE('Plus d''un employé SCOTT');
-    WHEN OTHERS THEN DBMS_OUTPUT.PUT_LINE(SQLERRM);
 END;

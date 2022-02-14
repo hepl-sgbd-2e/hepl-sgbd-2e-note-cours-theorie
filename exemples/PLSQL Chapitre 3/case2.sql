@@ -1,6 +1,5 @@
 DECLARE
   VGrade CHAR(3);
-
 BEGIN
   CASE
  	  WHEN VGrade = 'PGD' -- ici une expression booléenne

@@ -7,5 +7,4 @@ EXCEPTION
     WHEN DUP_VAL_ON_INDEX THEN
         DBMS_OUTPUT.PUT_LINE
             ('Numéro d''employé existe déjà !');
-    WHEN OTHERS THEN DBMS_OUTPUT.PUT_LINE(SQLERRM);
 END;

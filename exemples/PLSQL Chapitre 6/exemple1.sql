@@ -5,7 +5,6 @@ CREATE TABLE Dept
     Dname  VARCHAR2(14),
     Loc    VARCHAR2(13)
 );
-
 declare
     TYPE TypeDept IS RECORD
                      (

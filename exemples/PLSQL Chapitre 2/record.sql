@@ -10,7 +10,5 @@ DECLARE
     DeptNo	NUMBER(2));
     UnEmploye TupleEmploye; -- On se sert du record
 BEGIN
-
-EXCEPTION
-
+    null;
 END;
