@@ -6,7 +6,7 @@
 \subtitle{PL-SQL - Chapitre 9 - Les Curseurs}
 \date{\today}
 \author{Daniel Schreurs}
-\institute{Haute École de Province de Liège}
+\institute{Haute École de la Province de Liège}
 %\titlegraphic{\hfill\includegraphics[height=1.5cm]{logo.eps}}
 
 \begin{document}
@@ -119,17 +119,17 @@
         \resizebox{\textwidth}{!}{%
             \begin{tabular}{|l|l|l|l|l|l|}
                 \hline
-                                                &       & \lstinline[language=plsql]!\%FOUND! & \lstinline[language=plsql]!\%NOTFOUND! & \lstinline[language=plsql]!\%ISOPEN! & \lstinline[language=plsql]!\%ROWCOUNT! \\ \hline
-                \lstinline[language=plsql]!OPEN!         & Avant & Exception               & Exception               & \lstinline[language=plsql]!FALSE! & Exception               \\ \hline
-                                                & Après & \lstinline[language=plsql]!NULL! & \lstinline[language=plsql]!NULL! & \lstinline[language=plsql]!TRUE! & \lstinline[language=plsql]!0! \\ \hline
-                1er \lstinline[language=plsql]!FETCH!     & Avant & \lstinline[language=plsql]!NULL! & \lstinline[language=plsql]!NULL! & \lstinline[language=plsql]!TRUE! & \lstinline[language=plsql]!0! \\ \hline
-                                                & Après & \lstinline[language=plsql]!TRUE! & \lstinline[language=plsql]!FALSE! & \lstinline[language=plsql]!TRUE! & 1                       \\ \hline
-                Nème \lstinline[language=plsql]!FETCH!    & Avant & \lstinline[language=plsql]!TRUE! & \lstinline[language=plsql]!FALSE! & \lstinline[language=plsql]!TRUE! & \lstinline[language=plsql]!*! \\ \hline
-                                                & Après & \lstinline[language=plsql]!TRUE! & \lstinline[language=plsql]!FALSE! & \lstinline[language=plsql]!TRUE! & \lstinline[language=plsql]!*! \\ \hline
-                Dernier \lstinline[language=plsql]!FETCH! & Avant & \lstinline[language=plsql]!TRUE! & \lstinline[language=plsql]!FALSE! & \lstinline[language=plsql]!TRUE! & \lstinline[language=plsql]!*! \\ \hline
-                                                & Après & \lstinline[language=plsql]!FALSE! & \lstinline[language=plsql]!TRUE! & \lstinline[language=plsql]!TRUE! & \lstinline[language=plsql]!*! \\ \hline
-                \lstinline[language=plsql]!CLOSE!         & Avant & \lstinline[language=plsql]!FALSE! & \lstinline[language=plsql]!TRUE! & \lstinline[language=plsql]!TRUE! & \lstinline[language=plsql]!*! \\ \hline
-                                                & Après & Exception               & Exception               & \lstinline[language=plsql]!FALSE! & Exception               \\ \hline
+                                                          &       & \lstinline[language=plsql]!\%FOUND! & \lstinline[language=plsql]!\%NOTFOUND! & \lstinline[language=plsql]!\%ISOPEN! & \lstinline[language=plsql]!\%ROWCOUNT! \\ \hline
+                \lstinline[language=plsql]!OPEN!          & Avant & Exception                           & Exception                              & \lstinline[language=plsql]!FALSE!    & Exception                              \\ \hline
+                                                          & Après & \lstinline[language=plsql]!NULL!    & \lstinline[language=plsql]!NULL!       & \lstinline[language=plsql]!TRUE!     & \lstinline[language=plsql]!0!          \\ \hline
+                1er \lstinline[language=plsql]!FETCH!     & Avant & \lstinline[language=plsql]!NULL!    & \lstinline[language=plsql]!NULL!       & \lstinline[language=plsql]!TRUE!     & \lstinline[language=plsql]!0!          \\ \hline
+                                                          & Après & \lstinline[language=plsql]!TRUE!    & \lstinline[language=plsql]!FALSE!      & \lstinline[language=plsql]!TRUE!     & 1                                      \\ \hline
+                Nème \lstinline[language=plsql]!FETCH!    & Avant & \lstinline[language=plsql]!TRUE!    & \lstinline[language=plsql]!FALSE!      & \lstinline[language=plsql]!TRUE!     & \lstinline[language=plsql]!*!          \\ \hline
+                                                          & Après & \lstinline[language=plsql]!TRUE!    & \lstinline[language=plsql]!FALSE!      & \lstinline[language=plsql]!TRUE!     & \lstinline[language=plsql]!*!          \\ \hline
+                Dernier \lstinline[language=plsql]!FETCH! & Avant & \lstinline[language=plsql]!TRUE!    & \lstinline[language=plsql]!FALSE!      & \lstinline[language=plsql]!TRUE!     & \lstinline[language=plsql]!*!          \\ \hline
+                                                          & Après & \lstinline[language=plsql]!FALSE!   & \lstinline[language=plsql]!TRUE!       & \lstinline[language=plsql]!TRUE!     & \lstinline[language=plsql]!*!          \\ \hline
+                \lstinline[language=plsql]!CLOSE!         & Avant & \lstinline[language=plsql]!FALSE!   & \lstinline[language=plsql]!TRUE!       & \lstinline[language=plsql]!TRUE!     & \lstinline[language=plsql]!*!          \\ \hline
+                                                          & Après & Exception                           & Exception                              & \lstinline[language=plsql]!FALSE!    & Exception                              \\ \hline
             \end{tabular}
         }
     \end{table}

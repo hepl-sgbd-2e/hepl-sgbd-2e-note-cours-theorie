@@ -6,7 +6,7 @@
 \subtitle{PL-SQL - Chapitre 4 - Les exceptions}
 \date{\today}
 \author{Daniel Schreurs}
-\institute{Haute École de Province de Liège}
+\institute{Haute École de la Province de Liège}
 %\titlegraphic{\hfill\includegraphics[height=1.5cm]{logo.eps}}
 
 \setbeamertemplate{frame footer}{\insertsectionhead}
@@ -52,7 +52,7 @@
 \begin{frame}{\secname : \subsecname}
     \begin{itemize}
         \item La clause \lstinline[language=plsql]!WHEN OTHERS! dans un gestionnaire d'exceptions permet d'intercepter n'importe quel type d'exceptions non géré par ailleurs.
-        \item La définition de cette clause devrait devenir systématique.
+        \item La définition de cette clause NE doit PAS devenir systématique, puisque par défaut les exceptions remontent.
     \end{itemize}
 \end{frame}
 

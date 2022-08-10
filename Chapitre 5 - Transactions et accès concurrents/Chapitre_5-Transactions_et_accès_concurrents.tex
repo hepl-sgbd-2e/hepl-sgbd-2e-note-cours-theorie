@@ -6,7 +6,7 @@
 \subtitle{Chapitre 5 - Transactions et accès concurrents Langage de Contrôle des données (LCD)}
 \date{\today}
 \author{Daniel Schreurs}
-\institute{Haute École de Province de Liège}
+\institute{Haute École de la Province de Liège}
 %\titlegraphic{\hfill\includegraphics[height=1.5cm]{logo.eps}}
 
 \setbeamertemplate{frame footer}{\insertsectionhead}
@@ -182,11 +182,11 @@
 \begin{frame}{\secname : \subsecname}
     \begin{table}[]
         \begin{tabular}{ll}
-            T1                         & T2                         \\
-            DÉBUT TRANSACTION          & DÉBUT TRANSACTiON          \\
-            \begin{tabular}[c]{@{}l@{}}UPDATE comptes\\ SET solde = 25000\\ WHERE\\  num\_compte\\  = '007';\end{tabular} &                            \\
-                                       & \begin{tabular}[c]{@{}l@{}}SELECT solde \\ FROM comptes\\ WHERE\\ num\_compte\\  = '007';\end{tabular} \\
-            ROLLBACK;                  &
+            T1                                                                                                            & T2                                                                                                     \\
+            DÉBUT TRANSACTION                                                                                             & DÉBUT TRANSACTiON                                                                                      \\
+            \begin{tabular}[c]{@{}l@{}}UPDATE comptes\\ SET solde = 25000\\ WHERE\\  num\_compte\\  = '007';\end{tabular} &                                                                                                        \\
+                                                                                                                          & \begin{tabular}[c]{@{}l@{}}SELECT solde \\ FROM comptes\\ WHERE\\ num\_compte\\  = '007';\end{tabular} \\
+            ROLLBACK;                                                                                                     &
         \end{tabular}
         \caption{Anomalie 2 : Lecture impropre}
     \end{table}
@@ -203,12 +203,12 @@
 \begin{frame}{\secname : \subsecname}
     \begin{table}[]
         \begin{tabular}{ll}
-            T1                         & T2                         \\
-            DÉBUT TRANSACTION          & DÉBUT TRANSACTiON          \\
-            \begin{tabular}[c]{@{}l@{}}UPDATE comptes\\ SET solde = 25000\\ WHERE num\_compte= '007';\end{tabular} &                            \\
-                                       & \begin{tabular}[c]{@{}l@{}}SELECT SUM(solde)\\ FROM comptes\\ WHERE\\ num\_compte IN ('007', '163');\end{tabular} \\
-            \begin{tabular}[c]{@{}l@{}}UPDATE comptes\\ SET solde = solde + 200\\ WHERE\\ Num\_compte = '163';\end{tabular} &                            \\
-            COMMIT;                    &
+            T1                                                                                                              & T2                                                                                                                \\
+            DÉBUT TRANSACTION                                                                                               & DÉBUT TRANSACTiON                                                                                                 \\
+            \begin{tabular}[c]{@{}l@{}}UPDATE comptes\\ SET solde = 25000\\ WHERE num\_compte= '007';\end{tabular}          &                                                                                                                   \\
+                                                                                                                            & \begin{tabular}[c]{@{}l@{}}SELECT SUM(solde)\\ FROM comptes\\ WHERE\\ num\_compte IN ('007', '163');\end{tabular} \\
+            \begin{tabular}[c]{@{}l@{}}UPDATE comptes\\ SET solde = solde + 200\\ WHERE\\ Num\_compte = '163';\end{tabular} &                                                                                                                   \\
+            COMMIT;                                                                                                         &
         \end{tabular}
         \caption{Anomalie 2 : Lecture impropre sans annulation}
     \end{table}
@@ -228,11 +228,11 @@
 \begin{frame}{\secname : \subsecname}
     \begin{table}[]
         \begin{tabular}{ll}
-            T1                         & T2                         \\
-            DÉBUT TRANSACTION          & DÉBUT TRANSACTiON          \\
-            \begin{tabular}[c]{@{}l@{}}SELECT *\\ FROM eleves\\ WHERE annee = 2;\end{tabular} &                            \\
-                                       & \begin{tabular}[c]{@{}l@{}}INSERT INTO eleves\\ VALUES (11, 'Bloche', ..., 2);\end{tabular} \\
-                                       & COMMIT                     \\
+            T1                                                                                & T2                                                                                          \\
+            DÉBUT TRANSACTION                                                                 & DÉBUT TRANSACTiON                                                                           \\
+            \begin{tabular}[c]{@{}l@{}}SELECT *\\ FROM eleves\\ WHERE annee = 2;\end{tabular} &                                                                                             \\
+                                                                                              & \begin{tabular}[c]{@{}l@{}}INSERT INTO eleves\\ VALUES (11, 'Bloche', ..., 2);\end{tabular} \\
+                                                                                              & COMMIT                                                                                      \\
             \begin{tabular}[c]{@{}l@{}}SELECT *\\ FROM eleves\\ WHERE annee = 2;\end{tabular} &
         \end{tabular}
         \caption{Anomalie 2 : Lecture impropre : lecture ou référence fantôme}
@@ -247,13 +247,13 @@
 \begin{frame}{\secname : \subsecname}
     \begin{table}[]
         \begin{tabular}{ll}
-            T1                         & T2                         \\
-            DEBUT TRANSACTION          & DEBUT TRANSACTiON          \\
-            \begin{tabular}[c]{@{}l@{}}SELECT points\\ FROM resultats WHERE \\ num\_cours = 5 AND num\_eleve = 7;\end{tabular} &                            \\
-                                       & \begin{tabular}[c]{@{}l@{}}UPDATE resultats\\ SET points = points * 1.10\\ WHERE num\_cours = 5 \\ AND num\_eleve = 7;\end{tabular} \\
-                                       & COMMIT                     \\
-            \begin{tabular}[c]{@{}l@{}}SELECT points\\ FROM resultats WHERE\\ num\_cours = 5 AND num\_eleve = 7;\end{tabular} &                            \\
-            COMMIT;                    &
+            T1                                                                                                                 & T2                                                                                                                                  \\
+            DEBUT TRANSACTION                                                                                                  & DEBUT TRANSACTiON                                                                                                                   \\
+            \begin{tabular}[c]{@{}l@{}}SELECT points\\ FROM resultats WHERE \\ num\_cours = 5 AND num\_eleve = 7;\end{tabular} &                                                                                                                                     \\
+                                                                                                                               & \begin{tabular}[c]{@{}l@{}}UPDATE resultats\\ SET points = points * 1.10\\ WHERE num\_cours = 5 \\ AND num\_eleve = 7;\end{tabular} \\
+                                                                                                                               & COMMIT                                                                                                                              \\
+            \begin{tabular}[c]{@{}l@{}}SELECT points\\ FROM resultats WHERE\\ num\_cours = 5 AND num\_eleve = 7;\end{tabular}  &                                                                                                                                     \\
+            COMMIT;                                                                                                            &
         \end{tabular}
         \caption{Anomalie 2 : Lecture non reproductible}
     \end{table}
@@ -331,9 +331,9 @@
     Verrou court exclusif écriture
     \begin{table}[]
         \begin{tabular}{ll}
-            Transaction 1                           & Transaction 2              \\
-            \textbf{Verrou court exclusif écriture} &                            \\
-            \begin{tabular}[c]{@{}l@{}}UPDATE employes\\ SET bareme = bareme +10\\ WHERE numsecu = '1234';\end{tabular}              & \begin{tabular}[c]{@{}l@{}}pas possibilité de MAJ du nr 1234,\\ tant que l’instruction UPD transaction 1\\ n’est pas terminée. La transaction 1 a le \\ verrou exclusif surle 1234 pendant la \\ durée de l’UPD.\end{tabular}
+            Transaction 1                                                                                               & Transaction 2                                                                                                                                                                                                                 \\
+            \textbf{Verrou court exclusif écriture}                                                                     &                                                                                                                                                                                                                               \\
+            \begin{tabular}[c]{@{}l@{}}UPDATE employes\\ SET bareme = bareme +10\\ WHERE numsecu = '1234';\end{tabular} & \begin{tabular}[c]{@{}l@{}}pas possibilité de MAJ du nr 1234,\\ tant que l’instruction UPD transaction 1\\ n’est pas terminée. La transaction 1 a le \\ verrou exclusif surle 1234 pendant la \\ durée de l’UPD.\end{tabular}
         \end{tabular}
         \caption{Isolation degré 0 : READ UNCOMMITTED
         }
@@ -365,9 +365,9 @@
     Isolation degré 1 : \textbf{READ COMMITTED} \\
     \begin{table}[]
         \begin{tabular}{ll}
-            Transaction 1                       & Transaction 2                               \\
-            \textbf{\begin{tabular}[c]{@{}l@{}}Verrou long exclusif \\ en écriture\end{tabular}} & \multirow{2}{*}{\begin{tabular}[c]{@{}l@{}}Pas de MAJ du nr 1234\\ tant que COMMIT transaction 1 pas exécuté. \\ \\ Pas possibilité de lire la donnée modifiée\end{tabular}} \\
-            \begin{tabular}[c]{@{}l@{}}UPDATE employes\\ SET bareme = bareme +10\\ WHERE numsecu = '1234';\\ COMMIT;\end{tabular}          &
+            Transaction 1                                                                                                         & Transaction 2                                                                                                                                                                \\
+            \textbf{\begin{tabular}[c]{@{}l@{}}Verrou long exclusif \\ en écriture\end{tabular}}                                  & \multirow{2}{*}{\begin{tabular}[c]{@{}l@{}}Pas de MAJ du nr 1234\\ tant que COMMIT transaction 1 pas exécuté. \\ \\ Pas possibilité de lire la donnée modifiée\end{tabular}} \\
+            \begin{tabular}[c]{@{}l@{}}UPDATE employes\\ SET bareme = bareme +10\\ WHERE numsecu = '1234';\\ COMMIT;\end{tabular} &
         \end{tabular}
         \caption{Isolation degré 1 : READ COMMITTED}
     \end{table}
@@ -405,10 +405,10 @@
     % \usepackage{multirow}
     \begin{table}[]
         \begin{tabular}{ll}
-            Transaction 1                           & Transaction 2                               \\
-            \textbf{Verrou long partagé en lecture} & \multirow{2}{*}{\begin{tabular}[c]{@{}l@{}}Pas de modification des données \\ lues par transaction active \\ car demande d’un verrou \\ exclusif alors que la transaction 1\\ a un verrou partagé sur \\ les données lues\end{tabular}} \\
-            \begin{tabular}[c]{@{}l@{}}SELECT numsecu\\ FROM employes\\ WHERE codepostal LIKE ‘4\%’;\end{tabular}              &                                             \\
-            \begin{tabular}[c]{@{}l@{}}SELECT numsecu\\ FROM employes\\ WHERE codepostal LIKE ‘4\%’;\\ COMMIT;\end{tabular}              &
+            Transaction 1                                                                                                   & Transaction 2                                                                                                                                                                                                                           \\
+            \textbf{Verrou long partagé en lecture}                                                                         & \multirow{2}{*}{\begin{tabular}[c]{@{}l@{}}Pas de modification des données \\ lues par transaction active \\ car demande d’un verrou \\ exclusif alors que la transaction 1\\ a un verrou partagé sur \\ les données lues\end{tabular}} \\
+            \begin{tabular}[c]{@{}l@{}}SELECT numsecu\\ FROM employes\\ WHERE codepostal LIKE ‘4\%’;\end{tabular}           &                                                                                                                                                                                                                                         \\
+            \begin{tabular}[c]{@{}l@{}}SELECT numsecu\\ FROM employes\\ WHERE codepostal LIKE ‘4\%’;\\ COMMIT;\end{tabular} &
         \end{tabular}
         \caption{Isolation degré 2 : REPEATABLE READ}
     \end{table}
@@ -465,11 +465,11 @@
         \resizebox{\textwidth}{!}{%
             \begin{tabular}{|l|c|c|c|c|}
                 \hline
-                Degré                               & \multicolumn{1}{l|}{Perte de mise à jour} & \multicolumn{1}{l|}{Lecture impropre} & \multicolumn{1}{l|}{Données non reprod} & \multicolumn{1}{l|}{Référence fantôme} \\ \hline
-                \begin{tabular}[c]{@{}l@{}}0  -  Read Uncommitted\\ V court excl en écriture\\ Pas de V en lecture\end{tabular}          & NON                                       & OUI                                   & OUI                                     & OUI                                    \\ \hline
+                Degré                                                                                                                   & \multicolumn{1}{l|}{Perte de mise à jour} & \multicolumn{1}{l|}{Lecture impropre} & \multicolumn{1}{l|}{Données non reprod} & \multicolumn{1}{l|}{Référence fantôme} \\ \hline
+                \begin{tabular}[c]{@{}l@{}}0  -  Read Uncommitted\\ V court excl en écriture\\ Pas de V en lecture\end{tabular}         & NON                                       & OUI                                   & OUI                                     & OUI                                    \\ \hline
                 \textbf{\begin{tabular}[c]{@{}l@{}}1  -  Read Committed\\ V lg excl en écriture\\ V court ptg en écriture\end{tabular}} & \textbf{NON}                              & \textbf{NON}                          & \textbf{OUI}                            & \textbf{OUI}                           \\ \hline
-                \begin{tabular}[c]{@{}l@{}}2  -  Repeatable Read\\ V lg ptg en lecture\end{tabular}          & NON                                       & NON                                   & NON                                     & OUI                                    \\ \hline
-                \begin{tabular}[c]{@{}l@{}}3  -  Serializable\\ V lg excl en lecture\end{tabular}          & NON                                       & NON                                   & NON                                     & NON                                    \\ \hline
+                \begin{tabular}[c]{@{}l@{}}2  -  Repeatable Read\\ V lg ptg en lecture\end{tabular}                                     & NON                                       & NON                                   & NON                                     & OUI                                    \\ \hline
+                \begin{tabular}[c]{@{}l@{}}3  -  Serializable\\ V lg excl en lecture\end{tabular}                                       & NON                                       & NON                                   & NON                                     & NON                                    \\ \hline
             \end{tabular}}
     \end{table}
     \metroset{block=fill}
